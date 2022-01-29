@@ -1,16 +1,18 @@
 import React from 'react';
 import ReactDOM from 'react-dom';
+import { Outlet } from 'react-router-dom';
 // Components
 import Header from './organisms/Header';
 import NewPost from './organisms/NewPost';
 import TImeline from './organisms/TImeline';
 
-function Example() {
+export default () => {
     return (
         <div className='container'>
             <Header />
             <NewPost />
             <TImeline />
+            <Outlet />
             {/* <div className="row justify-content-center">
                 <div className="col-md-8">
                     <div className="card">
@@ -23,8 +25,6 @@ function Example() {
     );
 }
 
-export default Example;
-
-if (document.getElementById('root')) {
-    ReactDOM.render(<Example />, document.getElementById('root'));
-}
+// if (document.getElementById('root')) {
+//     ReactDOM.render(<Example />, document.getElementById('root'));
+// }

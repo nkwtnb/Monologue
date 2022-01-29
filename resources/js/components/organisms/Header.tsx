@@ -18,8 +18,8 @@ export default () => {
             <CircleIcon imgPath={img} />
           </div>
           <div className="p-2 bd-highlight">
-            <CircleIcon imgPath={img} />
-            <CircleIcon imgPath={userIcon} />
+            {/* <CircleIcon imgPath={img} /> */}
+            <CircleIcon imgPath={userIcon} link={true}/>
           </div>
         </div>
       </div>

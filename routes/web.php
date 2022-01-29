@@ -2,6 +2,7 @@
 
 use App\Http\Controllers\Auth\LoginController;
 use App\Http\Controllers\Auth\RegisterController;
+use App\Http\Controllers\RootController;
 use Illuminate\Support\Facades\Route;
 
 /*
@@ -16,17 +17,19 @@ use Illuminate\Support\Facades\Route;
 */
 
 // 新規登録、ログイン
-Route::get('/welcome', function () {
-    return view('welcome');
+Route::get('/login', function () {
+    logger("/login desu");
+    return view('layouts.login');
+});
+Route::get('/register', function () {
+    return view('layouts.register');
 });
 
 Route::post('/register', [RegisterController::class, 'register'])->name('register');
 Route::post('/login', [LoginController::class, 'login'])->name('login');
 
 // 認証済み画面
-Route::get('/{any}', function () {
-    return view('root');
-})->where("any", ".*")->name("home");
+Route::get('/{any}', [RootController::class, "index"])->where("any", ".*")->name("home");
 
 // Auth::routes();
 

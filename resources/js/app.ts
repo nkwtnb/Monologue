@@ -5,7 +5,9 @@ declare module '*.png';
  * building robust, powerful web applications using React + Laravel.
  */
 
-require('./bootstrap');
+// require("jquery");
+// require("@popperjs/core");
+// require('./bootstrap');
 
 /**
  * Next, we will create a fresh React component instance and attach it to
