@@ -18,9 +18,10 @@ export default (): JSX.Element => {
     margin-top: 2px;
   `;
  
-  const Title = styled.div`
-    font-size: 16px;
+  const CardHeader = styled.div`
+    font-size: 18px;
     font-weight: bold;
+    height: 34px
   `;
 
   const Text = styled.div`
@@ -29,6 +30,9 @@ export default (): JSX.Element => {
     word-break: break-all;
   `;
 
+  const IconColumn = styled.div`
+    flex-basis: 70px;
+  `
   const [entries, setEntries] = useState<Entry[]>([]);
   
   useEffect(() => {
@@ -48,13 +52,13 @@ export default (): JSX.Element => {
             <div className='col-md-8'>
               <Post className='container-fluid'>
                 <div className='row flex-nowrap'>
-                  <div className='mt-2 flex-shrink-1'>
+                  <IconColumn className='mt-2'>
                     <CircleIcon imgPath={entry.avatar} />
-                  </div>
-                  <div className='flex-grow-1'>
-                  <Title>
+                  </IconColumn>
+                  <div className='col'>
+                  <CardHeader>
                     {entry.name}
-                  </Title>
+                  </CardHeader>
                   <Text>
                     {entry.words}
                   </Text>

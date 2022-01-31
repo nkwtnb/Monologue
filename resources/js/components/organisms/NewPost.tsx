@@ -13,9 +13,13 @@ const postMessage = async (param: PostMessgae) => {
 }
 
 const handleClick = () => {
+  const element = document.getElementById("words") as HTMLInputElement;
+  if (element.value === "") {
+    return;
+  }
   (async () => {
     const resp = await postMessage({
-      words: "test"
+      words: element.value
     });
     console.log(resp);
   })();
@@ -33,7 +37,7 @@ export default () => {
           <div className='row'>
             <div className="form-group">
               <label >ひとりごとをつぶやく…</label>
-              <textarea className="form-control" id="exampleFormControlTextarea1" rows={3}></textarea>
+              <textarea className="form-control" id="words" rows={3}></textarea>
             </div>
           </div>
           <div className='row'>

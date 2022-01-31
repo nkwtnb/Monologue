@@ -3572,6 +3572,12 @@ var postMessage = function postMessage(param) {
 };
 
 var handleClick = function handleClick() {
+  var element = document.getElementById("words");
+
+  if (element.value === "") {
+    return;
+  }
+
   (function () {
     return __awaiter(void 0, void 0, void 0, /*#__PURE__*/_babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default().mark(function _callee2() {
       var resp;
@@ -3581,7 +3587,7 @@ var handleClick = function handleClick() {
             case 0:
               _context2.next = 2;
               return postMessage({
-                words: "test"
+                words: element.value
               });
 
             case 2:
@@ -3613,7 +3619,7 @@ var handleClick = function handleClick() {
               children: "\u3072\u3068\u308A\u3054\u3068\u3092\u3064\u3076\u3084\u304F\u2026"
             }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_3__.jsx)("textarea", {
               className: "form-control",
-              id: "exampleFormControlTextarea1",
+              id: "words",
               rows: 3
             })]
           })
@@ -3657,7 +3663,7 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var axios__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! axios */ "./node_modules/axios/index.js");
 /* harmony import */ var axios__WEBPACK_IMPORTED_MODULE_3___default = /*#__PURE__*/__webpack_require__.n(axios__WEBPACK_IMPORTED_MODULE_3__);
 /* harmony import */ var react_jsx_runtime__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(/*! react/jsx-runtime */ "./node_modules/react/jsx-runtime.js");
-var _templateObject, _templateObject2, _templateObject3;
+var _templateObject, _templateObject2, _templateObject3, _templateObject4;
 
 
 
@@ -3725,8 +3731,9 @@ var __awaiter = undefined && undefined.__awaiter || function (thisArg, _argument
 
 /* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = (function () {
   var Post = styled_components__WEBPACK_IMPORTED_MODULE_5__["default"].div(_templateObject || (_templateObject = _taggedTemplateLiteral(["\n    border: 1px solid #ddd;\n    margin-top: 2px;\n  "])));
-  var Title = styled_components__WEBPACK_IMPORTED_MODULE_5__["default"].div(_templateObject2 || (_templateObject2 = _taggedTemplateLiteral(["\n    font-size: 16px;\n    font-weight: bold;\n  "])));
+  var CardHeader = styled_components__WEBPACK_IMPORTED_MODULE_5__["default"].div(_templateObject2 || (_templateObject2 = _taggedTemplateLiteral(["\n    font-size: 18px;\n    font-weight: bold;\n    height: 34px\n  "])));
   var Text = styled_components__WEBPACK_IMPORTED_MODULE_5__["default"].div(_templateObject3 || (_templateObject3 = _taggedTemplateLiteral(["\n    font-size: 14px;\n    white-space: pre-wrap;\n    word-break: break-all;\n  "])));
+  var IconColumn = styled_components__WEBPACK_IMPORTED_MODULE_5__["default"].div(_templateObject4 || (_templateObject4 = _taggedTemplateLiteral(["\n    flex-basis: 70px;\n  "])));
 
   var _useState = (0,react__WEBPACK_IMPORTED_MODULE_1__.useState)([]),
       _useState2 = _slicedToArray(_useState, 2),
@@ -3772,14 +3779,14 @@ var __awaiter = undefined && undefined.__awaiter || function (thisArg, _argument
               className: "container-fluid",
               children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_4__.jsxs)("div", {
                 className: "row flex-nowrap",
-                children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_4__.jsx)("div", {
-                  className: "mt-2 flex-shrink-1",
+                children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_4__.jsx)(IconColumn, {
+                  className: "mt-2",
                   children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_4__.jsx)(_atoms_CircleIcon__WEBPACK_IMPORTED_MODULE_2__["default"], {
                     imgPath: entry.avatar
                   })
                 }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_4__.jsxs)("div", {
-                  className: "flex-grow-1",
-                  children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_4__.jsx)(Title, {
+                  className: "col",
+                  children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_4__.jsx)(CardHeader, {
                     children: entry.name
                   }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_4__.jsx)(Text, {
                     children: entry.words

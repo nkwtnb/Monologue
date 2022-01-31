@@ -11,17 +11,21 @@ class WordController extends Controller
 {
     public function get() {
         $entries = DB::select(
-            'select b.id, b.name, b.avatar, a.words from words a, users b where a.user_id = b.id;'
+            'select a.created_at, b.id, b.name, b.avatar, a.words from words a, users b where a.user_id = b.id order by a.created_at desc;'
         );
         return $entries;
     }
 
     //
     public function postEntry(Request $request) {
-        $word = new Word;
-        $word->user_id = Auth::id();
-        $word->words = $request->words;
+        Word::create([
+            "user_id" => Auth::id(),
+            "words" => $request->words
+        ]);
+        // $word = new Word;
+        // $word->user_id = Auth::id();
+        // $word->words = $request->words;
 
-        $word->save();
+        // $word->save();
     }
 }
