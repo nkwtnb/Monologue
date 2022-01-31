@@ -21,7 +21,7 @@ const handleClick = () => {
     const resp = await postMessage({
       words: element.value
     });
-    console.log(resp);
+    window.location.reload();
   })();
 }
 
