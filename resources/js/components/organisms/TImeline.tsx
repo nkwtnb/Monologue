@@ -11,6 +11,7 @@ export default (): JSX.Element => {
     name: string,
     avatar: string,
     words: string;
+    created_at: string;
   }
 
   const Post = styled.div`
@@ -32,13 +33,24 @@ export default (): JSX.Element => {
 
   const IconColumn = styled.div`
     flex-basis: 70px;
-  `
+  `;
+
+  const Time = styled.span`
+    font-size: 12px;
+    font-weight: normal;
+    color: #262323;
+    &::before {
+      content: " - ";
+    }
+  `;
+
   const [entries, setEntries] = useState<Entry[]>([]);
   
   useEffect(() => {
     (async () => {
       const resp = await axios.get("/words");
       const _entries = resp.data;
+      console.log(_entries);
       setEntries([...entries, ..._entries])
     })();
   }, []);
@@ -47,17 +59,21 @@ export default (): JSX.Element => {
     <>
       {
         entries.map((entry: Entry) => (
-        // array.map((post: any) => (
           <div className='row justify-content-center'>
             <div className='col-md-8'>
               <Post className='container-fluid'>
                 <div className='row flex-nowrap'>
                   <IconColumn className='mt-2'>
                     <CircleIcon imgPath={entry.avatar} />
-                  </IconColumn>
+                  </IconColumn> 
                   <div className='col'>
                   <CardHeader>
-                    {entry.name}
+                    <span>
+                      {entry.name}
+                    </span>
+                    <Time className="created-at">
+                      {entry.created_at}
+                    </Time>
                   </CardHeader>
                   <Text>
                     {entry.words}

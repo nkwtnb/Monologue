@@ -3663,7 +3663,7 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var axios__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! axios */ "./node_modules/axios/index.js");
 /* harmony import */ var axios__WEBPACK_IMPORTED_MODULE_3___default = /*#__PURE__*/__webpack_require__.n(axios__WEBPACK_IMPORTED_MODULE_3__);
 /* harmony import */ var react_jsx_runtime__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(/*! react/jsx-runtime */ "./node_modules/react/jsx-runtime.js");
-var _templateObject, _templateObject2, _templateObject3, _templateObject4;
+var _templateObject, _templateObject2, _templateObject3, _templateObject4, _templateObject5;
 
 
 
@@ -3734,6 +3734,7 @@ var __awaiter = undefined && undefined.__awaiter || function (thisArg, _argument
   var CardHeader = styled_components__WEBPACK_IMPORTED_MODULE_5__["default"].div(_templateObject2 || (_templateObject2 = _taggedTemplateLiteral(["\n    font-size: 18px;\n    font-weight: bold;\n    height: 34px\n  "])));
   var Text = styled_components__WEBPACK_IMPORTED_MODULE_5__["default"].div(_templateObject3 || (_templateObject3 = _taggedTemplateLiteral(["\n    font-size: 14px;\n    white-space: pre-wrap;\n    word-break: break-all;\n  "])));
   var IconColumn = styled_components__WEBPACK_IMPORTED_MODULE_5__["default"].div(_templateObject4 || (_templateObject4 = _taggedTemplateLiteral(["\n    flex-basis: 70px;\n  "])));
+  var Time = styled_components__WEBPACK_IMPORTED_MODULE_5__["default"].span(_templateObject5 || (_templateObject5 = _taggedTemplateLiteral(["\n    font-size: 12px;\n    font-weight: normal;\n    color: #262323;\n    &::before {\n      content: \" - \";\n    }\n  "])));
 
   var _useState = (0,react__WEBPACK_IMPORTED_MODULE_1__.useState)([]),
       _useState2 = _slicedToArray(_useState, 2),
@@ -3755,9 +3756,10 @@ var __awaiter = undefined && undefined.__awaiter || function (thisArg, _argument
               case 2:
                 resp = _context.sent;
                 _entries = resp.data;
+                console.log(_entries);
                 setEntries([].concat(_toConsumableArray(entries), _toConsumableArray(_entries)));
 
-              case 5:
+              case 6:
               case "end":
                 return _context.stop();
             }
@@ -3786,8 +3788,13 @@ var __awaiter = undefined && undefined.__awaiter || function (thisArg, _argument
                   })
                 }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_4__.jsxs)("div", {
                   className: "col",
-                  children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_4__.jsx)(CardHeader, {
-                    children: entry.name
+                  children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_4__.jsxs)(CardHeader, {
+                    children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_4__.jsx)("span", {
+                      children: entry.name
+                    }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_4__.jsx)(Time, {
+                      className: "created-at",
+                      children: entry.created_at
+                    })]
                   }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_4__.jsx)(Text, {
                     children: entry.words
                   })]
