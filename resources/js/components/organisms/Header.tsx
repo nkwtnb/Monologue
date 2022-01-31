@@ -1,29 +1,58 @@
-import React from 'react';
+import React, { useEffect, useState } from 'react';
 import styled from 'styled-components';
 import CircleIcon from '../atoms/CircleIcon';
+import axios from 'axios';
 // sample
 import img from "@img/circle.png";
-import userIcon from "@img/userIcon.png";
+import noAvatar from "@img/no_avatar.png";
+import { Link } from 'react-router-dom';
+
+interface UserInfo {
+  name: string,
+  email: string,
+  avatar?: string | ArrayBuffer | null,
+  imgFile?: Blob | string | null,
+}
+
+const getUserInfo = async (): Promise<UserInfo | undefined> => {
+  try {
+    const userInfo = await axios.post("/user/get");
+    return userInfo.data;
+  } catch (error) {
+    console.log(error);
+  }
+}
 
 export default () => {
-  const Header = styled.nav`
-    height: 60px;
-  `;
+  const [userInfo, setUserInfo] = useState<UserInfo>({
+    name: "",
+    email: "",
+    avatar: "",
+    imgFile: "",
+  });
+
+  useEffect(() => {
+    (async () => {
+      const currentUserInfo = await getUserInfo();
+      console.log(currentUserInfo);
+      setUserInfo({ ...userInfo, ...currentUserInfo });
+    })();    
+  }, []);
 
   return (
-    <Header className='container'>
+    <nav className='container'>
       <div>
         <div className="d-flex bd-highlight mb-3">
           <div className="me-auto p-2 bd-highlight">
-            <CircleIcon imgPath={img} />
+            <Link to="/" className='logo'>
+              Monologue
+            </Link>
           </div>
           <div className="p-2 bd-highlight">
-            {/* <CircleIcon imgPath={img} /> */}
-            <CircleIcon imgPath={userIcon} link={true}/>
+            <CircleIcon imgPath={userInfo?.avatar || noAvatar} link={true}/>
           </div>
         </div>
       </div>
-
-    </Header>
+    </nav>
   );
 }

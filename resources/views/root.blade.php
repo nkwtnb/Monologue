@@ -7,6 +7,7 @@
         <title>Laravel</title>
 
         <!-- Fonts -->
+        <link href="https://fonts.googleapis.com/css2?family=Pacifico:wght@400;600;700&display=swap" rel="stylesheet">
         <link href="https://fonts.googleapis.com/css2?family=Nunito:wght@400;600;700&display=swap" rel="stylesheet">
     <!-- <script src="https://code.jquery.com/jquery-3.6.0.min.js" integrity="sha256-/xUj+3OJU5yExlq6GSYGSHk7tPXikynS7ogEvDej/m4=" crossorigin="anonymous"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.11.0/umd/popper.min.js" integrity="sha384-b/U6ypiBEHpOf/4+1nzFpr53nxSS+GLCkfwBdFNTxtclqqenISfwAzpKaMNFNmj4" crossorigin="anonymous"></script> -->
@@ -30,6 +31,16 @@
         <style>
             body {
                 font-family: 'Nunito', sans-serif;
+            }
+            .logo {
+                font-size: 26px;
+                font-weight: bold;
+                text-decoration: none;
+                color: white;
+                font-family: 'Pacifico', sans-serif;
+            }
+            .logo:hover {
+                color: #ddd;
             }
         </style>
     </head>

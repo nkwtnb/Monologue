@@ -1,13 +1,29 @@
 import React from 'react';
 import styled from 'styled-components';
 import CircleIcon from '../atoms/CircleIcon';
-// sample
-import img from "@img/circle.png";
-import userIcon from "@img/userIcon.png";
+import axios from 'axios';
+
+interface PostMessgae  {
+  words: string;
+}
+
+const postMessage = async (param: PostMessgae) => {
+  const resp = await axios.post("/words", param);
+  return resp;
+}
+
+const handleClick = () => {
+  (async () => {
+    const resp = await postMessage({
+      words: "test"
+    });
+    console.log(resp);
+  })();
+}
 
 export default () => {
-  const Header = styled.nav`
-    height: 60px;
+  const Button = styled.button`
+    width: 100px;
   `;
 
   return (
@@ -22,8 +38,8 @@ export default () => {
           </div>
           <div className='row'>
             <div className='d-flex justify-content-end'>
-              <div className='col-md-1 me-2 mt-1 mb-2'>
-                <button className="btn btn-primary">つぶやく</button>
+              <div className='mr-auto mt-1 mb-2'>
+                <Button className="btn btn-primary" onClick={handleClick}>つぶやく</Button>
               </div>
             </div>
           </div>

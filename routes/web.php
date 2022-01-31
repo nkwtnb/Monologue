@@ -2,7 +2,10 @@
 
 use App\Http\Controllers\Auth\LoginController;
 use App\Http\Controllers\Auth\RegisterController;
+use App\Http\Controllers\FileController;
 use App\Http\Controllers\RootController;
+use App\Http\Controllers\UserController;
+use App\Http\Controllers\WordController;
 use Illuminate\Support\Facades\Route;
 
 /*
@@ -25,8 +28,18 @@ Route::get('/register', function () {
     return view('layouts.register');
 });
 
+Route::get("/upfiles/{fileName}", [FileController::class, "get"])->where("fileName", ".*");
+Route::get("/words", [WordController::class, "get"]);
+
 Route::post('/register', [RegisterController::class, 'register'])->name('register');
 Route::post('/login', [LoginController::class, 'login'])->name('login');
+
+Route::post("/user/get", [UserController::class, "get"]);
+Route::post("/user/put", [UserController::class, "put"]);
+
+Route::post("/words", [WordController::class, "postEntry"]);
+
+Route::post("/file/upload", [FileController::class, "action"]);
 
 // 認証済み画面
 Route::get('/{any}', [RootController::class, "index"])->where("any", ".*")->name("home");

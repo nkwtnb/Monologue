@@ -1,30 +1,22 @@
 import React from 'react';
-import ReactDOM from 'react-dom';
+import styled from 'styled-components';
 import { Outlet } from 'react-router-dom';
 // Components
 import Header from './organisms/Header';
-import NewPost from './organisms/NewPost';
-import TImeline from './organisms/TImeline';
 
 export default () => {
+    const Fluid = styled.div`
+        background-color: #4d4b4b;
+    `;
+
     return (
-        <div className='container'>
-            <Header />
-            <NewPost />
-            <TImeline />
-            <Outlet />
-            {/* <div className="row justify-content-center">
-                <div className="col-md-8">
-                    <div className="card">
-                        <div className="card-header">Example Component</div>
-                        <div className="card-body">I'm an example component!</div>
-                    </div>
-                </div>
-            </div> */}
-        </div>
+        <>
+            <Fluid className='container-fluid'>
+                <Header />
+            </Fluid>
+            <div className='container'>
+                <Outlet />
+            </div>
+        </>
     );
 }
-
-// if (document.getElementById('root')) {
-//     ReactDOM.render(<Example />, document.getElementById('root'));
-// }

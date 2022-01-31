@@ -1,5 +1,6 @@
 import styled from "styled-components";
 import React from "react";
+import { Link } from "react-router-dom";
 
 interface Todo {
   width?: number;
@@ -29,9 +30,15 @@ export default (props: Todo): JSX.Element => {
           <Image className="d-flex justify-content-center align-items-center" src={props.imgPath} />
         </Wrapper>
         <div className="dropdown-menu" aria-labelledby="dropdownMenuLink">
-          <a className="dropdown-item" href="#">Action</a>
-          <a className="dropdown-item" href="#">Another action</a>
-          <a className="dropdown-item" href="#">Something else here</a>
+          <Link to="/user" className="dropdown-item">
+            ユーザー情報
+          </Link>
+          <Link to="/user" className="dropdown-item">
+            ログアウト
+          </Link>
+
+          {/* <a className="dropdown-item" href="#">Another action</a>
+          <a className="dropdown-item" href="#">Something else here</a> */}
         </div>
       </div >
     );
