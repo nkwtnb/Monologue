@@ -7,16 +7,22 @@ import Header from './organisms/Header';
 export default () => {
     const Fluid = styled.div`
         background-color: #4d4b4b;
+        position: fixed;
+        height: 70px;
+        top: 0;
     `;
 
+    const Main = styled.div`
+        margin-top: 100px;
+    `
     return (
         <>
             <Fluid className='container-fluid'>
                 <Header />
             </Fluid>
-            <div className='container'>
+            <Main className='container'>
                 <Outlet />
-            </div>
+            </Main>
         </>
     );
 }

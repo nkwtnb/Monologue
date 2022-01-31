@@ -4,6 +4,9 @@ import { useState } from 'react';
 import CircleIcon from '../atoms/CircleIcon';
 import userIcon from "@img/userIcon.png";
 import axios from 'axios';
+import "@fortawesome/fontawesome-free/js/fontawesome";
+import "@fortawesome/fontawesome-free/js/solid";
+import "@fortawesome/fontawesome-free/js/regular";
 
 export default (): JSX.Element => {
 
@@ -22,7 +25,8 @@ export default (): JSX.Element => {
   const CardHeader = styled.div`
     font-size: 18px;
     font-weight: bold;
-    height: 34px
+    height: 34px;
+    white-space: nowrap;
   `;
 
   const Text = styled.div`
@@ -80,8 +84,13 @@ export default (): JSX.Element => {
                   </Text>
                   </div>
                </div>
-               <div className='row'>
-                 <div>アイコン</div>
+               <div className='row mt-2 mb-2'>
+                 <div className='col d-flex justify-content-center'>
+                  <i className="far fa-comment fa-lg"></i>
+                 </div>
+                 <div className='col d-flex justify-content-center'>
+                  <i className="far fa-heart fa-lg"></i>
+                </div>
                </div>
               </Post>
             </div>
