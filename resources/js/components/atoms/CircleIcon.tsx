@@ -1,12 +1,13 @@
 import styled from "styled-components";
 import React from "react";
 import { Link } from "react-router-dom";
+import axios from "axios";
 
 interface Todo {
   width?: number;
   height?: number;
   imgPath: string;
-  link?: boolean;
+  name?: string;
 }
 
 const SIZE: number = 40;
@@ -23,9 +24,27 @@ export default (props: Todo): JSX.Element => {
     background-color: #ddd;
     border-radius: ${SIZE}px;
   `;
-  if (props.link) {
+
+  const handleClick = async () => {
+    const resp = await axios.post("/logout");
+    if (resp.status === 204) {
+      window.location.reload();
+    } else {
+      alert("ログアウト処理に失敗しました。");
+    }
+  };
+
+  const UserName = styled.span`
+    font-size: 15px;
+    color: white;
+    font-weight: bold;
+  `
+
+  // ユーザー情報の場合
+  if (props.name !== "") {
     return (
-      <div className="dropleft">
+      <div className="dropleft d-flex justify-content-center align-items-center">
+        <UserName className="me-2">{props.name}</UserName>
         <Wrapper href="#" role="button" id="dropdownMenuLink" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
           <Image className="d-flex justify-content-center align-items-center" src={props.imgPath} />
         </Wrapper>
@@ -33,12 +52,9 @@ export default (props: Todo): JSX.Element => {
           <Link to="/user" className="dropdown-item">
             ユーザー情報
           </Link>
-          <Link to="/user" className="dropdown-item">
+          <div className="dropdown-item" onClick={handleClick}>
             ログアウト
-          </Link>
-
-          {/* <a className="dropdown-item" href="#">Another action</a>
-          <a className="dropdown-item" href="#">Something else here</a> */}
+          </div>
         </div>
       </div >
     );

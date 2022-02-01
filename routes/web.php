@@ -33,6 +33,7 @@ Route::get("/words", [WordController::class, "get"]);
 
 Route::post('/register', [RegisterController::class, 'register'])->name('register');
 Route::post('/login', [LoginController::class, 'login'])->name('login');
+Route::post('/logout', [LoginController::class, 'logout'])->name('logout');
 
 Route::post("/user/get", [UserController::class, "get"]);
 Route::post("/user/put", [UserController::class, "put"]);

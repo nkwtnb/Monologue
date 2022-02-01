@@ -49,7 +49,7 @@ export default () => {
             </Link>
           </div>
           <div className="p-2 bd-highlight">
-            <CircleIcon imgPath={userInfo?.avatar || noAvatar} link={true}/>
+            <CircleIcon imgPath={userInfo?.avatar || noAvatar} name={userInfo.name}/>
           </div>
         </div>
       </div>

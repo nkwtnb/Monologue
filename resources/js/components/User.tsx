@@ -4,8 +4,10 @@ import ReactDOM from 'react-dom';
 // Components
 import CircleIcon from './atoms/CircleIcon';
 import NoAvatar from "../../img/no_avatar.png";
+import ErrorMessage from './atoms/ErrorMessage';
 import { useState } from 'react';
 import { useEffect } from 'react';
+import styled from 'styled-components';
 
 interface UserInfo {
   name: string,
@@ -13,6 +15,14 @@ interface UserInfo {
   avatar?: string | ArrayBuffer | null,
   imgFile?: Blob | string | null,
 }
+
+interface Errors {
+  errors: {
+    [field: string]: string[],
+  }[];
+  message: string;
+}
+
 const getUserInfo = async (): Promise<UserInfo | undefined> => {
   try {
     const userInfo = await axios.post("/user/get");
@@ -28,12 +38,22 @@ const getUserInfo = async (): Promise<UserInfo | undefined> => {
  * @returns 
  */
 const postUserInfo = async (param: UserInfo) => {
-  try {
-    return await axios.post("/user/put", param);
-  } catch (error) {
-    console.log(error);
-  }
+  return await axios.post("/user/put", param);
 }
+
+const FileUploader = styled.span`
+  border: 1px solid #ddd;
+  padding: 4px 12px;
+  border-radius: 4px;
+  font-size: 12px;
+  color: white;
+`;
+
+const FileUploaderLabel = styled.span`
+  display: inline-block;
+  font-size: 13px;
+  white-space: nowrap;
+`;
 
 export default () => {
   const [userInfo, setUserInfo] = useState<UserInfo>({
@@ -43,6 +63,7 @@ export default () => {
     imgFile: "",
   });
 
+  const [error, setError] = useState([]);
   /**
    * 初期化
    */
@@ -55,14 +76,27 @@ export default () => {
   }, [])
 
   const handleClick = () => {
+    const message = document.getElementById("alert");
+    message?.setAttribute("style", "display: none");
     (async () => {
+      try {
       const filePath = await upload();
       const resp = await postUserInfo({
-        "name": userInfo.name,
+        "name": userInfo.name,  
         "email": userInfo.email,
         "avatar": filePath ? filePath : userInfo.avatar,
       });
-      console.log(resp);
+      window.location.reload();
+    } catch(e: any) {
+      const error = e.response.data;
+      const element = document.getElementById("alert");
+      element?.setAttribute("style", "display: block");
+
+      if (error.errors) {
+        setError(error);
+      }
+      return;
+    }
     })();
   }
 
@@ -90,6 +124,10 @@ export default () => {
     if(!file) {
       return;
     }
+    if (file.size > 102400) {
+      alert("ファイルサイズは100kb以下にしてください");
+      return;
+    }
     // プロフィール画像変更
     const reader = new FileReader();
     reader.onload = function(loadEvent) {
@@ -104,12 +142,16 @@ export default () => {
     reader.readAsDataURL(file);
   };
 
+  const triggerUpload = () => {
+    document.getElementById("avatar")?.click();
+  }
+
   return (
     <>
       <div className='row justify-content-center'>
         <div className='col-md-8'>
           <div className='container'>
-            <div className='row justify-content-center'>
+            <div className='mt-3 row justify-content-center align-items-end'>
               <div className='col-md-4'>
                 プロフィール写真
               </div>
@@ -118,10 +160,16 @@ export default () => {
                 <CircleIcon imgPath={userInfo.avatar || NoAvatar} />
               </div>
               <div className='col-md-3'>
-                <input type="file" id="avatar" onChange={((e) => handleChange(e, "avatar"))}></input>
+                <a>
+                  <FileUploader className="file-upload btn btn-info" onClick={triggerUpload} >参照</FileUploader>
+                  <FileUploaderLabel>png,jpeg,jpg,gif形式（100KBまで）</FileUploaderLabel>
+                  <div className='file-upload-wrapper' hidden>
+                    <input type="file" id="avatar" accept=".png, .jpeg, .jpg, .gif" onChange={((e) => handleChange(e, "avatar"))}></input>
+                  </div>
+                </a>
               </div>
             </div>
-            <div className='row justify-content-center'>
+            <div className='mt-3 row justify-content-center align-items-end'>
               <div className='col-md-4'>
                 ユーザー名
               </div>
@@ -129,7 +177,7 @@ export default () => {
                 <input className="w-100" type="text" value={userInfo.name} onChange={((e) => handleChange(e, "name"))}></input>
               </div>
             </div>
-            <div className='row justify-content-center'>
+            <div className='mt-3 row justify-content-center align-items-end'>
               <div className='col-md-4'>
                 メールアドレス
               </div>
@@ -137,7 +185,18 @@ export default () => {
                 <input className="w-100" type="text" value={userInfo.email} onChange={((e) => handleChange(e, "email"))}></input>
               </div>
             </div>
-            <div className='row justify-content-center mt-5'>
+            <div className='mt-3 row justify-content-center'>
+              <div className='col-md-8'>
+                <div className='w-100'>
+                  <ErrorMessage error={error}></ErrorMessage>
+                  {/* <div id="alert" className="alert alert-danger" role="alert" style={{display: 'none'}}>
+                    <ul id="errors">
+                    </ul>
+                  </div> */}
+                </div>
+              </div>
+            </div>
+            <div className='mt-5 row justify-content-center'>
               <div className='col-md-8'>
                 <div className='d-flex justify-content-end'>
                   <button className="btn btn-primary" onClick={handleClick}>保存</button>

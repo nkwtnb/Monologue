@@ -2,7 +2,7 @@ import React, { useEffect } from 'react';
 import styled from 'styled-components';
 import { useState } from 'react';
 import CircleIcon from '../atoms/CircleIcon';
-import userIcon from "@img/userIcon.png";
+import noAvatar from "@img/no_avatar.png";
 import axios from 'axios';
 import "@fortawesome/fontawesome-free/js/fontawesome";
 import "@fortawesome/fontawesome-free/js/solid";
@@ -68,7 +68,7 @@ export default (): JSX.Element => {
               <Post className='container-fluid'>
                 <div className='row flex-nowrap'>
                   <IconColumn className='mt-2'>
-                    <CircleIcon imgPath={entry.avatar} />
+                    <CircleIcon imgPath={entry.avatar || noAvatar} />
                   </IconColumn> 
                   <div className='col'>
                   <CardHeader>
