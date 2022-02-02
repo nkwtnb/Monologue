@@ -40,17 +40,15 @@ export default () => {
   }, []);
 
   return (
-    <nav className='container'>
-      <div>
-        <div className="d-flex bd-highlight mb-3">
-          <div className="me-auto p-2 bd-highlight">
-            <Link to="/" className='logo'>
-              Monologue
-            </Link>
-          </div>
-          <div className="p-2 bd-highlight">
-            <CircleIcon imgPath={userInfo?.avatar || noAvatar} name={userInfo.name}/>
-          </div>
+    <nav className='container h-100'>
+      <div className="d-flex bd-highlight mb-3 h-100">
+        <div className="me-auto p-2 bd-highlight">
+          <Link to="/" className='logo'>
+            Monologue
+          </Link>
+        </div>
+        <div className="p-2 bd-highlight">
+          <CircleIcon imgPath={userInfo?.avatar || noAvatar} name={userInfo.name}/>
         </div>
       </div>
     </nav>

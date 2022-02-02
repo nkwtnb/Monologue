@@ -6658,25 +6658,23 @@ var getUserInfo = function getUserInfo() {
     })();
   }, []);
   return /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_5__.jsx)("nav", {
-    className: "container",
-    children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_5__.jsx)("div", {
-      children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_5__.jsxs)("div", {
-        className: "d-flex bd-highlight mb-3",
-        children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_5__.jsx)("div", {
-          className: "me-auto p-2 bd-highlight",
-          children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_5__.jsx)(react_router_dom__WEBPACK_IMPORTED_MODULE_6__.Link, {
-            to: "/",
-            className: "logo",
-            children: "Monologue"
-          })
-        }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_5__.jsx)("div", {
-          className: "p-2 bd-highlight",
-          children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_5__.jsx)(_atoms_CircleIcon__WEBPACK_IMPORTED_MODULE_2__["default"], {
-            imgPath: (userInfo === null || userInfo === void 0 ? void 0 : userInfo.avatar) || _img_no_avatar_png__WEBPACK_IMPORTED_MODULE_4__["default"],
-            name: userInfo.name
-          })
-        })]
-      })
+    className: "container h-100",
+    children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_5__.jsxs)("div", {
+      className: "d-flex bd-highlight mb-3 h-100",
+      children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_5__.jsx)("div", {
+        className: "me-auto p-2 bd-highlight",
+        children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_5__.jsx)(react_router_dom__WEBPACK_IMPORTED_MODULE_6__.Link, {
+          to: "/",
+          className: "logo",
+          children: "Monologue"
+        })
+      }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_5__.jsx)("div", {
+        className: "p-2 bd-highlight",
+        children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_5__.jsx)(_atoms_CircleIcon__WEBPACK_IMPORTED_MODULE_2__["default"], {
+          imgPath: (userInfo === null || userInfo === void 0 ? void 0 : userInfo.avatar) || _img_no_avatar_png__WEBPACK_IMPORTED_MODULE_4__["default"],
+          name: userInfo.name
+        })
+      })]
     })
   });
 });
@@ -7150,7 +7148,7 @@ var __awaiter = undefined && undefined.__awaiter || function (thisArg, _argument
               case 7:
                 respLikes = _context.sent;
                 _likes = respLikes.data;
-                setLikes([].concat(_toConsumableArray(likes), _toConsumableArray(_likes))); // console.log(likes);
+                setLikes([].concat(_toConsumableArray(likes), _toConsumableArray(_likes)));
 
               case 10:
               case "end":
@@ -7160,8 +7158,7 @@ var __awaiter = undefined && undefined.__awaiter || function (thisArg, _argument
         }, _callee);
       }));
     })();
-  }, []); // console.log(likes);
-
+  }, []);
   entries.forEach(function (entry) {
     console.log(likes.indexOf(entry.id) === -1 ? false : true);
   });
@@ -7176,44 +7173,7 @@ var __awaiter = undefined && undefined.__awaiter || function (thisArg, _argument
         like: likes.indexOf(entry.id) === -1 ? false : true
       }, index);
     })
-  }); //   <>
-  //     {
-  //       entries.map((entry: Entry, index) => (
-  //         <div className='row justify-content-center' key={index}>
-  //           <div className='col-md-8'>
-  //             <Post className='container-fluid'>
-  //               <div className='row flex-nowrap'>
-  //                 <IconColumn className='mt-2'>
-  //                   <CircleIcon imgPath={entry.avatar || noAvatar} />
-  //                 </IconColumn> 
-  //                 <div className='col'>
-  //                 <CardHeader>
-  //                   <span>
-  //                     {entry.name}
-  //                   </span>
-  //                   <Time className="created-at">
-  //                     {entry.created_at}
-  //                   </Time>
-  //                 </CardHeader>
-  //                 <Text>
-  //                   {entry.words}
-  //                 </Text>
-  //                 </div>
-  //              </div>
-  //              <div className='row mt-2 mb-2'>
-  //                <div className='col d-flex justify-content-center'>
-  //                </div>
-  //                <div className='col d-flex justify-content-center'>
-  //                <Like id={entry.id} likes={likes} onClick={(e) => handleLike(e, entry.id)}></Like>
-  //               </div>
-  //              </div>
-  //             </Post>
-  //           </div>
-  //         </div>
-  //       ))
-  //     }
-  //   </>
-  // );
+  });
 });
 
 /***/ }),
