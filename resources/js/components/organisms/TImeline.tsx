@@ -2,7 +2,6 @@ import React, { useEffect } from 'react';
 import styled from 'styled-components';
 import { useState } from 'react';
 import CircleIcon from '../atoms/CircleIcon';
-// import FontAwesomeIcon from '../atoms/FontAwesomeIcon';
 import Like from '../molecules/Like';
 import noAvatar from "@img/no_avatar.png";
 import axios from 'axios';
@@ -15,10 +14,6 @@ export default (): JSX.Element => {
     avatar: string,
     words: string;
     created_at: string;
-  }
-
-  interface Like {
-    entry_id: number;
   }
 
   const Post = styled.div`
@@ -111,7 +106,6 @@ export default (): JSX.Element => {
                </div>
                <div className='row mt-2 mb-2'>
                  <div className='col d-flex justify-content-center'>
-                  {/* <FontAwesomeIcon fa={["far", "fa-comment", "fa-lg"]}></FontAwesomeIcon> */}
                  </div>
                  <div className='col d-flex justify-content-center'>
                  <Like id={entry.id} likes={likes} onClick={(e) => handleLike(e, entry.id)}></Like>
