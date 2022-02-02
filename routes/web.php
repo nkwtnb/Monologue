@@ -3,6 +3,7 @@
 use App\Http\Controllers\Auth\LoginController;
 use App\Http\Controllers\Auth\RegisterController;
 use App\Http\Controllers\FileController;
+use App\Http\Controllers\LikeController;
 use App\Http\Controllers\RootController;
 use App\Http\Controllers\UserController;
 use App\Http\Controllers\WordController;
@@ -30,6 +31,7 @@ Route::get('/register', function () {
 
 Route::get("/upfiles/{fileName}", [FileController::class, "get"])->where("fileName", ".*");
 Route::get("/words", [WordController::class, "get"]);
+Route::get("/likes", [LikeController::class, "get"]);
 
 Route::post('/register', [RegisterController::class, 'register'])->name('register');
 Route::post('/login', [LoginController::class, 'login'])->name('login');
@@ -40,7 +42,12 @@ Route::post("/user/put", [UserController::class, "put"]);
 
 Route::post("/words", [WordController::class, "postEntry"]);
 
+Route::post("/likes", [LikeController::class, "post"]);
+
+
 Route::post("/file/upload", [FileController::class, "action"]);
+
+Route::delete("/likes", [LikeController::class, "delete"]);
 
 // 認証済み画面
 Route::get('/{any}', [RootController::class, "index"])->where("any", ".*")->name("home");

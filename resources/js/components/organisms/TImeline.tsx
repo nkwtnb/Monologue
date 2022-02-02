@@ -2,19 +2,23 @@ import React, { useEffect } from 'react';
 import styled from 'styled-components';
 import { useState } from 'react';
 import CircleIcon from '../atoms/CircleIcon';
+// import FontAwesomeIcon from '../atoms/FontAwesomeIcon';
+import Like from '../molecules/Like';
 import noAvatar from "@img/no_avatar.png";
 import axios from 'axios';
-import "@fortawesome/fontawesome-free/js/fontawesome";
-import "@fortawesome/fontawesome-free/js/solid";
-import "@fortawesome/fontawesome-free/js/regular";
 
 export default (): JSX.Element => {
 
   interface Entry {
     name: string,
+    id: number,
     avatar: string,
     words: string;
     created_at: string;
+  }
+
+  interface Like {
+    entry_id: number;
   }
 
   const Post = styled.div`
@@ -48,22 +52,43 @@ export default (): JSX.Element => {
     }
   `;
 
+  const handleLike = async (e: any, id: number) => {
+    if (likes.indexOf(id) === -1) {
+      setLikes([...likes, id]);
+      const resp = await axios.post("/likes", {entryId: id});
+    } else {
+      const _likes = likes.filter(likedEntryId => likedEntryId !== id);
+      setLikes([..._likes]);
+      const resp = await axios.delete("/likes", {
+        data: {
+          entryId: id
+        }
+      });
+    }
+  }
+
   const [entries, setEntries] = useState<Entry[]>([]);
+  const [likes, setLikes] = useState<number[]>([])
   
   useEffect(() => {
     (async () => {
+      //エントリー取得
       const resp = await axios.get("/words");
       const _entries = resp.data;
-      console.log(_entries);
-      setEntries([...entries, ..._entries])
+      setEntries([...entries, ..._entries]);
+      //いいね取得
+      const respLikes = await axios.get("/likes");
+      const _likes = respLikes.data;
+      setLikes([...likes, ..._likes]);  
+      console.log(likes);
     })();
   }, []);
 
   return (
     <>
       {
-        entries.map((entry: Entry) => (
-          <div className='row justify-content-center'>
+        entries.map((entry: Entry, index) => (
+          <div className='row justify-content-center' key={index}>
             <div className='col-md-8'>
               <Post className='container-fluid'>
                 <div className='row flex-nowrap'>
@@ -86,10 +111,10 @@ export default (): JSX.Element => {
                </div>
                <div className='row mt-2 mb-2'>
                  <div className='col d-flex justify-content-center'>
-                  <i className="far fa-comment fa-lg"></i>
+                  {/* <FontAwesomeIcon fa={["far", "fa-comment", "fa-lg"]}></FontAwesomeIcon> */}
                  </div>
                  <div className='col d-flex justify-content-center'>
-                  <i className="far fa-heart fa-lg"></i>
+                 <Like id={entry.id} likes={likes} onClick={(e) => handleLike(e, entry.id)}></Like>
                 </div>
                </div>
               </Post>
