@@ -16,13 +16,6 @@ interface UserInfo {
   imgFile?: Blob | string | null,
 }
 
-interface Errors {
-  errors: {
-    [field: string]: string[],
-  }[];
-  message: string;
-}
-
 const getUserInfo = async (): Promise<UserInfo | undefined> => {
   try {
     const userInfo = await axios.post("/user/get");
@@ -41,7 +34,9 @@ const postUserInfo = async (param: UserInfo) => {
   return await axios.post("/user/put", param);
 }
 
-const FileUploader = styled.span`
+export default () => {
+
+  const FileUploader = styled.span`
   border: 1px solid #ddd;
   padding: 4px 12px;
   border-radius: 4px;
@@ -55,7 +50,6 @@ const FileUploaderLabel = styled.span`
   white-space: nowrap;
 `;
 
-export default () => {
   const [userInfo, setUserInfo] = useState<UserInfo>({
     name: "",
     email: "",
@@ -156,7 +150,6 @@ export default () => {
                 プロフィール写真
               </div>
               <div className='col-md-1'>
-                {/* <CircleIcon imgPath={NoAvatar} /> */}
                 <CircleIcon imgPath={userInfo.avatar || NoAvatar} />
               </div>
               <div className='col-md-3'>
@@ -189,10 +182,6 @@ export default () => {
               <div className='col-md-8'>
                 <div className='w-100'>
                   <ErrorMessage error={error}></ErrorMessage>
-                  {/* <div id="alert" className="alert alert-danger" role="alert" style={{display: 'none'}}>
-                    <ul id="errors">
-                    </ul>
-                  </div> */}
                 </div>
               </div>
             </div>

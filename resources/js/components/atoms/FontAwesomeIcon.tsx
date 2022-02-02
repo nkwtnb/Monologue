@@ -1,10 +1,9 @@
 import React from 'react';
 import styled from 'styled-components';
-import { Outlet } from 'react-router-dom';
 import "@fortawesome/fontawesome-free/js/fontawesome";
 import "@fortawesome/fontawesome-free/js/solid";
 import "@fortawesome/fontawesome-free/js/regular";
-
+  
 interface Props {
   fa: [
     style: string,
@@ -15,12 +14,12 @@ interface Props {
 }
 
 const Wrapper = styled.span`
-  &:hover {
-    cursor: pointer;
-  }
+&:hover {
+  cursor: pointer;
+}
 `;
-
 export default (props: Props) => {
+  console.log(props);
   return (
     <Wrapper onClick={props.onClick}>
       <i className={props.fa.join(" ")}></i>

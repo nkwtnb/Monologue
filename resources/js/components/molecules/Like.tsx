@@ -1,21 +1,20 @@
-import FontAwesomeIcon from "../atoms/FontAwesomeIcon"
-
+import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
+import "../../../css/app.css";
 interface Props {
+  icon: any;
   id: number;
-  likes: any;
   onClick?: (event: React.MouseEvent<HTMLElement, MouseEvent>) => void;
+  className: string;
 }
 
 export default (props: Props) => {
-  let isLiked = false;
-  for (let i=0; i<props.likes.length; i++) {
-    if (props.likes[i] === props.id) {
-      isLiked = true;
-    }
-  }
   return (
-    <div style={{"color": "#e700a0"}}>
-      <FontAwesomeIcon fa={[isLiked ? "fas" : "far", "fa-heart", "fa-lg"]} onClick={props.onClick}></FontAwesomeIcon>
-    </div>
-  )
+    <>
+      <div style={{ "color": "#e700a0" }}>  
+        <div onClick={props.onClick}>
+          <FontAwesomeIcon icon={props.icon} className={props.className}></FontAwesomeIcon>
+        </div>
+      </div>
+    </>
+  );
 }

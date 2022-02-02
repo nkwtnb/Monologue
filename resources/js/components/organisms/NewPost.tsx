@@ -25,11 +25,11 @@ const handleClick = () => {
   })();
 }
 
-export default () => {
-  const Button = styled.button`
-    width: 100px;
-  `;
+const Button = styled.button`
+width: 100px;
+`;
 
+export default () => {
   return (
     <>
       <div className='row justify-content-center'>

@@ -12,19 +12,26 @@ interface Todo {
 
 const SIZE: number = 40;
 
+const Wrapper = styled.a`
+padding: 4px;
+display: inline-block;
+`;
+
+const UserName = styled.span`
+font-size: 15px;
+color: white;
+font-weight: bold;
+`;
+
+const Image = styled.img`
+width: ${props => props.width ? props.width : SIZE}px;
+height: ${props => props.height ? props.height : SIZE}px;
+background-color: #ddd;
+border-radius: ${SIZE}px;
+`;
+
 export default (props: Todo): JSX.Element => {
-  const Wrapper = styled.a`
-    padding: 4px;
-    display: inline-block;
-  `;
-
-  const Image = styled.img`
-    width: ${props.width ? props.width : SIZE}px;
-    height: ${props.height ? props.height : SIZE}px;
-    background-color: #ddd;
-    border-radius: ${SIZE}px;
-  `;
-
+  
   const handleClick = async () => {
     const resp = await axios.post("/logout");
     if (resp.status === 204) {
@@ -33,12 +40,6 @@ export default (props: Todo): JSX.Element => {
       alert("ログアウト処理に失敗しました。");
     }
   };
-
-  const UserName = styled.span`
-    font-size: 15px;
-    color: white;
-    font-weight: bold;
-  `
 
   // ユーザー情報の場合
   if (props.name !== "") {
