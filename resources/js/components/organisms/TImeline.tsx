@@ -11,6 +11,7 @@ export default (): JSX.Element => {
     avatar: string,
     words: string;
     created_at: string;
+    likes: number;
     like: boolean;
   }
   
@@ -45,6 +46,7 @@ export default (): JSX.Element => {
             avatar={entry.avatar}
             words={entry.words}
             like={likes.indexOf(entry.id) === -1 ? false : true}
+            likes={entry.likes}
             key={index}
           />
         ))

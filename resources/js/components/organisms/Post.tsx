@@ -13,6 +13,7 @@ interface Entry {
   avatar: string,
   words: string;
   created_at: string;
+  likes: number;
   like: boolean;
 }
 
@@ -48,10 +49,13 @@ color: #262323;
 `;
 
 export default (props: Entry) => {
+  console.log("Post likes : " + props.likes);
   const [like, setLike] = useState(false);
+  const [likes, setLikes] = useState(0);
   useEffect(() => {
     setLike(props.like);
-  }, [props.like]);
+    setLikes(props.likes);
+  }, [props.like, props.likes]);
   const handleLike = (e: any, id: number) => {
     (async () => {
       if (like) {
@@ -60,8 +64,10 @@ export default (props: Entry) => {
             entryId: id
           }
         });
+        setLikes(prev => prev - 1);
       } else {
         const resp = await axios.post("/likes", {entryId: id});
+        setLikes(prev => prev + 1);
       }
     })();
     setLike(prev => !prev);
@@ -93,8 +99,7 @@ export default (props: Entry) => {
             <div className='col d-flex justify-content-center'>
             </div>
             <div className='col d-flex justify-content-center'>
-              {/* <Like id={props.id} isLiked={like ? true : false} onClick={(e) => handleLike(e, props.id)}></Like> */}
-              <Like id={props.id} icon={like ? solidHeart : regularHeart} onClick={(e) => handleLike(e, props.id)} className={like ? "liked" : ""}></Like>
+              <Like count={likes} icon={like ? solidHeart : regularHeart} onClick={(e) => handleLike(e, props.id)} className={like ? "liked" : ""}></Like>
             </div>
           </div>
         </Post>

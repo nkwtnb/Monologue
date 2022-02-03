@@ -6493,25 +6493,31 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony export */   "default": () => (__WEBPACK_DEFAULT_EXPORT__)
 /* harmony export */ });
 /* harmony import */ var _fortawesome_react_fontawesome__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! @fortawesome/react-fontawesome */ "./node_modules/@fortawesome/react-fontawesome/index.es.js");
+/* harmony import */ var styled_components__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! styled-components */ "./node_modules/styled-components/dist/styled-components.browser.esm.js");
 /* harmony import */ var _css_app_css__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ../../../css/app.css */ "./resources/css/app.css");
 /* harmony import */ var react_jsx_runtime__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! react/jsx-runtime */ "./node_modules/react/jsx-runtime.js");
+var _templateObject, _templateObject2;
+
+function _taggedTemplateLiteral(strings, raw) { if (!raw) { raw = strings.slice(0); } return Object.freeze(Object.defineProperties(strings, { raw: { value: Object.freeze(raw) } })); }
+
+
+
 
 
 
 
 /* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = (function (props) {
+  var Count = styled_components__WEBPACK_IMPORTED_MODULE_3__["default"].span(_templateObject || (_templateObject = _taggedTemplateLiteral(["\n    margin-left: 8px;\n  "])));
+  var Wrapper = styled_components__WEBPACK_IMPORTED_MODULE_3__["default"].div(_templateObject2 || (_templateObject2 = _taggedTemplateLiteral(["\n    color: #e700a0;\n    padding: 2px 10px;\n    &:hover {\n      cursor: pointer;\n      background-color: #e700a01f;\n      border-radius: 20px;\n    }\n  "])));
   return /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_2__.jsx)(react_jsx_runtime__WEBPACK_IMPORTED_MODULE_2__.Fragment, {
-    children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_2__.jsx)("div", {
-      style: {
-        "color": "#e700a0"
-      },
-      children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_2__.jsx)("div", {
-        onClick: props.onClick,
-        children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_2__.jsx)(_fortawesome_react_fontawesome__WEBPACK_IMPORTED_MODULE_0__.FontAwesomeIcon, {
-          icon: props.icon,
-          className: props.className
-        })
-      })
+    children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_2__.jsxs)(Wrapper, {
+      onClick: props.onClick,
+      children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_2__.jsx)(_fortawesome_react_fontawesome__WEBPACK_IMPORTED_MODULE_0__.FontAwesomeIcon, {
+        icon: props.icon,
+        className: props.className
+      }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_2__.jsx)(Count, {
+        children: props.count
+      })]
     })
   });
 });
@@ -6929,14 +6935,22 @@ var Text = styled_components__WEBPACK_IMPORTED_MODULE_7__["default"].div(_templa
 var IconColumn = styled_components__WEBPACK_IMPORTED_MODULE_7__["default"].div(_templateObject4 || (_templateObject4 = _taggedTemplateLiteral(["\nflex-basis: 70px;\n"])));
 var Time = styled_components__WEBPACK_IMPORTED_MODULE_7__["default"].span(_templateObject5 || (_templateObject5 = _taggedTemplateLiteral(["\nfont-size: 12px;\nfont-weight: normal;\ncolor: #262323;\n&::before {\n  content: \" - \";\n}\n"])));
 /* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = (function (props) {
+  console.log("Post likes : " + props.likes);
+
   var _useState = (0,react__WEBPACK_IMPORTED_MODULE_4__.useState)(false),
       _useState2 = _slicedToArray(_useState, 2),
       like = _useState2[0],
       setLike = _useState2[1];
 
+  var _useState3 = (0,react__WEBPACK_IMPORTED_MODULE_4__.useState)(0),
+      _useState4 = _slicedToArray(_useState3, 2),
+      likes = _useState4[0],
+      setLikes = _useState4[1];
+
   (0,react__WEBPACK_IMPORTED_MODULE_4__.useEffect)(function () {
     setLike(props.like);
-  }, [props.like]);
+    setLikes(props.likes);
+  }, [props.like, props.likes]);
 
   var handleLike = function handleLike(e, id) {
     (function () {
@@ -6948,7 +6962,7 @@ var Time = styled_components__WEBPACK_IMPORTED_MODULE_7__["default"].span(_templ
             switch (_context.prev = _context.next) {
               case 0:
                 if (!like) {
-                  _context.next = 6;
+                  _context.next = 7;
                   break;
                 }
 
@@ -6961,19 +6975,25 @@ var Time = styled_components__WEBPACK_IMPORTED_MODULE_7__["default"].span(_templ
 
               case 3:
                 resp = _context.sent;
-                _context.next = 9;
+                setLikes(function (prev) {
+                  return prev - 1;
+                });
+                _context.next = 11;
                 break;
 
-              case 6:
-                _context.next = 8;
+              case 7:
+                _context.next = 9;
                 return axios__WEBPACK_IMPORTED_MODULE_5___default().post("/likes", {
                   entryId: id
                 });
 
-              case 8:
-                _resp = _context.sent;
-
               case 9:
+                _resp = _context.sent;
+                setLikes(function (prev) {
+                  return prev + 1;
+                });
+
+              case 11:
               case "end":
                 return _context.stop();
             }
@@ -7020,7 +7040,7 @@ var Time = styled_components__WEBPACK_IMPORTED_MODULE_7__["default"].span(_templ
           }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_6__.jsx)("div", {
             className: "col d-flex justify-content-center",
             children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_6__.jsx)(_molecules_Like__WEBPACK_IMPORTED_MODULE_2__["default"], {
-              id: props.id,
+              count: likes,
               icon: like ? _fortawesome_free_solid_svg_icons_faHeart__WEBPACK_IMPORTED_MODULE_8__.faHeart : _fortawesome_free_regular_svg_icons_faHeart__WEBPACK_IMPORTED_MODULE_9__.faHeart,
               onClick: function onClick(e) {
                 return handleLike(e, props.id);
@@ -7170,7 +7190,8 @@ var __awaiter = undefined && undefined.__awaiter || function (thisArg, _argument
         created_at: entry.created_at,
         avatar: entry.avatar,
         words: entry.words,
-        like: likes.indexOf(entry.id) === -1 ? false : true
+        like: likes.indexOf(entry.id) === -1 ? false : true,
+        likes: entry.likes
       }, index);
     })
   });
