@@ -2,9 +2,9 @@ import axios from 'axios';
 import React from 'react';
 import ReactDOM from 'react-dom';
 // Components
-import CircleIcon from './atoms/CircleIcon';
-import NoAvatar from "../../img/no_avatar.png";
-import ErrorMessage from './atoms/ErrorMessage';
+import CircleIcon from '../atoms/CircleIcon';
+import NoAvatar from "../../../img/no_avatar.png";
+import ErrorMessage from '../atoms/ErrorMessage';
 import { useState } from 'react';
 import { useEffect } from 'react';
 import styled from 'styled-components';

@@ -2,9 +2,8 @@ import ReactDOM from "react-dom";
 import { BrowserRouter, Route, Routes } from "react-router-dom";
 // Components
 import Frame from "./components/Frame";
-import User from "./components/User";
-import Home from "./components/Home";
-import NewPost from './components/organisms/NewPost';
+import User from "./components/pages/User";
+import Home from "./components/pages/Home";
 
 ReactDOM.render(
   <BrowserRouter>
