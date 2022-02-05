@@ -1,4 +1,4 @@
-import React, { useEffect } from 'react';
+import React, { useEffect, useLayoutEffect } from 'react';
 import { useState } from 'react';
 import Post from './Post';
 import axios from 'axios';
@@ -18,7 +18,7 @@ export default (): JSX.Element => {
   const [entries, setEntries] = useState<Entry[]>([]);
   const [likes, setLikes] = useState<number[]>([])
   
-  useEffect(() => {
+  useLayoutEffect(() => {
     (async () => {
       //エントリー取得
       const resp = await axios.get("/words");
@@ -28,12 +28,9 @@ export default (): JSX.Element => {
       const respLikes = await axios.get("/likes");
       const _likes = respLikes.data;
       setLikes([...likes, ..._likes]);  
+      console.log("layout effect");
     })();
   }, []);
-
-  entries.forEach(entry => {
-    console.log(likes.indexOf(entry.id) === -1 ? false : true);
-  });
 
   return (
     <>

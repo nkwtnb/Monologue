@@ -43,7 +43,7 @@ class WordController extends Controller
     }
 
     //
-    public function postEntry(Request $request)
+    public function post(Request $request)
     {
         Word::create([
             "user_id" => Auth::id(),

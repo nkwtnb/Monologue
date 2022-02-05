@@ -1,5 +1,9 @@
 <?php
 
+use App\Http\Controllers\FileController;
+use App\Http\Controllers\LikeController;
+use App\Http\Controllers\UserController;
+use App\Http\Controllers\WordController;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
 
@@ -14,11 +18,15 @@ use Illuminate\Support\Facades\Route;
 |
 */
 
-Route::post("/user", function(Request $request) {
-    return $request->user();
+Route::group(['middleware' => ['auth:sanctum']], function() {
+    // ユーザー情報
+    Route::get("/user", [UserController::class, "get"]);
+    Route::put("/user", [UserController::class, "put"]);
+    // 投稿
+    Route::post("/words", [WordController::class, "post"]);
+    // いいね
+    Route::post("/likes", [LikeController::class, "post"]);
+    Route::delete("/likes", [LikeController::class, "delete"]);
+    // 画像
+    Route::post("/file/upload", [FileController::class, "action"]);
 });
-
-// Route::middleware('auth:sanctum')->post('/user', function (Request $request) {
-//     return $request->user();
-// });
-

@@ -7,6 +7,7 @@ use App\Http\Controllers\LikeController;
 use App\Http\Controllers\RootController;
 use App\Http\Controllers\UserController;
 use App\Http\Controllers\WordController;
+use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Route;
 
 /*
@@ -20,38 +21,19 @@ use Illuminate\Support\Facades\Route;
 |
 */
 
-// 新規登録、ログイン
-Route::get('/login', function () {
-    logger("/login desu");
-    return view('layouts.login');
-});
-Route::get('/register', function () {
-    return view('layouts.register');
-});
-
 Route::get("/upfiles/{fileName}", [FileController::class, "get"])->where("fileName", ".*");
 Route::get("/words", [WordController::class, "get"]);
 Route::get("/likes", [LikeController::class, "get"]);
+
+Route::post("/authCheck", function() {
+    return Auth::check();
+});
 
 Route::post('/register', [RegisterController::class, 'register'])->name('register');
 Route::post('/login', [LoginController::class, 'login'])->name('login');
 Route::post('/logout', [LoginController::class, 'logout'])->name('logout');
 
-Route::post("/user/get", [UserController::class, "get"]);
-Route::post("/user/put", [UserController::class, "put"]);
-
-Route::post("/words", [WordController::class, "postEntry"]);
-
-Route::post("/likes", [LikeController::class, "post"]);
-
-
-Route::post("/file/upload", [FileController::class, "action"]);
-
-Route::delete("/likes", [LikeController::class, "delete"]);
-
 // 認証済み画面
 Route::get('/{any}', [RootController::class, "index"])->where("any", ".*")->name("home");
 
 // Auth::routes();
-
-// Route::get('/home', [App\Http\Controllers\HomeController::class, 'index'])->name('home');

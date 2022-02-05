@@ -19,7 +19,6 @@ const Wrapper = styled.span`
 }
 `;
 export default (props: Props) => {
-  console.log(props);
   return (
     <Wrapper onClick={props.onClick}>
       <i className={props.fa.join(" ")}></i>

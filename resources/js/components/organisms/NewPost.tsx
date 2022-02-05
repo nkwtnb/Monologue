@@ -8,7 +8,7 @@ interface PostMessgae  {
 }
 
 const postMessage = async (param: PostMessgae) => {
-  const resp = await axios.post("/words", param);
+  const resp = await axios.post("api/words", param);
   return resp;
 }
 

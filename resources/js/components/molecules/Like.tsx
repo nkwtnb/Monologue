@@ -7,21 +7,21 @@ interface Props {
   onClick?: (event: React.MouseEvent<HTMLElement, MouseEvent>) => void;
   className: string;
 }
+const Count = styled.span`
+margin-left: 8px;
+`;
+
+const Wrapper = styled.div`
+color: #e700a0;
+padding: 2px 10px;
+&:hover {
+  cursor: pointer;
+  background-color: #e700a01f;
+  border-radius: 20px;
+}
+`;
 
 export default (props: Props) => {
-  const Count = styled.span`
-    margin-left: 8px;
-  `;
-
-  const Wrapper = styled.div`
-    color: #e700a0;
-    padding: 2px 10px;
-    &:hover {
-      cursor: pointer;
-      background-color: #e700a01f;
-      border-radius: 20px;
-    }
-  `;
   return (
     <>
       <Wrapper onClick={props.onClick}>

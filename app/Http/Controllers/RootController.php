@@ -15,11 +15,11 @@ class RootController extends Controller
         // logger("▼user▼");
         // logger(Auth::id());
         // logger("▲user▲");
-        logger("root です");
-        if (!Auth::check()) {
-            return redirect("/login");
-        }
-        logger("認証済み");
+        // logger("root です");
+        // if (!Auth::check()) {
+        //     return redirect("/login");
+        // }
+        // logger("認証済み");
         return view('root');
     }
 }

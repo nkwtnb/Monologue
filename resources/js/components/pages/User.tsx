@@ -1,5 +1,5 @@
 import axios from 'axios';
-import React from 'react';
+import React, { useContext } from 'react';
 import ReactDOM from 'react-dom';
 // Components
 import CircleIcon from '../atoms/CircleIcon';
@@ -8,6 +8,7 @@ import ErrorMessage from '../atoms/ErrorMessage';
 import { useState } from 'react';
 import { useEffect } from 'react';
 import styled from 'styled-components';
+import { AuthContext } from "../../Context";
 
 interface UserInfo {
   name: string,
@@ -16,14 +17,14 @@ interface UserInfo {
   imgFile?: Blob | string | null,
 }
 
-const getUserInfo = async (): Promise<UserInfo | undefined> => {
-  try {
-    const userInfo = await axios.post("/user/get");
-    return userInfo.data;
-  } catch (error) {
-    console.log(error);
-  }
-}
+// const getUserInfo = async (): Promise<UserInfo | undefined> => {
+//   try {
+//     const userInfo = await axios.post("/user/get");
+//     return userInfo.data;
+//   } catch (error) {
+//     console.log(error);
+//   }
+// }
 
 /**
  * ユーザー情報更新
@@ -31,45 +32,52 @@ const getUserInfo = async (): Promise<UserInfo | undefined> => {
  * @returns 
  */
 const postUserInfo = async (param: UserInfo) => {
-  return await axios.post("/user/put", param);
+  return await axios.put("api/user", param);
 }
 
-export default () => {
-
-  const FileUploader = styled.span`
-  border: 1px solid #ddd;
-  padding: 4px 12px;
-  border-radius: 4px;
-  font-size: 12px;
-  color: white;
+const FileUploader = styled.span`
+border: 1px solid #ddd;
+padding: 4px 12px;
+border-radius: 4px;
+font-size: 12px;
+color: white;
 `;
 
 const FileUploaderLabel = styled.span`
-  display: inline-block;
-  font-size: 13px;
-  white-space: nowrap;
+display: inline-block;
+font-size: 13px;
+white-space: nowrap;
 `;
 
-  const [userInfo, setUserInfo] = useState<UserInfo>({
-    name: "",
-    email: "",
-    avatar: "",
-    imgFile: "",
-  });
+export default () => {
+
+  const { authState, setAuthState } = useContext(AuthContext);
+  // console.log("user.tsx");
+  // console.log(authState);
+
+  const [userInfo, setUserInfo] = useState<UserInfo>(authState)
+  // const [userInfo, setUserInfo] = useState<UserInfo>({
+  //   name: "",
+  //   email: "",
+  //   avatar: "",
+  //   imgFile: "",
+  // });
 
   const [error, setError] = useState([]);
   /**
    * 初期化
    */
-  useEffect(() => {
-    (async () => {
-      const currentUserInfo = await getUserInfo();
-      console.log(currentUserInfo);
-      setUserInfo({ ...userInfo, ...currentUserInfo });
-    })();
-  }, [])
+  // useEffect(() => {
+  //   (async () => {
+  //     const currentUserInfo = await getUserInfo();
+  //     // console.log(currentUserInfo);
+  //     setUserInfo({ ...userInfo, ...currentUserInfo });
+  //   })();
+  // }, [])
 
   const handleClick = () => {
+    console.log("handleClick");
+    console.log(userInfo);
     const message = document.getElementById("alert");
     message?.setAttribute("style", "display: none");
     (async () => {
@@ -167,7 +175,7 @@ const FileUploaderLabel = styled.span`
                 ユーザー名
               </div>
               <div className='col-md-4'>
-                <input className="w-100" type="text" value={userInfo.name} onChange={((e) => handleChange(e, "name"))}></input>
+                <input className="w-100 form-control" type="text" value={userInfo.name} onChange={((e) => handleChange(e, "name"))}></input>
               </div>
             </div>
             <div className='mt-3 row justify-content-center align-items-end'>
@@ -175,7 +183,7 @@ const FileUploaderLabel = styled.span`
                 メールアドレス
               </div>
               <div className='col-md-4'>
-                <input className="w-100" type="text" value={userInfo.email} onChange={((e) => handleChange(e, "email"))}></input>
+                <input className="w-100 form-control" type="text" value={userInfo.email} onChange={((e) => handleChange(e, "email"))}></input>
               </div>
             </div>
             <div className='mt-3 row justify-content-center'>

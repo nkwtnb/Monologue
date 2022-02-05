@@ -2,7 +2,7 @@ import styled from 'styled-components';
 import CircleIcon from '../atoms/CircleIcon';
 import Like from '../molecules/Like';
 import noAvatar from "@img/no_avatar.png";
-import { useEffect, useState } from 'react';
+import { useEffect, useLayoutEffect, useState } from 'react';
 import axios from 'axios';
 import { faHeart as regularHeart } from "@fortawesome/free-regular-svg-icons/faHeart";
 import { faHeart as solidHeart } from "@fortawesome/free-solid-svg-icons/faHeart";
@@ -49,24 +49,23 @@ color: #262323;
 `;
 
 export default (props: Entry) => {
-  console.log("Post likes : " + props.likes);
   const [like, setLike] = useState(false);
   const [likes, setLikes] = useState(0);
-  useEffect(() => {
+  useLayoutEffect(() => {
     setLike(props.like);
     setLikes(props.likes);
   }, [props.like, props.likes]);
   const handleLike = (e: any, id: number) => {
     (async () => {
       if (like) {
-        const resp = await axios.delete("/likes", {
+        const resp = await axios.delete("api/likes", {
           data: {
             entryId: id
           }
         });
         setLikes(prev => prev - 1);
       } else {
-        const resp = await axios.post("/likes", {entryId: id});
+        const resp = await axios.post("api/likes", {entryId: id});
         setLikes(prev => prev + 1);
       }
     })();
