@@ -2,6 +2,8 @@ import axios from 'axios';
 import React, { useState, useContext } from 'react';
 import { useNavigate } from 'react-router-dom';
 import CardButton from "../molecules/CardButton";
+import { AuthContext } from ".././../Context";
+import * as userApi from "../../api/User";
 
 interface Credentials {
   name: string;
@@ -33,8 +35,9 @@ export default (props: Props) => {
     password: "",
     password_confirmation: ""
   });
-
   const navigate = useNavigate();
+  const {authState, setAuthState} = useContext(AuthContext);
+
   const toggleView = () => {
     if (props.isRegister) {
       navigate("/login");
@@ -45,11 +48,13 @@ export default (props: Props) => {
 
   const submit = async () => {
     try {
+      let authenticatedUser: userApi.Type;
       if (props.isRegister) {
-        await axios.post("/register", credentials);
+        authenticatedUser = (await axios.post("/register", credentials)).data;
       } else {
-        await axios.post("/login", credentials);
+        authenticatedUser = (await axios.post("/login", credentials)).data;
       }
+      setAuthState(authenticatedUser);
       navigate("/");
     } catch (e: any) {
       const errors = e.response.data.errors;
@@ -65,7 +70,6 @@ export default (props: Props) => {
   }
 
   const handleChangeCredentials = (e: React.ChangeEvent<HTMLInputElement>, target: string) => {
-    console.log(e);
     setCredentials({ ...credentials, [target]: e.target.value })
   }
 

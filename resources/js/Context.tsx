@@ -1,35 +1,20 @@
 import { createContext, PropsWithChildren, useState } from "react";
-
-interface UserInfo {
-  name: string,
-  email: string,
-  avatar?: string | ArrayBuffer | null,
-  imgFile?: Blob | string | null,
-}
+import * as userApi from "./api/User";
 
 interface Props {
-  user: UserInfo | (() => UserInfo) | undefined
-}
-
-const initialState = {
-  name: "",
-  email: "",
-  avatar: "",
-  imgFile: "",
+  user: userApi.Type | (() => userApi.Type) | undefined
 }
 
 interface AuthContextType {
-  authState: UserInfo;
-  setAuthState: React.Dispatch<React.SetStateAction<UserInfo>>
+  authState: userApi.Type;
+  setAuthState: React.Dispatch<React.SetStateAction<userApi.Type>>
 }
 
 export const AuthContext = createContext({} as AuthContextType);
 
 export default (props: PropsWithChildren<Props>) => {
   const {user, children} = props;
-  console.log("Context");
-  console.log(user);
-  const [authState, setAuthState] = useState<UserInfo>(user ? user : initialState);
+  const [authState, setAuthState] = useState<userApi.Type>(user ? user : userApi.INITIAL_STATE);
 
   return (
     <AuthContext.Provider value={{authState, setAuthState}} >

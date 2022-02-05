@@ -42,4 +42,23 @@ class User extends Authenticatable
     protected $casts = [
         'email_verified_at' => 'datetime',
     ];
+
+    protected $visible = [
+        'name',
+        'email',
+        'avatar',
+    ];
+
+    /**
+     * 取得可能項目に対してデフォルト値を設定
+     */
+    public static function getDefaultValue() {
+        $result = [];
+        $model = new User();
+        $visible = $model->getVisible();
+        foreach($visible as $key) {
+            $result[$key] = "";
+        }
+        return $result;
+    }
 }

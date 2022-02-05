@@ -25,12 +25,10 @@ Route::get("/upfiles/{fileName}", [FileController::class, "get"])->where("fileNa
 Route::get("/words", [WordController::class, "get"]);
 Route::get("/likes", [LikeController::class, "get"]);
 
-Route::post("/authCheck", function() {
-    return Auth::check();
-});
+Route::get("/authencatedUser", [UserController::class, "get"]);
 
 Route::post('/register', [RegisterController::class, 'register'])->name('register');
-Route::post('/login', [LoginController::class, 'login'])->name('login');
+Route::post('/login', [LoginController::class, 'loginTest'])->name('login');
 Route::post('/logout', [LoginController::class, 'logout'])->name('logout');
 
 // 認証済み画面

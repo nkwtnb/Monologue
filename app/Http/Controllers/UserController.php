@@ -4,8 +4,6 @@ namespace App\Http\Controllers;
 
 use App\Models\User;
 use Exception;
-use Illuminate\Contracts\Validation\Rule;
-use Illuminate\Http\JsonResponse;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Validator;
@@ -13,9 +11,12 @@ use Illuminate\Validation\Rule as ValidationRule;
 
 class UserController extends Controller
 {
-    //
-    public function get(Request $request) {
-        return $request->user();
+    public static function get(Request $request) {
+        if (Auth::check()) {
+            return User::find(Auth::id());
+        } else {
+            return User::getDefaultValue();
+        }
     }
 
     public function put(Request $request) {

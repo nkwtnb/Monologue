@@ -9,29 +9,14 @@ import { useState } from 'react';
 import { useEffect } from 'react';
 import styled from 'styled-components';
 import { AuthContext } from "../../Context";
-
-interface UserInfo {
-  name: string,
-  email: string,
-  avatar?: string | ArrayBuffer | null,
-  imgFile?: Blob | string | null,
-}
-
-// const getUserInfo = async (): Promise<UserInfo | undefined> => {
-//   try {
-//     const userInfo = await axios.post("/user/get");
-//     return userInfo.data;
-//   } catch (error) {
-//     console.log(error);
-//   }
-// }
+import * as userApi from "../../api/User";
 
 /**
  * ユーザー情報更新
  * @param param 
  * @returns 
  */
-const postUserInfo = async (param: UserInfo) => {
+const postUserInfo = async (param: userApi.Type) => {
   return await axios.put("api/user", param);
 }
 
@@ -52,28 +37,8 @@ white-space: nowrap;
 export default () => {
 
   const { authState, setAuthState } = useContext(AuthContext);
-  // console.log("user.tsx");
-  // console.log(authState);
-
-  const [userInfo, setUserInfo] = useState<UserInfo>(authState)
-  // const [userInfo, setUserInfo] = useState<UserInfo>({
-  //   name: "",
-  //   email: "",
-  //   avatar: "",
-  //   imgFile: "",
-  // });
-
+  const [userInfo, setUserInfo] = useState<userApi.Type>(authState)
   const [error, setError] = useState([]);
-  /**
-   * 初期化
-   */
-  // useEffect(() => {
-  //   (async () => {
-  //     const currentUserInfo = await getUserInfo();
-  //     // console.log(currentUserInfo);
-  //     setUserInfo({ ...userInfo, ...currentUserInfo });
-  //   })();
-  // }, [])
 
   const handleClick = () => {
     console.log("handleClick");
