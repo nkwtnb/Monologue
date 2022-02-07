@@ -3,12 +3,14 @@ import React from "react";
 import { BrowserRouter, Route, Routes } from "react-router-dom";
 
 // Components
-import Frame from "./components/Frame";
+import Frame from "./components/templates/Frame";
 import User from "./components/pages/UserInfo";
 import Home from "./components/pages/Home";
 import Welcome from "./components/pages/Welcome";
 import * as userApi from "./api/User";
 import Context from "./Context";
+import ProfileFrame from "./components/templates/ProfileFrame";
+import UserPosts from "./components/pages/UserPosts";
 
 (async () => {
   const authenticatedUser = await userApi.getAuthencatedUser();
@@ -19,9 +21,20 @@ import Context from "./Context";
         <Routes>
           <Route path="/" element={<Frame />}>
             <Route index element={<Home />} />
-            <Route path="/user" element={<User />} />
+            <Route path="user/:id" element={<ProfileFrame />}>
+              <Route index element={<UserPosts />}/>
+              <Route path="like" element={(
+                <>
+                  <div>いいね</div>
+                </>
+              )}/>
+            </Route>
+            <Route path="/settings" element={<User />} />
             <Route path="/register" element={<Welcome isRegister={true} />} />
             <Route path="/login" element={<Welcome isRegister={false} />} />
+            <Route path="*" element={(
+              <p>Not Found</p>
+            )} />
           </Route>
         </Routes>
       </BrowserRouter>

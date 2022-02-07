@@ -10,6 +10,7 @@ import { useEffect } from 'react';
 import styled from 'styled-components';
 import { AuthContext } from "../../Context";
 import * as userApi from "../../api/User";
+import { useParams } from 'react-router-dom';
 
 /**
  * ユーザー情報更新
@@ -36,6 +37,8 @@ white-space: nowrap;
 
 export default () => {
 
+  const { name } = useParams();
+  console.log("user id : " + name);
   const { authState, setAuthState } = useContext(AuthContext);
   const [userInfo, setUserInfo] = useState<userApi.Type>(authState)
   const [error, setError] = useState([]);
@@ -46,7 +49,7 @@ export default () => {
     const message = document.getElementById("alert");
     message?.setAttribute("style", "display: none");
     (async () => {
-      try {
+    try {
       const filePath = await upload();
       const resp = await postUserInfo({
         "name": userInfo.name,  
@@ -58,7 +61,6 @@ export default () => {
       const error = e.response.data;
       const element = document.getElementById("alert");
       element?.setAttribute("style", "display: block");
-
       if (error.errors) {
         setError(error);
       }
@@ -75,7 +77,7 @@ export default () => {
     const file = userInfo.imgFile;
     form.append('upload_file', file);
     const settings = { headers: { 'content-type': 'multipart/form-data' } }
-    const resp = await axios.post("/file/upload",
+    const resp = await axios.post("api/file/upload",
       form,
       settings
     );
@@ -154,7 +156,7 @@ export default () => {
             <div className='mt-3 row justify-content-center'>
               <div className='col-md-8'>
                 <div className='w-100'>
-                  <ErrorMessage error={error}></ErrorMessage>
+                  <ErrorMessage type="alert" error={error}></ErrorMessage>
                 </div>
               </div>
             </div>

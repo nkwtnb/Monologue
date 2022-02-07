@@ -14,7 +14,7 @@ interface Props {
 
 const SIZE: number = 40;
 
-const Wrapper = styled.a`
+const Wrapper = styled.span`
 padding: 4px;
 display: inline-block;
 `;
@@ -57,15 +57,18 @@ export default (props: Props): JSX.Element => {
     return (
       <div className="dropleft d-flex justify-content-center align-items-center">
         <UserName className="me-2">{props.name}</UserName>
-        <Wrapper href="#" role="button" id="dropdownMenuLink" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+        <Wrapper role="button" id="dropdownMenuLink" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
           <Image className="d-flex justify-content-center align-items-center" src={props.imgPath} />
         </Wrapper>
         <div className="dropdown-menu" aria-labelledby="dropdownMenuLink">
           {
             authState.name ?
             <>
-              <Link to="/user" className="dropdown-item">
+              <Link to="/user/test" className="dropdown-item">
                 ユーザー情報
+              </Link>
+              <Link to="/settings" className="dropdown-item">
+                設定
               </Link>
               <div className="dropdown-item" onClick={handleClick}>
                 ログアウト

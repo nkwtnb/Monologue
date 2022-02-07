@@ -1,17 +1,11 @@
 import React from 'react';
-import styled from 'styled-components';
-import { Outlet } from 'react-router-dom';
 
-// interface Props {
-//   error: {
-//     message?: string
-//     errors?: {
-//       [key: string]: string
-//     }
-//   }
-// }
+interface Props {
+  type: string;
+  error: any;
+}
 
-export default (props: any) => {
+export default (props: Props) => {
   let messages = [];
   for (let key in props.error.errors) {
     const message = props.error.errors[key];

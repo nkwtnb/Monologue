@@ -6,6 +6,7 @@ import { useEffect, useLayoutEffect, useState } from 'react';
 import axios from 'axios';
 import { faHeart as regularHeart } from "@fortawesome/free-regular-svg-icons/faHeart";
 import { faHeart as solidHeart } from "@fortawesome/free-solid-svg-icons/faHeart";
+import { Link } from 'react-router-dom';
 
 interface Entry {
   name: string,
@@ -73,13 +74,14 @@ export default (props: Entry) => {
   }
 
   return (
-    <div className='row justify-content-center'>
-      <div className='col-md-8'>
-        <Post className='container-fluid'>
+    <Post className='justify-content-center'>
+        <div className='container-fluid'>
           <div className='row flex-nowrap'>
-            <IconColumn className='mt-2'>
-              <CircleIcon imgPath={props.avatar || noAvatar} />
-            </IconColumn>
+              <IconColumn className='mt-2'>
+                <Link to={"/user/" + props.name}>
+                  <CircleIcon imgPath={props.avatar || noAvatar} />
+                </Link>
+              </IconColumn>
             <div className='col'>
               <CardHeader>
                 <span>
@@ -101,8 +103,7 @@ export default (props: Entry) => {
               <Like count={likes} icon={like ? solidHeart : regularHeart} onClick={(e) => handleLike(e, props.id)} className={like ? "liked" : ""}></Like>
             </div>
           </div>
-        </Post>
-      </div>
-    </div>
+        </div>
+    </Post>
   );
 }
