@@ -3,7 +3,12 @@ import { useState } from 'react';
 import Post from './Post';
 import axios from 'axios';
 
-export default (): JSX.Element => {
+interface Props {
+  name: string | undefined;
+  filter: "post" | "like";
+}
+
+export default (props: Props): JSX.Element => {
 
   interface Entry {
     name: string,
@@ -17,20 +22,32 @@ export default (): JSX.Element => {
   
   const [entries, setEntries] = useState<Entry[]>([]);
   const [likes, setLikes] = useState<number[]>([])
+  console.log("filter : " + props.filter);
   
-  useLayoutEffect(() => {
+  useEffect(() => {
+    console.log("name : " + props.name);
+
     (async () => {
       //エントリー取得
-      const resp = await axios.get("/words");
+      let resp;
+      if (props.name === "") {
+        resp = await axios.get(`/words`);
+      } else {
+        let filterString = "";
+        if (props.filter === "like") {
+          filterString = "/?filter=" + props.filter;
+        }
+        resp = await axios.get(`/words/${props.name}${filterString}`);
+      }
       const _entries = resp.data;
-      setEntries([...entries, ..._entries]);
+      console.log(_entries);
+      setEntries([..._entries]);
       //いいね取得
       const respLikes = await axios.get("/likes");
       const _likes = respLikes.data;
       setLikes([...likes, ..._likes]);  
-      console.log("layout effect");
     })();
-  }, []);
+  }, [props.name, props.filter]);
 
   return (
     <>

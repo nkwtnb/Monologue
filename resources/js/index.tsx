@@ -1,6 +1,6 @@
 import ReactDOM from "react-dom";
 import React from "react";
-import { BrowserRouter, Route, Routes } from "react-router-dom";
+import { BrowserRouter, matchPath, Route, Routes } from "react-router-dom";
 
 // Components
 import Frame from "./components/templates/Frame";
@@ -21,13 +21,9 @@ import UserPosts from "./components/pages/UserPosts";
         <Routes>
           <Route path="/" element={<Frame />}>
             <Route index element={<Home />} />
-            <Route path="user/:id" element={<ProfileFrame />}>
-              <Route index element={<UserPosts />}/>
-              <Route path="like" element={(
-                <>
-                  <div>いいね</div>
-                </>
-              )}/>
+            <Route path="user/:name" element={<ProfileFrame />}>
+              <Route index element={<UserPosts filter="post"/>}/>
+              <Route path="like" element={<UserPosts filter="like"/>}/>
             </Route>
             <Route path="/settings" element={<User />} />
             <Route path="/register" element={<Welcome isRegister={true} />} />

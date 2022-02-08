@@ -1,5 +1,6 @@
-import React from 'react';
-import { Outlet, NavLink } from 'react-router-dom';
+import axios from 'axios';
+import React, { useEffect, useState } from 'react';
+import { Outlet, NavLink, useParams } from 'react-router-dom';
 import styled from 'styled-components';
 
 const Header = styled.span`
@@ -9,7 +10,14 @@ const Header = styled.span`
   }
 `;
 
-export default () => {
+const getPosts = async () => {
+  const resp = axios.get("/words/Naoki");
+  return resp;
+}
+
+export default (props: any) => {
+  const [isDone, setIsDone] = useState(true);
+
   return (
     <>
       <div className='row'>
@@ -23,7 +31,10 @@ export default () => {
             </Header>
           </div>
           <div className="row">
-            <Outlet />
+            {
+              isDone &&
+              <Outlet />
+            }
           </div>
         </div>
       </div>

@@ -1,13 +1,17 @@
-import React, { useContext, useEffect, useLayoutEffect } from 'react';
-import NewPost from '../organisms/NewPost';
+import React, { useContext, useEffect, useLayoutEffect, useState } from 'react';
 import TImeline from '../organisms/TImeline';
-import { AuthContext } from "../../Context";
+import { useParams } from 'react-router-dom';
 
-export default () => {
-  const {authState, setAuthState} = useContext(AuthContext);
+interface Props {
+  filter: "post" | "like";
+}
+
+export default (props: Props) => {
+  const { name } = useParams();
+
   return (
     <>
-      <TImeline />
+      <TImeline name={name} filter={props.filter}/>
     </>
   );
 }

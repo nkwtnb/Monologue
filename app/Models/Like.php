@@ -24,8 +24,8 @@ class Like extends Model
         $filtered = [];
         $likes = Like::where("user_id", $id)->get();
         foreach ($likes as $value) {
-            logger("value : " . $value);
-            logger($value["entry_id"]);
+            // logger("value : " . $value);
+            // logger($value["entry_id"]);
             $filtered[] = $value["entry_id"];
         }
         return $filtered;

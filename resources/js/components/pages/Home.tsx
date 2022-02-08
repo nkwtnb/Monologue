@@ -12,7 +12,7 @@ export default () => {
           authState.name !== "" &&
           <NewPost />
         }
-        <TImeline />
+        <TImeline name="" filter="post"/>
       </div>
     </>
   );

@@ -59,14 +59,14 @@ export default (props: Entry) => {
   const handleLike = (e: any, id: number) => {
     (async () => {
       if (like) {
-        const resp = await axios.delete("api/likes", {
+        const resp = await axios.delete("/api/likes", {
           data: {
             entryId: id
           }
         });
         setLikes(prev => prev - 1);
       } else {
-        const resp = await axios.post("api/likes", {entryId: id});
+        const resp = await axios.post("/api/likes", {entryId: id});
         setLikes(prev => prev + 1);
       }
     })();
