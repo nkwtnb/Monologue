@@ -1,6 +1,6 @@
 import ReactDOM from "react-dom";
 import React from "react";
-import { BrowserRouter, matchPath, Route, Routes } from "react-router-dom";
+import { BrowserRouter, Route, Routes } from "react-router-dom";
 
 // Components
 import Frame from "./components/templates/Frame";
