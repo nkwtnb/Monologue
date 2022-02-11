@@ -16,6 +16,7 @@ mix.ts('resources/js/index.tsx', 'public/js')
     .react()
     .sass('resources/sass/app.scss', 'public/css')
     .alias({
-        '@img': path.join(__dirname, 'resources/img')
+        '@img': path.join(__dirname, 'resources/img'),
+        '@interface': path.join(__dirname, 'resources/js/interface')
     })
     ;

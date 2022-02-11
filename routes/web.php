@@ -22,7 +22,12 @@ use Illuminate\Support\Facades\Route;
 */
 
 Route::get("/upfiles/{fileName}", [FileController::class, "get"])->where("fileName", ".*");
-Route::get("/words/{name?}", [WordController::class, "get"]);
+
+Route::get("/words/user/{name}/posts", [WordController::class, "getWordsByUser"]);
+Route::get("/words/user/{name}/likes", [WordController::class, "getWordsByUserLikes"]);
+Route::get("/words/post/{postId}", [WordController::class, "getWordsByPostId"]);
+Route::get("/words", [WordController::class, "get"]);
+
 Route::get("/likes", [LikeController::class, "get"]);
 
 Route::get("/authencatedUser", [UserController::class, "get"]);

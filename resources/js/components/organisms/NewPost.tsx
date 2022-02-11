@@ -1,10 +1,15 @@
-import React from 'react';
+import React, { useState } from 'react';
 import styled from 'styled-components';
 import CircleIcon from '../atoms/CircleIcon';
 import axios from 'axios';
 
 interface PostMessgae  {
   words: string;
+  reply_to: number | undefined;
+}
+
+interface Props {
+  replyTo?: number | undefined;
 }
 
 const postMessage = async (param: PostMessgae) => {
@@ -12,30 +17,33 @@ const postMessage = async (param: PostMessgae) => {
   return resp;
 }
 
-const handleClick = () => {
-  const element = document.getElementById("words") as HTMLInputElement;
-  if (element.value === "") {
-    return;
-  }
-  (async () => {
-    const resp = await postMessage({
-      words: element.value
-    });
-    window.location.reload();
-  })();
-}
-
 const Button = styled.button`
 width: 100px;
 `;
 
-export default () => {
+export default (props: Props) => {
+  // console.log("replyTO : " + props.replyTo);
+  const [contents, setContents] = useState("");
+  const handleChange = (e: any) => {
+    setContents(e.target.value);
+  }
+
+  const handleClick = () => {
+    (async () => {
+      const resp = await postMessage({
+        "words": contents,
+        "reply_to": props.replyTo 
+      });
+      window.location.reload();
+    })();
+  }
+  
   return (
     <>
       <div className='row justify-content-center'>
         <div className="form-group">
           <label >ひとりごとをつぶやく…</label>
-          <textarea className="form-control" id="words" rows={3}></textarea>
+          <textarea className="form-control" id="words" rows={3} value={contents} onChange={handleChange} ></textarea>
         </div>
       </div>
       <div className='row'>

@@ -2,20 +2,13 @@ import React, { memo, useEffect, useLayoutEffect } from 'react';
 import { useState } from 'react';
 import Post from './Post';
 import axios from 'axios';
+import CommentDialog from './CommentDialog';
+// import { Entry } from "../../interface/Entry";
+import { Entry } from "@interface/Entry";
 
 interface Props {
   name: string | undefined;
   filter: "post" | "like";
-}
-
-interface Entry {
-  name: string,
-  id: number,
-  avatar: string,
-  words: string;
-  created_at: string;
-  likes: number;
-  like: boolean;
 }
 
 export default (props: Props): JSX.Element => {
@@ -52,6 +45,12 @@ export default (props: Props): JSX.Element => {
     })();
   }
   
+  // const handleComment = (id: number) => {
+  //   console.log("handlecomment " + id);
+  //   const element = document.getElementById("toggle-modal-" + id);
+  //   element?.click();
+  // }
+
   useEffect(() => {
     (async () => {
       //エントリー取得
@@ -59,11 +58,11 @@ export default (props: Props): JSX.Element => {
       if (props.name === "") {
         resp = await axios.get(`/words`);
       } else {
-        let filterString = "";
         if (props.filter === "like") {
-          filterString = "/?filter=" + props.filter;
+          resp = await axios.get(`/words/user/${props.name}/likes`);
+        } else {
+          resp = await axios.get(`/words/user/${props.name}/posts`);
         }
-        resp = await axios.get(`/words/${props.name}${filterString}`);
       }
       const respLikes = await axios.get("/likes");
       const _likes = respLikes.data;
@@ -91,7 +90,11 @@ export default (props: Props): JSX.Element => {
                 like={entry.like}
                 likes={entry.likes}
                 handleLike={handleLike}
+                // handleComment={handleComment}
+                replyCount={entry.replyCount}
+                onDialog={false}
               />
+              <CommentDialog {...entry}/>
             </div>
           )
         })

@@ -10,7 +10,7 @@ interface Props {
 export default (props: PropsWithChildren<Props>) => {
   return (
     <>
-      <button id={"toggle-modal"} type="button" className="btn btn-primary" data-toggle="modal" data-target={"#exampleModal-" + props.id} hidden></button>
+      <button id={"toggle-modal-" + props.id} type="button" className="btn btn-primary" data-toggle="modal" data-target={"#exampleModal-" + props.id} hidden></button>
       <div className="modal fade" id={"exampleModal-" + props.id} tabIndex={-1} role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
         <div className="modal-dialog" role="document">
           <div className="modal-content">

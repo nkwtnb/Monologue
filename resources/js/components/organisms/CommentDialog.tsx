@@ -17,10 +17,10 @@ export default (props: PropsWithChildren<any>) => {
   return (
     <Modal title="テスト" cancel="キャンセル" approve="投稿" id={props.id}>
       <div>
-        <Post {...props}></Post>
+        <Post onDialog={true} {...props}></Post>
       </div>
-      <div>
-        <NewPost />
+      <div className="mt-2">
+        <NewPost replyTo={props.id} />
       </div>
     </Modal>
   )

@@ -11,6 +11,7 @@ import * as userApi from "./api/User";
 import Context from "./Context";
 import ProfileFrame from "./components/templates/ProfileFrame";
 import UserPosts from "./components/pages/UserPosts";
+import PostInfo from "./components/pages/PostInfo";
 
 (async () => {
   const authenticatedUser = await userApi.getAuthencatedUser();
@@ -21,6 +22,7 @@ import UserPosts from "./components/pages/UserPosts";
         <Routes>
           <Route path="/" element={<Frame />}>
             <Route index element={<Home />} />
+            <Route path="post/:postId" element={<PostInfo />}/>
             <Route path="user/:name" element={<ProfileFrame />}>
               <Route index element={<UserPosts filter="post"/>}/>
               <Route path="like" element={<UserPosts filter="like"/>}/>

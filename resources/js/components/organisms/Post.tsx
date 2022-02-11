@@ -1,4 +1,4 @@
-import { Link } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 import styled from "styled-components";
 import CircleIcon from "../atoms/CircleIcon";
 import CommentIcon from "../molecules/CommentIcon";
@@ -6,19 +6,14 @@ import Like from "../molecules/Like";
 import noAvatar from "@img/no_avatar.png";
 import { faHeart as regularHeart } from "@fortawesome/free-regular-svg-icons/faHeart";
 import { faHeart as solidHeart } from "@fortawesome/free-solid-svg-icons/faHeart";
-
-interface Entry {
-  name: string,
-  id: number,
-  avatar: string,
-  words: string;
-  created_at: string;
-  likes: number;
-  like: boolean;
-}
+import { Entry } from "@interface/Entry";
+import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
+import DetailIcon from "../molecules/DetailIcon";
 
 interface Props {
   handleLike: any;
+  handleComment?: any;
+  onDialog: boolean;
 }
 
 const Post = styled.div`
@@ -53,21 +48,35 @@ color: #262323;
 `;
 
 export default (props: Entry & Props) => {
-
+  const navigate = useNavigate();
+  
   const handleComment = (id: number) => {
     console.log("handlecomment " + id);
-    const element = document.getElementById("toggle-modal");
+    const element = document.getElementById("toggle-modal-" + id);
     element?.click();
   }
 
+  const handleClick = (e: any) => {
+    // console.log(e.currentTarget);
+    // console.log(e.currentTarget.classList.contains("entry-card"));
+    navigate(`/post/${props.id}`)
+  }
+
   return (
-    <Post className='justify-content-center'>
+    <Post className='justify-content-center entry-card'>
       <div className='container-fluid'>
+        {/* <div className='row flex-nowrap'> */}
         <div className='row flex-nowrap'>
           <IconColumn className='mt-2'>
-            <Link to={"/user/" + props.name}>
+            {
+              props.onDialog
+              ?
               <CircleIcon imgPath={props.avatar || noAvatar} />
-             </Link>
+              :
+              <Link to={"/user/" + props.name}>
+                <CircleIcon imgPath={props.avatar || noAvatar} />
+              </Link>
+            }
           </IconColumn>
           <div className='col'>
             <CardHeader>
@@ -83,16 +92,26 @@ export default (props: Entry & Props) => {
             </Text>
           </div>
         </div>
-        <div className='row mt-2 mb-2'>
-          <div className='col d-flex justify-content-center'>
-            <div onClick={(() => handleComment(props.id))}>
-              <CommentIcon count={0} {...props}></CommentIcon>
+        {/* ダイアログの時はフッターは表示しない */}
+        {!props.onDialog &&
+          <div className='row mt-2 mb-2'>
+            <div className='col d-flex justify-content-center'>
+              <div onClick={(() => handleComment(props.id))}>
+                <CommentIcon count={props.replyCount} {...props}></CommentIcon>
+              </div>
+            </div>
+            <div className='col d-flex justify-content-center'>
+              <Like count={props.likes} icon={props.like ? solidHeart : regularHeart} onClick={(e) => props.handleLike(e, props.id)} className={props.like ? "liked" : ""}></Like>
+            </div>
+            <div className='col d-flex justify-content-center'>
+              {/* <FontAwesomeIcon icon={faEllipsisH} /> */}
+              {/* <Like count={props.likes} icon={props.like ? solidHeart : regularHeart} onClick={(e) => props.handleLike(e, props.id)} className={props.like ? "liked" : ""}></Like> */}
+              <div onClick={handleClick}>
+                <DetailIcon />
+              </div>
             </div>
           </div>
-          <div className='col d-flex justify-content-center'>
-            <Like count={props.likes} icon={props.like ? solidHeart : regularHeart} onClick={(e) => props.handleLike(e, props.id)} className={props.like ? "liked" : ""}></Like>
-          </div>
-        </div>
+        }
       </div>
     </Post>
   )
