@@ -22,7 +22,6 @@ width: 100px;
 `;
 
 export default (props: Props) => {
-  // console.log("replyTO : " + props.replyTo);
   const [contents, setContents] = useState("");
   const handleChange = (e: any) => {
     setContents(e.target.value);
