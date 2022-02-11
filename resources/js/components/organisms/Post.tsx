@@ -65,7 +65,6 @@ export default (props: Entry & Props) => {
   return (
     <Post className='justify-content-center entry-card'>
       <div className='container-fluid'>
-        {/* <div className='row flex-nowrap'> */}
         <div className='row flex-nowrap'>
           <IconColumn className='mt-2'>
             {
@@ -104,8 +103,6 @@ export default (props: Entry & Props) => {
               <Like count={props.likes} icon={props.like ? solidHeart : regularHeart} onClick={(e) => props.handleLike(e, props.id)} className={props.like ? "liked" : ""}></Like>
             </div>
             <div className='col d-flex justify-content-center'>
-              {/* <FontAwesomeIcon icon={faEllipsisH} /> */}
-              {/* <Like count={props.likes} icon={props.like ? solidHeart : regularHeart} onClick={(e) => props.handleLike(e, props.id)} className={props.like ? "liked" : ""}></Like> */}
               <div onClick={handleClick}>
                 <DetailIcon />
               </div>
