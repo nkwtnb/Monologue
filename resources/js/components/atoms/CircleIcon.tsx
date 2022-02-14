@@ -64,7 +64,7 @@ export default (props: Props): JSX.Element => {
           {
             authState.name ?
             <>
-              <Link to="/user/test" className="dropdown-item">
+              <Link to={"/user/" + authState.name} className="dropdown-item">
                 ユーザー情報
               </Link>
               <Link to="/settings" className="dropdown-item">

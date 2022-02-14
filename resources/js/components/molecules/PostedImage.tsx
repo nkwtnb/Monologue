@@ -47,7 +47,7 @@ export default (props: Props) => {
 
   return (
     <>
-      <div className="container">
+      <div className="container mt-2 mb-2">
         <div className="row">
         {
           props.images.map((image, index) => {

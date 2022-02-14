@@ -104,7 +104,15 @@ const uploadFiles = async (files: SelectedImage[], _index?: number, _uploaded?: 
 export default (props: Props) => {
   const [contents, setContents] = useState("");
   const [uploads, setUploads] = useState<SelectedImage[]>([]);
+  const generateEmbedUrl = (words: string) => {
+    const reg = new RegExp("\bhttps:\\/\\/www\\.youtube\\.com\\/watch\\?v=.*\b","gi");
+    // const reg = new RegExp("https.*","gi");
+    const myArray = reg.exec(words);
+    console.log(myArray);
+    // props.words
+  }
   const handleChange = (e: any) => {
+    generateEmbedUrl(e.target.value);
     setContents(e.target.value);
   }
 

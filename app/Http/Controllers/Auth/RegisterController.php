@@ -3,9 +3,11 @@
 namespace App\Http\Controllers\Auth;
 
 use App\Http\Controllers\Controller;
+use App\Http\Controllers\UserController;
 use App\Providers\RouteServiceProvider;
 use App\Models\User;
 use Illuminate\Foundation\Auth\RegistersUsers;
+use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Hash;
 use Illuminate\Support\Facades\Validator;
 
@@ -70,5 +72,10 @@ class RegisterController extends Controller
             'avatar' => "",
             'password' => Hash::make($data['password']),
         ]);
+    }
+
+    public function callRegister(Request $request) {
+        $this->register($request);
+        return UserController::get($request);
     }
 }

@@ -32,7 +32,7 @@ Route::get("/likes", [LikeController::class, "get"]);
 
 Route::get("/authencatedUser", [UserController::class, "get"]);
 
-Route::post('/register', [RegisterController::class, 'register'])->name('register');
+Route::post('/register', [RegisterController::class, 'callRegister'])->name('register');
 Route::post('/login', [LoginController::class, 'loginTest'])->name('login');
 Route::post('/logout', [LoginController::class, 'logout'])->name('logout');
 

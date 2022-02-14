@@ -1,6 +1,6 @@
 import axios from 'axios';
 import React, { useState, useContext } from 'react';
-import { useNavigate } from 'react-router-dom';
+import { Navigate, useNavigate } from 'react-router-dom';
 import CardButton from "../molecules/CardButton";
 import { AuthContext } from ".././../Context";
 import * as userApi from "../../api/User";
@@ -51,6 +51,7 @@ export default (props: Props) => {
       let authenticatedUser: userApi.Type;
       if (props.isRegister) {
         authenticatedUser = (await axios.post("/register", credentials)).data;
+        console.log(authenticatedUser);
       } else {
         authenticatedUser = (await axios.post("/login", credentials)).data;
       }
@@ -71,6 +72,11 @@ export default (props: Props) => {
 
   const handleChangeCredentials = (e: React.ChangeEvent<HTMLInputElement>, target: string) => {
     setCredentials({ ...credentials, [target]: e.target.value })
+  }
+
+  // ログイン済みの場合、リダイレクト
+  if (authState.name) {
+    return <Navigate to={"/"} />;
   }
 
   return (

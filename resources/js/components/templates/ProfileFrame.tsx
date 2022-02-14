@@ -10,11 +10,6 @@ const Header = styled.span`
   }
 `;
 
-const getPosts = async () => {
-  const resp = axios.get("/words/Naoki");
-  return resp;
-}
-
 export default (props: any) => {
   const [isDone, setIsDone] = useState(true);
 
