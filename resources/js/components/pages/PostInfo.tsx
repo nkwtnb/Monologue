@@ -16,7 +16,8 @@ export default () => {
     like: false,
     likes: 0,
     words: "",
-    replyCount: 0
+    replyCount: 0,
+    images: []
   });
   const [replies, setReplies] = useState<Entry[]>([]);
 
@@ -42,6 +43,7 @@ export default () => {
             like={entry!.like}
             likes={entry!.likes}
             name={entry!.name}
+            images={entry!.images}
             replyCount={entry!.replyCount}
             words={entry!.words}
             onDialog={false}
@@ -63,6 +65,7 @@ export default () => {
                   like={reply.like}
                   likes={reply.likes}
                   name={reply.name}
+                  images={reply.images}
                   replyCount={reply.replyCount}
                   words={reply.words}
                   onDialog={false}

@@ -18,23 +18,45 @@ class Word extends Model
     protected $fillable = [
         "user_id",
         "words",
-        "reply_to"
+        "reply_to",
+        "image_1",
+        "image_2",
+        "image_3",
+        "image_4",
     ];
 
     public static function getLikeEntries($name) {
         $query = Word::makeQueryOfGetLikeEntries();
         $entries = DB::select($query, ["name" => $name]);
+        $entries = Word::imagesToArray($entries);
         return $entries;
     }
 
     public static function getEntries($filterValue = "", $filterType = Word::FILTER_TYPE_NOTHING) {
-        logger("filtertype : " . $filterType);
         $query = Word::makeQueryOfGetEntries($filterType);
-        logger($query);
         if ($filterType == Word::FILTER_TYPE_NOTHING) {
             $entries = DB::select($query);
         } else {
             $entries = DB::select($query, ["filterValue" => $filterValue]);
+        }
+        $entries = Word::imagesToArray($entries);
+        return $entries;
+    }
+
+    /**
+     * [image_X] を配列に格納する
+     */
+    private static function imagesToArray($entries) {
+        $MAX_COLUMN = 4;
+        foreach($entries as $entryIndex => $value) {
+            $images = [];
+            for($i=1; $i<=$MAX_COLUMN; $i++) {
+                if ($entries[$entryIndex]->{"image_$i"} !== NULL) {
+                    logger($entries[$entryIndex]->{"image_$i"});
+                    $images[] = $entries[$entryIndex]->{"image_$i"};
+                }
+            }
+            $entries[$entryIndex]->images = $images;
         }
         return $entries;
     }
@@ -48,6 +70,10 @@ class Word extends Model
             b.avatar,
             a.id,
             a.words,
+            a.image_1,
+            a.image_2,
+            a.image_3,
+            a.image_4,
             IFNULL(c.likes, 0) as likes,
             IFNULL(reply.count, 0) as replyCount
         from
@@ -108,6 +134,10 @@ class Word extends Model
             b.avatar,
             a.id,
             a.words,
+            a.image_1,
+            a.image_2,
+            a.image_3,
+            a.image_4,
             IFNULL(c.likes, 0) as likes,
             IFNULL(reply.count, 0) as replyCount
         from
@@ -146,6 +176,8 @@ class Word extends Model
             $query .= 
             "where
                 b.name = :filterValue
+            and
+                a.reply_to IS NULL
             ";
         // 投稿ID絞り込みの場合
         } else if($filterType === Word::FILTER_TYPE_POST_ID) {

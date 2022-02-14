@@ -3,7 +3,6 @@ import { useState } from 'react';
 import Post from './Post';
 import axios from 'axios';
 import CommentDialog from './CommentDialog';
-// import { Entry } from "../../interface/Entry";
 import { Entry } from "@interface/Entry";
 
 interface Props {
@@ -80,13 +79,14 @@ export default (props: Props): JSX.Element => {
       {
         entries.map((entry: Entry, index) => {
           return (
-            <div key={index}>
+            <div className='px-0' key={index}>
               <Post
                 id={entry.id}
                 name={entry.name}
                 created_at={entry.created_at}
                 avatar={entry.avatar}
                 words={entry.words}
+                images={entry.images}
                 like={entry.like}
                 likes={entry.likes}
                 handleLike={handleLike}

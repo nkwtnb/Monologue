@@ -3,6 +3,7 @@ export interface Entry {
   id: number,
   avatar: string,
   words: string;
+  images: string[];
   created_at: string;
   likes: number;
   like: boolean;

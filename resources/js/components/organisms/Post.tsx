@@ -9,6 +9,7 @@ import { faHeart as solidHeart } from "@fortawesome/free-solid-svg-icons/faHeart
 import { Entry } from "@interface/Entry";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import DetailIcon from "../molecules/DetailIcon";
+import PostedImage from "../molecules/PostedImage";
 
 interface Props {
   handleLike: any;
@@ -51,14 +52,11 @@ export default (props: Entry & Props) => {
   const navigate = useNavigate();
   
   const handleComment = (id: number) => {
-    console.log("handlecomment " + id);
     const element = document.getElementById("toggle-modal-" + id);
     element?.click();
   }
 
   const handleClick = (e: any) => {
-    // console.log(e.currentTarget);
-    // console.log(e.currentTarget.classList.contains("entry-card"));
     navigate(`/post/${props.id}`)
   }
 
@@ -89,6 +87,10 @@ export default (props: Entry & Props) => {
             <Text>
               {props.words}
             </Text>
+            {
+              (props.images.length > 0) &&
+              <PostedImage images={props.images} />
+            }
           </div>
         </div>
         {/* ダイアログの時はフッターは表示しない */}

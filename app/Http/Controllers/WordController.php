@@ -36,10 +36,19 @@ class WordController extends Controller
 
     public function post(Request $request)
     {
-        Word::create([
+        $param = [
             "user_id" => Auth::id(),
             "words" => $request->words,
-            "reply_to" => $request->reply_to
-        ]);
+            "reply_to" => $request->reply_to,
+        ];
+        foreach($request->images as $index => $image) {
+            $param["image_" . ($index+1)] = $image;
+        //     $ret = FileController::uploadFromController($request, $image);
+        //     logger($ret);
+        //     // $param["image_". $index] = $image;
+        }
+        // logger($request->images);
+        logger($param);
+        Word::create($param);
     }
 }

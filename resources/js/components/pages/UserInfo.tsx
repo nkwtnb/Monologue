@@ -38,14 +38,11 @@ white-space: nowrap;
 export default () => {
 
   const { name } = useParams();
-  console.log("user id : " + name);
   const { authState, setAuthState } = useContext(AuthContext);
   const [userInfo, setUserInfo] = useState<userApi.Type>(authState)
   const [error, setError] = useState([]);
 
   const handleClick = () => {
-    console.log("handleClick");
-    console.log(userInfo);
     const message = document.getElementById("alert");
     message?.setAttribute("style", "display: none");
     (async () => {
