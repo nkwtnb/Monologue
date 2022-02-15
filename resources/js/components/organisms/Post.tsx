@@ -10,11 +10,16 @@ import { Entry } from "@interface/Entry";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import DetailIcon from "../molecules/DetailIcon";
 import PostedImage from "../molecules/PostedImage";
+import axios from "axios";
+import { useEffect, useState } from "react";
 
 interface Props {
-  handleLike: any;
-  handleComment?: any;
   onDialog: boolean;
+}
+
+interface LikeState {
+  count: number;
+  isLike: boolean
 }
 
 const Post = styled.div`
@@ -49,7 +54,27 @@ color: #262323;
 `;
 
 export default (props: Entry & Props) => {
+  const [likeState, setLikeState] = useState<LikeState>({
+    count: 0,
+    isLike: false 
+  });
   const navigate = useNavigate();
+
+  const handleLike = (e: any, id: number) => {
+    (async () => {
+      setLikeState(prev => {
+        return {
+          count: prev.isLike ? (prev.count-1) : (prev.count+1),
+          isLike: !prev.isLike
+        }
+      });
+      if (likeState.isLike) {
+        const resp = await axios.delete("/api/likes", { data: { entryId: id } });
+      } else {
+        const resp = await axios.post("/api/likes", { entryId: id });
+      }
+    })();
+  }
   
   const handleComment = (id: number) => {
     const element = document.getElementById("toggle-modal-" + id);
@@ -83,6 +108,13 @@ export default (props: Entry & Props) => {
   }
 
   const movieId = generateEmbedUrl(props.words);
+
+  useEffect(() => {
+    setLikeState({
+      count: props.likes,
+      isLike: props.isLike
+    })
+  }, [props.likes, props.isLike]);
 
   return (
     <Post className='justify-content-center entry-card'>
@@ -134,7 +166,7 @@ export default (props: Entry & Props) => {
                 </div>
               </div>
               <div className='col d-flex justify-content-center'>
-                <Like count={props.likes} icon={props.like ? solidHeart : regularHeart} onClick={(e) => props.handleLike(e, props.id)} className={props.like ? "liked" : ""}></Like>
+                <Like count={likeState.count} icon={likeState.isLike ? solidHeart : regularHeart} onClick={(e) => handleLike(e, props.id)} className={likeState.isLike ? "liked" : ""}></Like>
               </div>
               <div className='col d-flex justify-content-center'>
                 <div onClick={handleClick}>

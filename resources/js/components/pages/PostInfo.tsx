@@ -13,7 +13,7 @@ export default () => {
     name: "",
     avatar: "",
     created_at: "",
-    like: false,
+    isLike: false,
     likes: 0,
     words: "",
     replyCount: 0,
@@ -26,7 +26,6 @@ export default () => {
       const resp = (await axios.get("/words/post/" + postId)).data;
       const entry: Entry = resp.entries[0];
       const replies: Entry[] = resp.replies;
-      console.log(replies);
       setEntry({...entry});
       setReplies([...replies]);
     })();
@@ -40,15 +39,13 @@ export default () => {
             id={entry!.id}
             avatar={entry!.avatar}
             created_at={entry!.created_at}
-            like={entry!.like}
+            isLike={entry!.isLike}
             likes={entry!.likes}
             name={entry!.name}
             images={entry!.images}
             replyCount={entry!.replyCount}
             words={entry!.words}
             onDialog={false}
-            handleComment={null}
-            handleLike={null}
           />
           <CommentDialog {...entry}/>
         </div>
@@ -62,15 +59,13 @@ export default () => {
                   id={reply.id}
                   avatar={reply!.avatar}
                   created_at={reply.created_at}
-                  like={reply.like}
+                  isLike={reply.isLike}
                   likes={reply.likes}
                   name={reply.name}
                   images={reply.images}
                   replyCount={reply.replyCount}
                   words={reply.words}
                   onDialog={false}
-                  handleComment={null}
-                  handleLike={null}
                 />
                 <CommentDialog {...reply}/>
               </div>

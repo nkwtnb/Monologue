@@ -6,6 +6,6 @@ export interface Entry {
   images: string[];
   created_at: string;
   likes: number;
-  like: boolean;
+  isLike: boolean;
   replyCount: number;
 }

@@ -2,35 +2,39 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\Like;
 use App\Models\Word;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
-use Illuminate\Support\Facades\DB;
 
 class WordController extends Controller
 {
     public function get() {
         $entries = Word::getEntries();
+        $entries = $this->setLikeState($entries);
         return $entries;
     }
 
     public function getWordsByUser(Request $request, $name) {
         $entries = Word::getEntries($name, Word::FILTER_TYPE_NAME);
+        $entries = $this->setLikeState($entries);
         return $entries;
     }
 
     public function getWordsByUserLikes(Request $request, $name) {
         $entries = Word::getLikeEntries($name);
+        $entries = $this->setLikeState($entries);
         return $entries;
     }
 
     public function getWordsByPostId(Request $request, $postId) {
-        logger("getWordsByPostId : " . $postId);
         $entries = Word::getEntries($postId, Word::FILTER_TYPE_POST_ID);
+        $entries = $this->setLikeState($entries);
         $replies = Word::getEntries($postId, Word::FILTER_TYPE_REPLIES);
+        $replies = $this->setLikeState($replies);
         return [
             "entries" => $entries,
-            "replies" => $replies
+            "replies" => $replies,
         ];
     }
 
@@ -43,12 +47,28 @@ class WordController extends Controller
         ];
         foreach($request->images as $index => $image) {
             $param["image_" . ($index+1)] = $image;
-        //     $ret = FileController::uploadFromController($request, $image);
-        //     logger($ret);
-        //     // $param["image_". $index] = $image;
         }
-        // logger($request->images);
-        logger($param);
         Word::create($param);
+    }
+
+    /**
+     * 各投稿に対して、ログインユーザーのいいね状態を設定
+     */
+    private function setLikeState($entries) {
+        logger("set Like State");
+        // 未ログインの場合は[いいね]状態を設定せず終了
+        if (!Auth::check()) {
+            return $entries;
+        }
+        $likes = Like::getLikesByUserId(Auth::id());
+        foreach($entries as $entry) {
+            if(in_array($entry->id, $likes)) {
+                $entry->isLike = true;
+            } else {
+                $entry->isLike = false;
+            }
+        }
+        logger($entries);
+        return $entries;
     }
 }

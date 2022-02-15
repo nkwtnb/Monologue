@@ -7027,18 +7027,23 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony export */ __webpack_require__.d(__webpack_exports__, {
 /* harmony export */   "default": () => (__WEBPACK_DEFAULT_EXPORT__)
 /* harmony export */ });
-/* harmony import */ var react_router_dom__WEBPACK_IMPORTED_MODULE_8__ = __webpack_require__(/*! react-router-dom */ "./node_modules/react-router/index.js");
-/* harmony import */ var react_router_dom__WEBPACK_IMPORTED_MODULE_9__ = __webpack_require__(/*! react-router-dom */ "./node_modules/react-router-dom/index.js");
-/* harmony import */ var styled_components__WEBPACK_IMPORTED_MODULE_7__ = __webpack_require__(/*! styled-components */ "./node_modules/styled-components/dist/styled-components.browser.esm.js");
-/* harmony import */ var _atoms_CircleIcon__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ../atoms/CircleIcon */ "./resources/js/components/atoms/CircleIcon.tsx");
-/* harmony import */ var _molecules_CommentIcon__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ../molecules/CommentIcon */ "./resources/js/components/molecules/CommentIcon.tsx");
-/* harmony import */ var _molecules_Like__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ../molecules/Like */ "./resources/js/components/molecules/Like.tsx");
-/* harmony import */ var _img_no_avatar_png__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! @img/no_avatar.png */ "./resources/img/no_avatar.png");
-/* harmony import */ var _fortawesome_free_regular_svg_icons_faHeart__WEBPACK_IMPORTED_MODULE_11__ = __webpack_require__(/*! @fortawesome/free-regular-svg-icons/faHeart */ "./node_modules/@fortawesome/free-regular-svg-icons/faHeart.js");
-/* harmony import */ var _fortawesome_free_solid_svg_icons_faHeart__WEBPACK_IMPORTED_MODULE_10__ = __webpack_require__(/*! @fortawesome/free-solid-svg-icons/faHeart */ "./node_modules/@fortawesome/free-solid-svg-icons/faHeart.js");
-/* harmony import */ var _molecules_DetailIcon__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(/*! ../molecules/DetailIcon */ "./resources/js/components/molecules/DetailIcon.tsx");
-/* harmony import */ var _molecules_PostedImage__WEBPACK_IMPORTED_MODULE_5__ = __webpack_require__(/*! ../molecules/PostedImage */ "./resources/js/components/molecules/PostedImage.tsx");
-/* harmony import */ var react_jsx_runtime__WEBPACK_IMPORTED_MODULE_6__ = __webpack_require__(/*! react/jsx-runtime */ "./node_modules/react/jsx-runtime.js");
+/* harmony import */ var _babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! @babel/runtime/regenerator */ "./node_modules/@babel/runtime/regenerator/index.js");
+/* harmony import */ var _babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default = /*#__PURE__*/__webpack_require__.n(_babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0__);
+/* harmony import */ var react_router_dom__WEBPACK_IMPORTED_MODULE_11__ = __webpack_require__(/*! react-router-dom */ "./node_modules/react-router/index.js");
+/* harmony import */ var react_router_dom__WEBPACK_IMPORTED_MODULE_12__ = __webpack_require__(/*! react-router-dom */ "./node_modules/react-router-dom/index.js");
+/* harmony import */ var styled_components__WEBPACK_IMPORTED_MODULE_10__ = __webpack_require__(/*! styled-components */ "./node_modules/styled-components/dist/styled-components.browser.esm.js");
+/* harmony import */ var _atoms_CircleIcon__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ../atoms/CircleIcon */ "./resources/js/components/atoms/CircleIcon.tsx");
+/* harmony import */ var _molecules_CommentIcon__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ../molecules/CommentIcon */ "./resources/js/components/molecules/CommentIcon.tsx");
+/* harmony import */ var _molecules_Like__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! ../molecules/Like */ "./resources/js/components/molecules/Like.tsx");
+/* harmony import */ var _img_no_avatar_png__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(/*! @img/no_avatar.png */ "./resources/img/no_avatar.png");
+/* harmony import */ var _fortawesome_free_regular_svg_icons_faHeart__WEBPACK_IMPORTED_MODULE_14__ = __webpack_require__(/*! @fortawesome/free-regular-svg-icons/faHeart */ "./node_modules/@fortawesome/free-regular-svg-icons/faHeart.js");
+/* harmony import */ var _fortawesome_free_solid_svg_icons_faHeart__WEBPACK_IMPORTED_MODULE_13__ = __webpack_require__(/*! @fortawesome/free-solid-svg-icons/faHeart */ "./node_modules/@fortawesome/free-solid-svg-icons/faHeart.js");
+/* harmony import */ var _molecules_DetailIcon__WEBPACK_IMPORTED_MODULE_5__ = __webpack_require__(/*! ../molecules/DetailIcon */ "./resources/js/components/molecules/DetailIcon.tsx");
+/* harmony import */ var _molecules_PostedImage__WEBPACK_IMPORTED_MODULE_6__ = __webpack_require__(/*! ../molecules/PostedImage */ "./resources/js/components/molecules/PostedImage.tsx");
+/* harmony import */ var axios__WEBPACK_IMPORTED_MODULE_7__ = __webpack_require__(/*! axios */ "./node_modules/axios/index.js");
+/* harmony import */ var axios__WEBPACK_IMPORTED_MODULE_7___default = /*#__PURE__*/__webpack_require__.n(axios__WEBPACK_IMPORTED_MODULE_7__);
+/* harmony import */ var react__WEBPACK_IMPORTED_MODULE_8__ = __webpack_require__(/*! react */ "./node_modules/react/index.js");
+/* harmony import */ var react_jsx_runtime__WEBPACK_IMPORTED_MODULE_9__ = __webpack_require__(/*! react/jsx-runtime */ "./node_modules/react/jsx-runtime.js");
 var _templateObject, _templateObject2, _templateObject3, _templateObject4, _templateObject5;
 
 function ownKeys(object, enumerableOnly) { var keys = Object.keys(object); if (Object.getOwnPropertySymbols) { var symbols = Object.getOwnPropertySymbols(object); enumerableOnly && (symbols = symbols.filter(function (sym) { return Object.getOwnPropertyDescriptor(object, sym).enumerable; })), keys.push.apply(keys, symbols); } return keys; }
@@ -7047,8 +7052,53 @@ function _objectSpread(target) { for (var i = 1; i < arguments.length; i++) { va
 
 function _defineProperty(obj, key, value) { if (key in obj) { Object.defineProperty(obj, key, { value: value, enumerable: true, configurable: true, writable: true }); } else { obj[key] = value; } return obj; }
 
+
+
+function _slicedToArray(arr, i) { return _arrayWithHoles(arr) || _iterableToArrayLimit(arr, i) || _unsupportedIterableToArray(arr, i) || _nonIterableRest(); }
+
+function _nonIterableRest() { throw new TypeError("Invalid attempt to destructure non-iterable instance.\nIn order to be iterable, non-array objects must have a [Symbol.iterator]() method."); }
+
+function _unsupportedIterableToArray(o, minLen) { if (!o) return; if (typeof o === "string") return _arrayLikeToArray(o, minLen); var n = Object.prototype.toString.call(o).slice(8, -1); if (n === "Object" && o.constructor) n = o.constructor.name; if (n === "Map" || n === "Set") return Array.from(o); if (n === "Arguments" || /^(?:Ui|I)nt(?:8|16|32)(?:Clamped)?Array$/.test(n)) return _arrayLikeToArray(o, minLen); }
+
+function _arrayLikeToArray(arr, len) { if (len == null || len > arr.length) len = arr.length; for (var i = 0, arr2 = new Array(len); i < len; i++) { arr2[i] = arr[i]; } return arr2; }
+
+function _iterableToArrayLimit(arr, i) { var _i = arr == null ? null : typeof Symbol !== "undefined" && arr[Symbol.iterator] || arr["@@iterator"]; if (_i == null) return; var _arr = []; var _n = true; var _d = false; var _s, _e; try { for (_i = _i.call(arr); !(_n = (_s = _i.next()).done); _n = true) { _arr.push(_s.value); if (i && _arr.length === i) break; } } catch (err) { _d = true; _e = err; } finally { try { if (!_n && _i["return"] != null) _i["return"](); } finally { if (_d) throw _e; } } return _arr; }
+
+function _arrayWithHoles(arr) { if (Array.isArray(arr)) return arr; }
+
 function _taggedTemplateLiteral(strings, raw) { if (!raw) { raw = strings.slice(0); } return Object.freeze(Object.defineProperties(strings, { raw: { value: Object.freeze(raw) } })); }
 
+var __awaiter = undefined && undefined.__awaiter || function (thisArg, _arguments, P, generator) {
+  function adopt(value) {
+    return value instanceof P ? value : new P(function (resolve) {
+      resolve(value);
+    });
+  }
+
+  return new (P || (P = Promise))(function (resolve, reject) {
+    function fulfilled(value) {
+      try {
+        step(generator.next(value));
+      } catch (e) {
+        reject(e);
+      }
+    }
+
+    function rejected(value) {
+      try {
+        step(generator["throw"](value));
+      } catch (e) {
+        reject(e);
+      }
+    }
+
+    function step(result) {
+      result.done ? resolve(result.value) : adopt(result.value).then(fulfilled, rejected);
+    }
+
+    step((generator = generator.apply(thisArg, _arguments || [])).next());
+  });
+};
 
 
 
@@ -7062,13 +7112,76 @@ function _taggedTemplateLiteral(strings, raw) { if (!raw) { raw = strings.slice(
 
 
 
-var Post = styled_components__WEBPACK_IMPORTED_MODULE_7__["default"].div(_templateObject || (_templateObject = _taggedTemplateLiteral(["\nborder: 1px solid #ddd;\nmargin-top: 2px;\n"])));
-var CardHeader = styled_components__WEBPACK_IMPORTED_MODULE_7__["default"].div(_templateObject2 || (_templateObject2 = _taggedTemplateLiteral(["\nfont-size: 18px;\nfont-weight: bold;\nheight: 34px;\nwhite-space: nowrap;\n"])));
-var Text = styled_components__WEBPACK_IMPORTED_MODULE_7__["default"].div(_templateObject3 || (_templateObject3 = _taggedTemplateLiteral(["\nfont-size: 14px;\nwhite-space: pre-wrap;\nword-break: break-all;\n"])));
-var IconColumn = styled_components__WEBPACK_IMPORTED_MODULE_7__["default"].div(_templateObject4 || (_templateObject4 = _taggedTemplateLiteral(["\nflex-basis: 70px;\n"])));
-var Time = styled_components__WEBPACK_IMPORTED_MODULE_7__["default"].span(_templateObject5 || (_templateObject5 = _taggedTemplateLiteral(["\nfont-size: 12px;\nfont-weight: normal;\ncolor: #262323;\n&::before {\n  content: \" - \";\n}\n"])));
+
+
+
+var Post = styled_components__WEBPACK_IMPORTED_MODULE_10__["default"].div(_templateObject || (_templateObject = _taggedTemplateLiteral(["\nborder: 1px solid #ddd;\nmargin-top: 2px;\n"])));
+var CardHeader = styled_components__WEBPACK_IMPORTED_MODULE_10__["default"].div(_templateObject2 || (_templateObject2 = _taggedTemplateLiteral(["\nfont-size: 18px;\nfont-weight: bold;\nheight: 34px;\nwhite-space: nowrap;\n"])));
+var Text = styled_components__WEBPACK_IMPORTED_MODULE_10__["default"].div(_templateObject3 || (_templateObject3 = _taggedTemplateLiteral(["\nfont-size: 14px;\nwhite-space: pre-wrap;\nword-break: break-all;\n"])));
+var IconColumn = styled_components__WEBPACK_IMPORTED_MODULE_10__["default"].div(_templateObject4 || (_templateObject4 = _taggedTemplateLiteral(["\nflex-basis: 70px;\n"])));
+var Time = styled_components__WEBPACK_IMPORTED_MODULE_10__["default"].span(_templateObject5 || (_templateObject5 = _taggedTemplateLiteral(["\nfont-size: 12px;\nfont-weight: normal;\ncolor: #262323;\n&::before {\n  content: \" - \";\n}\n"])));
 /* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = (function (props) {
-  var navigate = (0,react_router_dom__WEBPACK_IMPORTED_MODULE_8__.useNavigate)();
+  var _useState = (0,react__WEBPACK_IMPORTED_MODULE_8__.useState)({
+    count: 0,
+    isLike: false
+  }),
+      _useState2 = _slicedToArray(_useState, 2),
+      likeState = _useState2[0],
+      setLikeState = _useState2[1];
+
+  var navigate = (0,react_router_dom__WEBPACK_IMPORTED_MODULE_11__.useNavigate)();
+
+  var handleLike = function handleLike(e, id) {
+    (function () {
+      return __awaiter(void 0, void 0, void 0, /*#__PURE__*/_babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default().mark(function _callee() {
+        var resp, _resp;
+
+        return _babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default().wrap(function _callee$(_context) {
+          while (1) {
+            switch (_context.prev = _context.next) {
+              case 0:
+                setLikeState(function (prev) {
+                  return {
+                    count: prev.isLike ? prev.count - 1 : prev.count + 1,
+                    isLike: !prev.isLike
+                  };
+                });
+
+                if (!likeState.isLike) {
+                  _context.next = 7;
+                  break;
+                }
+
+                _context.next = 4;
+                return axios__WEBPACK_IMPORTED_MODULE_7___default()["delete"]("/api/likes", {
+                  data: {
+                    entryId: id
+                  }
+                });
+
+              case 4:
+                resp = _context.sent;
+                _context.next = 10;
+                break;
+
+              case 7:
+                _context.next = 9;
+                return axios__WEBPACK_IMPORTED_MODULE_7___default().post("/api/likes", {
+                  entryId: id
+                });
+
+              case 9:
+                _resp = _context.sent;
+
+              case 10:
+              case "end":
+                return _context.stop();
+            }
+          }
+        }, _callee);
+      }));
+    })();
+  };
 
   var handleComment = function handleComment(id) {
     var element = document.getElementById("toggle-modal-" + id);
@@ -7107,38 +7220,44 @@ var Time = styled_components__WEBPACK_IMPORTED_MODULE_7__["default"].span(_templ
   };
 
   var movieId = generateEmbedUrl(props.words);
-  return /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_6__.jsx)(Post, {
+  (0,react__WEBPACK_IMPORTED_MODULE_8__.useEffect)(function () {
+    setLikeState({
+      count: props.likes,
+      isLike: props.isLike
+    });
+  }, [props.likes, props.isLike]);
+  return /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_9__.jsx)(Post, {
     className: "justify-content-center entry-card",
-    children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_6__.jsxs)("div", {
+    children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_9__.jsxs)("div", {
       className: "container-fluid",
-      children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_6__.jsxs)("div", {
+      children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_9__.jsxs)("div", {
         className: "row flex-nowrap",
-        children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_6__.jsx)(IconColumn, {
+        children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_9__.jsx)(IconColumn, {
           className: "col-2 mt-2",
-          children: props.onDialog ? /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_6__.jsx)(_atoms_CircleIcon__WEBPACK_IMPORTED_MODULE_0__["default"], {
-            imgPath: props.avatar || _img_no_avatar_png__WEBPACK_IMPORTED_MODULE_3__["default"]
-          }) : /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_6__.jsx)(react_router_dom__WEBPACK_IMPORTED_MODULE_9__.Link, {
+          children: props.onDialog ? /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_9__.jsx)(_atoms_CircleIcon__WEBPACK_IMPORTED_MODULE_1__["default"], {
+            imgPath: props.avatar || _img_no_avatar_png__WEBPACK_IMPORTED_MODULE_4__["default"]
+          }) : /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_9__.jsx)(react_router_dom__WEBPACK_IMPORTED_MODULE_12__.Link, {
             to: "/user/" + props.name,
-            children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_6__.jsx)(_atoms_CircleIcon__WEBPACK_IMPORTED_MODULE_0__["default"], {
-              imgPath: props.avatar || _img_no_avatar_png__WEBPACK_IMPORTED_MODULE_3__["default"]
+            children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_9__.jsx)(_atoms_CircleIcon__WEBPACK_IMPORTED_MODULE_1__["default"], {
+              imgPath: props.avatar || _img_no_avatar_png__WEBPACK_IMPORTED_MODULE_4__["default"]
             })
           })
-        }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_6__.jsxs)("div", {
+        }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_9__.jsxs)("div", {
           className: "col-10 flex-grow-1",
-          children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_6__.jsxs)(CardHeader, {
-            children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_6__.jsx)("span", {
+          children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_9__.jsxs)(CardHeader, {
+            children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_9__.jsx)("span", {
               children: props.name
-            }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_6__.jsx)(Time, {
+            }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_9__.jsx)(Time, {
               className: "created-at",
               children: props.created_at
             })]
-          }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_6__.jsx)(Text, {
+          }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_9__.jsx)(Text, {
             children: props.words
-          }), props.images.length > 0 && /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_6__.jsx)(_molecules_PostedImage__WEBPACK_IMPORTED_MODULE_5__["default"], {
+          }), props.images.length > 0 && /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_9__.jsx)(_molecules_PostedImage__WEBPACK_IMPORTED_MODULE_6__["default"], {
             images: props.images
-          }), movieId && /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_6__.jsx)("div", {
+          }), movieId && /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_9__.jsx)("div", {
             className: "d-flex justify-content-center mt-2 mb-2",
-            children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_6__.jsx)("iframe", {
+            children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_9__.jsx)("iframe", {
               width: "560",
               height: "315",
               src: "https://www.youtube.com/embed/" + movieId,
@@ -7149,34 +7268,34 @@ var Time = styled_components__WEBPACK_IMPORTED_MODULE_7__["default"].span(_templ
             })
           })]
         })]
-      }), !props.onDialog && /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_6__.jsx)(react_jsx_runtime__WEBPACK_IMPORTED_MODULE_6__.Fragment, {
-        children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_6__.jsxs)("div", {
+      }), !props.onDialog && /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_9__.jsx)(react_jsx_runtime__WEBPACK_IMPORTED_MODULE_9__.Fragment, {
+        children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_9__.jsxs)("div", {
           className: "row mt-2 mb-2",
-          children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_6__.jsx)("div", {
+          children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_9__.jsx)("div", {
             className: "col d-flex justify-content-center",
-            children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_6__.jsx)("div", {
+            children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_9__.jsx)("div", {
               onClick: function onClick() {
                 return handleComment(props.id);
               },
-              children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_6__.jsx)(_molecules_CommentIcon__WEBPACK_IMPORTED_MODULE_1__["default"], _objectSpread({
+              children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_9__.jsx)(_molecules_CommentIcon__WEBPACK_IMPORTED_MODULE_2__["default"], _objectSpread({
                 count: props.replyCount
               }, props))
             })
-          }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_6__.jsx)("div", {
+          }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_9__.jsx)("div", {
             className: "col d-flex justify-content-center",
-            children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_6__.jsx)(_molecules_Like__WEBPACK_IMPORTED_MODULE_2__["default"], {
-              count: props.likes,
-              icon: props.like ? _fortawesome_free_solid_svg_icons_faHeart__WEBPACK_IMPORTED_MODULE_10__.faHeart : _fortawesome_free_regular_svg_icons_faHeart__WEBPACK_IMPORTED_MODULE_11__.faHeart,
+            children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_9__.jsx)(_molecules_Like__WEBPACK_IMPORTED_MODULE_3__["default"], {
+              count: likeState.count,
+              icon: likeState.isLike ? _fortawesome_free_solid_svg_icons_faHeart__WEBPACK_IMPORTED_MODULE_13__.faHeart : _fortawesome_free_regular_svg_icons_faHeart__WEBPACK_IMPORTED_MODULE_14__.faHeart,
               onClick: function onClick(e) {
-                return props.handleLike(e, props.id);
+                return handleLike(e, props.id);
               },
-              className: props.like ? "liked" : ""
+              className: likeState.isLike ? "liked" : ""
             })
-          }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_6__.jsx)("div", {
+          }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_9__.jsx)("div", {
             className: "col d-flex justify-content-center",
-            children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_6__.jsx)("div", {
+            children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_9__.jsx)("div", {
               onClick: handleClick,
-              children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_6__.jsx)(_molecules_DetailIcon__WEBPACK_IMPORTED_MODULE_4__["default"], {})
+              children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_9__.jsx)(_molecules_DetailIcon__WEBPACK_IMPORTED_MODULE_5__["default"], {})
             })
           })]
         })
@@ -7272,146 +7391,59 @@ var __awaiter = undefined && undefined.__awaiter || function (thisArg, _argument
       entries = _useState2[0],
       setEntries = _useState2[1];
 
-  var handleLike = function handleLike(e, id) {
-    var clickedEntry;
-
-    for (var i = 0; i < entries.length; i++) {
-      var entry = entries[i];
-
-      if (entry.id === id) {
-        clickedEntry = entry;
-        break;
-      }
-    }
-
-    if (!clickedEntry) {
-      return;
-    }
-
+  (0,react__WEBPACK_IMPORTED_MODULE_1__.useEffect)(function () {
     (function () {
       return __awaiter(void 0, void 0, void 0, /*#__PURE__*/_babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default().mark(function _callee() {
-        var resp, _resp;
-
+        var resp, entries;
         return _babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default().wrap(function _callee$(_context) {
           while (1) {
             switch (_context.prev = _context.next) {
               case 0:
-                if (!clickedEntry.like) {
+                if (!(props.name === "")) {
                   _context.next = 6;
                   break;
                 }
 
                 _context.next = 3;
-                return axios__WEBPACK_IMPORTED_MODULE_3___default()["delete"]("/api/likes", {
-                  data: {
-                    entryId: id
-                  }
-                });
+                return axios__WEBPACK_IMPORTED_MODULE_3___default().get("/words");
 
               case 3:
                 resp = _context.sent;
-                _context.next = 9;
+                _context.next = 15;
                 break;
 
               case 6:
-                _context.next = 8;
-                return axios__WEBPACK_IMPORTED_MODULE_3___default().post("/api/likes", {
-                  entryId: id
-                });
+                if (!(props.filter === "like")) {
+                  _context.next = 12;
+                  break;
+                }
 
-              case 8:
-                _resp = _context.sent;
+                _context.next = 9;
+                return axios__WEBPACK_IMPORTED_MODULE_3___default().get("/words/user/".concat(props.name, "/likes"));
 
               case 9:
-                setEntries(function () {
-                  return entries.map(function (entry) {
-                    if (entry.id === id) {
-                      entry.like = !entry.like;
-                      entry.like ? entry.likes++ : entry.likes--;
-                    }
+                resp = _context.sent;
+                _context.next = 15;
+                break;
 
-                    return entry;
-                  });
-                });
+              case 12:
+                _context.next = 14;
+                return axios__WEBPACK_IMPORTED_MODULE_3___default().get("/words/user/".concat(props.name, "/posts"));
 
-              case 10:
+              case 14:
+                resp = _context.sent;
+
+              case 15:
+                entries = resp.data;
+                console.log(entries);
+                setEntries(entries);
+
+              case 18:
               case "end":
                 return _context.stop();
             }
           }
         }, _callee);
-      }));
-    })();
-  }; // const handleComment = (id: number) => {
-  //   console.log("handlecomment " + id);
-  //   const element = document.getElementById("toggle-modal-" + id);
-  //   element?.click();
-  // }
-
-
-  (0,react__WEBPACK_IMPORTED_MODULE_1__.useEffect)(function () {
-    (function () {
-      return __awaiter(void 0, void 0, void 0, /*#__PURE__*/_babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default().mark(function _callee2() {
-        var resp, respLikes, _likes, _entries, mapped;
-
-        return _babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default().wrap(function _callee2$(_context2) {
-          while (1) {
-            switch (_context2.prev = _context2.next) {
-              case 0:
-                if (!(props.name === "")) {
-                  _context2.next = 6;
-                  break;
-                }
-
-                _context2.next = 3;
-                return axios__WEBPACK_IMPORTED_MODULE_3___default().get("/words");
-
-              case 3:
-                resp = _context2.sent;
-                _context2.next = 15;
-                break;
-
-              case 6:
-                if (!(props.filter === "like")) {
-                  _context2.next = 12;
-                  break;
-                }
-
-                _context2.next = 9;
-                return axios__WEBPACK_IMPORTED_MODULE_3___default().get("/words/user/".concat(props.name, "/likes"));
-
-              case 9:
-                resp = _context2.sent;
-                _context2.next = 15;
-                break;
-
-              case 12:
-                _context2.next = 14;
-                return axios__WEBPACK_IMPORTED_MODULE_3___default().get("/words/user/".concat(props.name, "/posts"));
-
-              case 14:
-                resp = _context2.sent;
-
-              case 15:
-                _context2.next = 17;
-                return axios__WEBPACK_IMPORTED_MODULE_3___default().get("/likes");
-
-              case 17:
-                respLikes = _context2.sent;
-                _likes = respLikes.data;
-                _entries = resp.data;
-                mapped = _entries.map(function (entry) {
-                  entry.like = _likes.indexOf(entry.id) > -1 ? true : false;
-                  return entry;
-                });
-                setEntries(mapped);
-
-              case 22:
-              case "end":
-                return _context2.stop();
-            }
-          }
-        }, _callee2);
       }));
     })();
   }, [props.name, props.filter]);
@@ -7426,10 +7458,8 @@ var __awaiter = undefined && undefined.__awaiter || function (thisArg, _argument
           avatar: entry.avatar,
           words: entry.words,
           images: entry.images,
-          like: entry.like,
+          isLike: entry.isLike,
           likes: entry.likes,
-          handleLike: handleLike // handleComment={handleComment}
-          ,
           replyCount: entry.replyCount,
           onDialog: false
         }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_5__.jsx)(_CommentDialog__WEBPACK_IMPORTED_MODULE_4__["default"], _objectSpread({}, entry))]
@@ -7578,7 +7608,7 @@ var __awaiter = undefined && undefined.__awaiter || function (thisArg, _argument
     name: "",
     avatar: "",
     created_at: "",
-    like: false,
+    isLike: false,
     likes: 0,
     words: "",
     replyCount: 0,
@@ -7608,11 +7638,12 @@ var __awaiter = undefined && undefined.__awaiter || function (thisArg, _argument
                 resp = _context.sent.data;
                 entry = resp.entries[0];
                 replies = resp.replies;
+                console.log(entry);
                 console.log(replies);
                 setEntry(Object.assign({}, entry));
                 setReplies(_toConsumableArray(replies));
 
-              case 8:
+              case 9:
               case "end":
                 return _context.stop();
             }
@@ -7630,15 +7661,13 @@ var __awaiter = undefined && undefined.__awaiter || function (thisArg, _argument
           id: entry.id,
           avatar: entry.avatar,
           created_at: entry.created_at,
-          like: entry.like,
+          isLike: entry.isLike,
           likes: entry.likes,
           name: entry.name,
           images: entry.images,
           replyCount: entry.replyCount,
           words: entry.words,
-          onDialog: false,
-          handleComment: null,
-          handleLike: null
+          onDialog: false
         }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_5__.jsx)(_organisms_CommentDialog__WEBPACK_IMPORTED_MODULE_4__["default"], _objectSpread({}, entry))]
       })
     }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_5__.jsx)("div", {
@@ -7651,15 +7680,13 @@ var __awaiter = undefined && undefined.__awaiter || function (thisArg, _argument
               id: reply.id,
               avatar: reply.avatar,
               created_at: reply.created_at,
-              like: reply.like,
+              isLike: reply.isLike,
               likes: reply.likes,
               name: reply.name,
               images: reply.images,
               replyCount: reply.replyCount,
               words: reply.words,
-              onDialog: false,
-              handleComment: null,
-              handleLike: null
+              onDialog: false
             }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_5__.jsx)(_organisms_CommentDialog__WEBPACK_IMPORTED_MODULE_4__["default"], _objectSpread({}, reply))]
           }, index);
         })
