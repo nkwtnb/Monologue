@@ -24,7 +24,6 @@ interface LikeState {
 
 const Post = styled.div`
 border: 1px solid #ddd;
-margin-top: 2px;
 `;
 
 const CardHeader = styled.div`

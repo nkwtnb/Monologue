@@ -23,7 +23,7 @@ export default () => {
 
   useLayoutEffect(() => {
     (async () => {
-      const resp = (await axios.get("/words/post/" + postId)).data;
+      const resp = (await axios.get("/api/words/post/" + postId)).data;
       const entry: Entry = resp.entries[0];
       const replies: Entry[] = resp.replies;
       setEntry({...entry});
@@ -33,7 +33,7 @@ export default () => {
 
   return (
     <>
-      <div className='row'>
+      <div className='row mb-1'>
         <div className='offset-md-2 col-md-8'>
           <Post
             id={entry!.id}
@@ -54,7 +54,7 @@ export default () => {
         <div className='offset-md-2 col-md-8'>
           {
             replies.map((reply: Entry, index) => (
-                <div key={index}>
+                <div className='mb-1' key={index}>
                   <Post
                   id={reply.id}
                   avatar={reply!.avatar}

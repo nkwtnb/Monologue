@@ -18,7 +18,7 @@ import { useParams } from 'react-router-dom';
  * @returns 
  */
 const postUserInfo = async (param: userApi.Type) => {
-  return await axios.put("api/user", param);
+  return await axios.put("/api/user", param);
 }
 
 const FileUploader = styled.span`
@@ -52,6 +52,7 @@ export default () => {
         "name": userInfo.name,  
         "email": userInfo.email,
         "avatar": filePath ? filePath : userInfo.avatar,
+        "message": userInfo.message,
       });
       window.location.reload();
     } catch(e: any) {
@@ -81,11 +82,7 @@ export default () => {
     return resp.data;
   }
 
-  const handleChange = (e: React.ChangeEvent<HTMLInputElement>, target: string) => {
-    if (target !== "avatar") {
-      setUserInfo({ ...userInfo, [target]: e.target.value });
-      return;
-    }
+  const handleUploadChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     const file = e.target!.files![0];
     if(!file) {
       return;
@@ -106,12 +103,18 @@ export default () => {
       )
     }
     reader.readAsDataURL(file);
+  }
+  
+  const handleChange = (e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement>, target: string) => {
+    setUserInfo({ ...userInfo, [target]: e.target.value });
+    return;
   };
 
   const triggerUpload = () => {
     document.getElementById("avatar")?.click();
   }
 
+  console.log(userInfo);
   return (
     <>
       <div className='row justify-content-center'>
@@ -129,23 +132,25 @@ export default () => {
                   <FileUploader className="file-upload btn btn-info" onClick={triggerUpload} >参照</FileUploader>
                   <FileUploaderLabel>png,jpeg,jpg,gif形式（100KBまで）</FileUploaderLabel>
                   <div className='file-upload-wrapper' hidden>
-                    <input type="file" id="avatar" accept=".png, .jpeg, .jpg, .gif" onChange={((e) => handleChange(e, "avatar"))}></input>
+                    <input type="file" id="avatar" accept=".png, .jpeg, .jpg, .gif" onChange={((e) => handleUploadChange(e))}></input>
                   </div>
                 </a>
               </div>
             </div>
             <div className='mt-3 row justify-content-center align-items-end'>
-              <div className='col-md-4'>
-                ユーザー名
-              </div>
+              <div className='col-md-4'>ユーザー名</div>
               <div className='col-md-4'>
                 <input className="w-100 form-control" type="text" value={userInfo.name} onChange={((e) => handleChange(e, "name"))}></input>
               </div>
             </div>
             <div className='mt-3 row justify-content-center align-items-end'>
+              <div className='col-md-4'>一言メッセージ</div>
               <div className='col-md-4'>
-                メールアドレス
+                <textarea className="w-100 form-control" value={userInfo.message} onChange={((e) => handleChange(e, "message"))} />
               </div>
+            </div>
+            <div className='mt-3 row justify-content-center align-items-end'>
+              <div className='col-md-4'>メールアドレス</div>
               <div className='col-md-4'>
                 <input className="w-100 form-control" type="text" value={userInfo.email} onChange={((e) => handleChange(e, "email"))}></input>
               </div>

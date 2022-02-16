@@ -21,6 +21,7 @@ class User extends Authenticatable
         'name',
         'email',
         'avatar',
+        'messgae',
         'password',
     ];
 
@@ -47,6 +48,7 @@ class User extends Authenticatable
         'name',
         'email',
         'avatar',
+        'message',
     ];
 
     /**

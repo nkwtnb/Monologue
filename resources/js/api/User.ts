@@ -4,6 +4,7 @@ export interface Type {
   name: string,
   email: string,
   avatar?: string | ArrayBuffer | null,
+  message?: string,
   imgFile?: Blob | string | null,
 }
 
@@ -11,23 +12,11 @@ export const INITIAL_STATE: Type = {
   name: "",
   email: "",
   avatar: "",
+  message: "",
   imgFile: ""
 }
 
-// export const get = async (): Promise<Type | undefined> => {
-//   try {
-//     const userInfo = await axios.get("api/user");
-//     if (userInfo.data) {
-//       return userInfo.data;
-//     } else {
-//       return INITIAL_STATE;
-//     }
-//   } catch (error) {
-//     console.log(error);
-//   }
-// }
-
-export const getAuthencatedUser = async (): Promise<Type> => {
-    const userInfo = await axios.get("/authencatedUser");
+export const getAuthenticatedUser = async (): Promise<Type> => {
+    const userInfo = await axios.get("/api/authenticatedUser");
     return userInfo.data;
 }

@@ -20,7 +20,7 @@ use Illuminate\Support\Facades\Route;
 
 Route::group(['middleware' => ['auth:sanctum']], function() {
     // ユーザー情報
-    Route::get("/user", [UserController::class, "get"]);
+    Route::get("/user/{name}", [UserController::class, "getUserByName"]);
     Route::put("/user", [UserController::class, "put"]);
     // 投稿
     Route::post("/words", [WordController::class, "post"]);

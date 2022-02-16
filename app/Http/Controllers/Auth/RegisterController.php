@@ -76,6 +76,6 @@ class RegisterController extends Controller
 
     public function callRegister(Request $request) {
         $this->register($request);
-        return UserController::get($request);
+        return UserController::getAuthenticatedUser($request);
     }
 }

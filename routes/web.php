@@ -21,17 +21,20 @@ use Illuminate\Support\Facades\Route;
 |
 */
 
+Route::prefix("api")->group(function() {
+  Route::get("/user/{name}", [UserController::class, "getUserByName"]);
+
+  Route::get("/words/user/{name}/posts", [WordController::class, "getWordsByUser"]);
+  Route::get("/words/user/{name}/likes", [WordController::class, "getWordsByUserLikes"]);
+  Route::get("/words/post/{postId}", [WordController::class, "getWordsByPostId"]);
+  Route::get("/words", [WordController::class, "get"]);
+  
+  // Route::get("/likes", [LikeController::class, "get"]);
+  
+  Route::get("/authenticatedUser", [UserController::class, "getAuthenticatedUser"]);
+});
+
 Route::get("/upfiles/{fileName}", [FileController::class, "get"])->where("fileName", ".*");
-
-Route::get("/words/user/{name}/posts", [WordController::class, "getWordsByUser"]);
-Route::get("/words/user/{name}/likes", [WordController::class, "getWordsByUserLikes"]);
-Route::get("/words/post/{postId}", [WordController::class, "getWordsByPostId"]);
-Route::get("/words", [WordController::class, "get"]);
-
-Route::get("/likes", [LikeController::class, "get"]);
-
-Route::get("/authencatedUser", [UserController::class, "get"]);
-
 Route::post('/register', [RegisterController::class, 'callRegister'])->name('register');
 Route::post('/login', [LoginController::class, 'loginTest'])->name('login');
 Route::post('/logout', [LoginController::class, 'logout'])->name('logout');

@@ -19,14 +19,14 @@ export default (props: Props): JSX.Element => {
       // 全投稿取得
       let resp;
       if (props.name === "") {
-        resp = await axios.get(`/words`);
+        resp = await axios.get(`/api/words`);
       } else {
         // 対象ユーザーのいいね
         if (props.filter === "like") {
-          resp = await axios.get(`/words/user/${props.name}/likes`);
+          resp = await axios.get(`/api/words/user/${props.name}/likes`);
         // 対象ユーザーの全投稿
         } else {
-          resp = await axios.get(`/words/user/${props.name}/posts`);
+          resp = await axios.get(`/api/words/user/${props.name}/posts`);
         }
       }
       const entries = resp.data;
@@ -40,7 +40,7 @@ export default (props: Props): JSX.Element => {
       {
         entries.map((entry: Entry, index) => {
           return (
-            <div className='px-0' key={index}>
+            <div className='px-0 mb-1' key={index}>
               <Post
                 id={entry.id}
                 name={entry.name}

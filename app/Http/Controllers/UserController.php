@@ -11,12 +11,22 @@ use Illuminate\Validation\Rule as ValidationRule;
 
 class UserController extends Controller
 {
-    public static function get(Request $request) {
+    public static function getAuthenticatedUser(Request $request) {
         if (Auth::check()) {
             return User::find(Auth::id());
         } else {
             return User::getDefaultValue();
         }
+    }
+
+    public function getUserByName(Request $request, $name) {
+        $user = User::where("name", $name)->first();
+        return $user;
+        // if (Auth::check()) {
+        //     return User::find(Auth::id());
+        // } else {
+        //     return User::getDefaultValue();
+        // }
     }
 
     public function put(Request $request) {
@@ -25,6 +35,7 @@ class UserController extends Controller
         $user->name = $request->name;
         $user->email = $request->email;
         $user->avatar = $request->avatar;
+        $user->message = $request->message;
         
         $user->save();
         return $user;

@@ -1,6 +1,7 @@
 import ReactDOM from "react-dom";
 import React from "react";
 import { BrowserRouter, Route, Routes } from "react-router-dom";
+import "../css/app.css";
 
 // Components
 import Frame from "./components/templates/Frame";
@@ -14,7 +15,7 @@ import UserPosts from "./components/pages/UserPosts";
 import PostInfo from "./components/pages/PostInfo";
 
 (async () => {
-  const authenticatedUser = await userApi.getAuthencatedUser();
+  const authenticatedUser = await userApi.getAuthenticatedUser();
 
   ReactDOM.render(
     <Context user={authenticatedUser}>

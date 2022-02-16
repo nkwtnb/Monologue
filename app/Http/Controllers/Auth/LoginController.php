@@ -42,6 +42,6 @@ class LoginController extends Controller
 
     public function loginTest(Request $request) {
         $this->login($request);
-        return UserController::get($request);
+        return UserController::getAuthenticatedUser($request);
     }
 }

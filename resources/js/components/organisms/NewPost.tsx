@@ -29,7 +29,7 @@ interface Props {
 }
 
 const postMessage = async (param: PostMessgae) => {
-  const resp = await axios.post("api/words", param);
+  const resp = await axios.post("/api/words", param);
   return resp;
 }
 
@@ -87,7 +87,7 @@ const uploadFiles = async (files: SelectedImage[], _index?: number, _uploaded?: 
   console.log(file);
   form.append('upload_file', file.file);
   const settings = { headers: { 'content-type': 'multipart/form-data' } }
-  const resp = await axios.post("api/file/upload",
+  const resp = await axios.post("/api/file/upload",
     form,
     settings
   );
@@ -172,7 +172,7 @@ export default (props: Props) => {
 
   return (
     <>
-      <div className='mt-2 mb-2'>
+      <div className='mt-2 mb-1'>
         <label >ひとりごとをつぶやく…</label>
         <NewPostArea>
           <div className='row justify-content-center mb-2'>

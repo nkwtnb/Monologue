@@ -6,3 +6,19 @@
 .liked > path {
   transition: fill 1s linear;
 }
+
+.user-profile-tab {
+  position: relative;
+  height: 40px;
+  line-height: 40px;
+  text-decoration: none;
+  font-weight: bold;
+}
+.user-profile-tab.active::before {
+  content: "";
+  border-bottom: 3px solid;
+  position: absolute;
+  width: 120px;
+  bottom: 0px;
+  left: calc(50% - 60px)
+}
