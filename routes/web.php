@@ -29,8 +29,6 @@ Route::prefix("api")->group(function() {
   Route::get("/words/post/{postId}", [WordController::class, "getWordsByPostId"]);
   Route::get("/words", [WordController::class, "get"]);
   
-  // Route::get("/likes", [LikeController::class, "get"]);
-  
   Route::get("/authenticatedUser", [UserController::class, "getAuthenticatedUser"]);
 });
 

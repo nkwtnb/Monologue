@@ -9,7 +9,7 @@ import { faHeart as solidHeart } from "@fortawesome/free-solid-svg-icons/faHeart
 import { Entry } from "@interface/Entry";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import DetailIcon from "../molecules/DetailIcon";
-import PostedImage from "../molecules/PostedImage";
+import PostedImageArea from "../molecules/PostedImageArea";
 import axios from "axios";
 import { useEffect, useState } from "react";
 
@@ -144,7 +144,7 @@ export default (props: Entry & Props) => {
             </Text>
             {
               (props.images.length > 0) &&
-              <PostedImage images={props.images} />
+              <PostedImageArea images={props.images} />
             }
             {
               movieId && 

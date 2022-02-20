@@ -103,6 +103,7 @@ const uploadFiles = async (files: SelectedImage[], _index?: number, _uploaded?: 
 
 export default (props: Props) => {
   const [contents, setContents] = useState("");
+  const [errorMessages, setErrorMessages] = useState<string[]>([]);
   const [uploads, setUploads] = useState<SelectedImage[]>([]);
   const generateEmbedUrl = (words: string) => {
     const reg = new RegExp("\bhttps:\\/\\/www\\.youtube\\.com\\/watch\\?v=.*\b","gi");
@@ -114,6 +115,20 @@ export default (props: Props) => {
   const handleChange = (e: any) => {
     generateEmbedUrl(e.target.value);
     setContents(e.target.value);
+    setErrorMessages([]);
+
+    (async () => {
+      const url = "https://qiita.com/ksyunnnn/items/bfe2b9c568e97bb6b494";
+      const resp: any = await fetch(url);
+      const text: string = resp.text();
+      const el = new DOMParser().parseFromString(text, "text/html")
+      const headEls = (el.head.children)
+      Array.from(headEls).map(v => {
+          const prop = v.getAttribute('property')
+          if (!prop) return;
+          console.log(prop, v.getAttribute("content"))
+      })
+    })();
   }
 
   const handleClick = () => {
@@ -121,17 +136,31 @@ export default (props: Props) => {
       return;
     }
     (async () => {
-      let uploadedFilePaths: string[] = [];
-      if (uploads.length > 0) {
-        uploadedFilePaths = await uploadFiles(uploads);
+      try {
+        let uploadedFilePaths: string[] = [];
+        if (uploads.length > 0) {
+          uploadedFilePaths = await uploadFiles(uploads);
+        }
+        const param: PostMessgae = {
+          "words": contents,
+          "reply_to": props.replyTo,
+          "images": uploadedFilePaths
+        };
+        const resp = await postMessage(param);
+        window.location.reload();
+      } catch(error: any) {
+        const errors = error.response.data.errors;
+        const messages: string[] = [];
+        for(let key in errors) {
+          errors[key].forEach((message: string) => {
+            console.log(message);
+            messages.push(message);
+          });
+        }
+        if (messages.length > 0) {
+          setErrorMessages(messages);
+        }
       }
-      const param: PostMessgae = {
-        "words": contents,
-        "reply_to": props.replyTo,
-        "images": uploadedFilePaths
-      };
-      const resp = await postMessage(param);
-      window.location.reload();
     })();
   }
 
@@ -146,8 +175,9 @@ export default (props: Props) => {
     if(!file) {
       return;
     }
+    setErrorMessages([]);
     if (file.size > LIMIT.SIZE) {
-      alert("サイズ上限を超えています。");
+      setErrorMessages(["サイズ上限を超えています。"]);
       return;
     }
     const reader = new FileReader();
@@ -203,6 +233,22 @@ export default (props: Props) => {
                 <input type="file" className="uploader" hidden onClick={handleUploadClick} onChange={handleUploadChange}></input>
               </FaWrapper>
             </div>
+            {
+              errorMessages.length > 0 &&
+              <div className='row align-items-center'>
+                <div className='col d-flex justify-content-start'>
+                  <div className="w-100 alert alert-danger" role="alert">
+                    <ul>
+                    {
+                      errorMessages.map(message => (
+                        <li>{message}</li>
+                      ))
+                    }
+                    </ul>
+                  </div>
+                </div>
+              </div>
+            }
             <div className='col d-flex justify-content-end'>
               <div className='ml-auto mt-1 mb-2'>
                 <Button className="btn btn-primary" onClick={handleClick}>つぶやく</Button>

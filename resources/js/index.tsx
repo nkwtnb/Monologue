@@ -13,6 +13,7 @@ import Context from "./Context";
 import ProfileFrame from "./components/templates/ProfileFrame";
 import UserPosts from "./components/pages/UserPosts";
 import PostInfo from "./components/pages/PostInfo";
+import MediaList from "./components/pages/MediaList";
 
 (async () => {
   const authenticatedUser = await userApi.getAuthenticatedUser();
@@ -27,6 +28,7 @@ import PostInfo from "./components/pages/PostInfo";
             <Route path="user/:name" element={<ProfileFrame />}>
               <Route index element={<UserPosts filter="post"/>}/>
               <Route path="like" element={<UserPosts filter="like"/>}/>
+              <Route path="media" element={<MediaList filter="media"/>}/>
             </Route>
             <Route path="/settings" element={<User />} />
             <Route path="/register" element={<Welcome isRegister={true} />} />

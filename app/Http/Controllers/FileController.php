@@ -49,7 +49,6 @@ class FileController extends Controller
     public static function uploadFromController(Request $request, $base64) {
         $basePath = base_path("public/storage/upfiles");
         $data = preg_replace('#data:image/[^;]+;base64,#', '' , $base64);
-        logger("upload : " . $data);
         $image = base64_decode($data);
         $ret = file_put_contents($basePath. "/testaaa.png", $image);
         return $ret;

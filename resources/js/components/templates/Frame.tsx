@@ -9,6 +9,7 @@ background-color: #4d4b4b;
 position: fixed;
 height: 70px;
 top: 0;
+z-index: 100;
 `;
 
 const Main = styled.div`

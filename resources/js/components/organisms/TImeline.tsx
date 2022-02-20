@@ -7,7 +7,7 @@ import { Entry } from "@interface/Entry";
 
 interface Props {
   name: string | undefined;
-  filter: "post" | "like";
+  filter: "post" | "like" | "media";
 }
 
 export default (props: Props): JSX.Element => {
@@ -38,25 +38,29 @@ export default (props: Props): JSX.Element => {
   return (
     <>
       {
-        entries.map((entry: Entry, index) => {
-          return (
-            <div className='px-0 mb-1' key={index}>
-              <Post
-                id={entry.id}
-                name={entry.name}
-                created_at={entry.created_at}
-                avatar={entry.avatar}
-                words={entry.words}
-                images={entry.images}
-                isLike={entry.isLike}
-                likes={entry.likes}
-                replyCount={entry.replyCount}
-                onDialog={false}
-              />
-              <CommentDialog {...entry}/>
-            </div>
-          )
-        })
+        entries.length === 0
+        ?
+          <div>対象の投稿がありません</div>
+        :
+          entries.map((entry: Entry, index) => {
+            return (
+              <div className='px-0 mb-1' key={index}>
+                <Post
+                  id={entry.id}
+                  name={entry.name}
+                  created_at={entry.created_at}
+                  avatar={entry.avatar}
+                  words={entry.words}
+                  images={entry.images}
+                  isLike={entry.isLike}
+                  likes={entry.likes}
+                  replyCount={entry.replyCount}
+                  onDialog={false}
+                />
+                <CommentDialog {...entry}/>
+              </div>
+            )
+          })
       }
     </>
   );

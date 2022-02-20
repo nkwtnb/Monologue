@@ -14,7 +14,10 @@ class Word extends Model
     const FILTER_TYPE_NAME = 0;
     const FILTER_TYPE_POST_ID = 1;
     const FILTER_TYPE_REPLIES = 2;
-    
+
+    const MAX_WORDS_LEN = 100;
+    const MAX_IMAGES_COUNT = 4;
+
     protected $fillable = [
         "user_id",
         "words",
@@ -52,7 +55,6 @@ class Word extends Model
             $images = [];
             for($i=1; $i<=$MAX_COLUMN; $i++) {
                 if ($entries[$entryIndex]->{"image_$i"} !== NULL) {
-                    logger($entries[$entryIndex]->{"image_$i"});
                     $images[] = $entries[$entryIndex]->{"image_$i"};
                 }
             }
@@ -172,7 +174,6 @@ class Word extends Model
             ";
         // ユーザー名絞り込みの場合
         } else if ($filterType === Word::FILTER_TYPE_NAME) {
-            logger("posts");
             $query .= 
             "where
                 b.name = :filterValue
@@ -181,13 +182,11 @@ class Word extends Model
             ";
         // 投稿ID絞り込みの場合
         } else if($filterType === Word::FILTER_TYPE_POST_ID) {
-            logger("ぽすとID");
             $query .= 
             "where
                 a.id = :filterValue
             ";
         } else if($filterType === Word::FILTER_TYPE_REPLIES) {
-            logger("リプライ");
             $query .= 
             "where
                 a.reply_to = :filterValue

@@ -32,11 +32,14 @@ export default (props: any) => {
             <UserProfile user={user} />
           </div>
           <div className="row mb-1">
-            <Header className="col-6 d-flex justify-content-center">
+            <Header className="col-4 d-flex justify-content-center">
               <NavLink className={"w-100 user-profile-tab"} end to="." style={{textAlign: "center"}}>投稿</NavLink>
             </Header>
-            <Header className="col-6 d-flex justify-content-center">
+            <Header className="col-4 d-flex justify-content-center">
               <NavLink className={"w-100 user-profile-tab"} to="./like" style={{textAlign: "center"}}>いいね</NavLink>
+            </Header>
+            <Header className="col-4 d-flex justify-content-center">
+              <NavLink className={"w-100 user-profile-tab"} to="./media" style={{textAlign: "center"}}>メディア</NavLink>
             </Header>
           </div>
           <div className="row mb-1">

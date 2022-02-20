@@ -3,7 +3,7 @@ import TImeline from '../organisms/TImeline';
 import { useParams } from 'react-router-dom';
 
 interface Props {
-  filter: "post" | "like";
+  filter: "post" | "like" | "media";
 }
 
 export default (props: Props) => {

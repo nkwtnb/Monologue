@@ -10,7 +10,7 @@ import { useEffect } from 'react';
 import styled from 'styled-components';
 import { AuthContext } from "../../Context";
 import * as userApi from "../../api/User";
-import { useParams } from 'react-router-dom';
+import { Navigate, useNavigate, useParams } from 'react-router-dom';
 
 /**
  * ユーザー情報更新
@@ -36,7 +36,7 @@ white-space: nowrap;
 `;
 
 export default () => {
-
+  const navigate = useNavigate();
   const { name } = useParams();
   const { authState, setAuthState } = useContext(AuthContext);
   const [userInfo, setUserInfo] = useState<userApi.Type>(authState)
@@ -114,7 +114,11 @@ export default () => {
     document.getElementById("avatar")?.click();
   }
 
-  console.log(userInfo);
+  // ログイン済みの場合、リダイレクト
+  if (!authState.name) {
+    return <Navigate to={"/"} />;
+  }
+
   return (
     <>
       <div className='row justify-content-center'>

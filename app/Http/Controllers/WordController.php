@@ -40,6 +40,17 @@ class WordController extends Controller
 
     public function post(Request $request)
     {
+        $request->validate([
+            'words' => 'required|max:100',
+            'images' => [
+                function($attribute, $value, $fail) {
+                    if (count($value) > Word::MAX_IMAGES_COUNT) {
+                        return $fail("画像は4つまでアップロード可能です。");
+                    }
+                }
+            ]
+        ]);
+        
         $param = [
             "user_id" => Auth::id(),
             "words" => $request->words,
@@ -55,7 +66,6 @@ class WordController extends Controller
      * 各投稿に対して、ログインユーザーのいいね状態を設定
      */
     private function setLikeState($entries) {
-        logger("set Like State");
         // 未ログインの場合は[いいね]状態を設定せず終了
         if (!Auth::check()) {
             return $entries;
@@ -68,7 +78,6 @@ class WordController extends Controller
                 $entry->isLike = false;
             }
         }
-        logger($entries);
         return $entries;
     }
 }
