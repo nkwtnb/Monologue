@@ -12,6 +12,9 @@ import DetailIcon from "../molecules/DetailIcon";
 import PostedImageArea from "../molecules/PostedImageArea";
 import axios from "axios";
 import { useEffect, useState } from "react";
+import LinkCard from "../molecules/LinkCard";
+import { render } from "react-dom";
+import { makePathForImage } from "@api/Resources";
 
 interface Props {
   onDialog: boolean;
@@ -20,6 +23,13 @@ interface Props {
 interface LikeState {
   count: number;
   isLike: boolean
+}
+
+interface LinkCardState {
+  title: string;
+  description: string;
+  thumbnail: string;
+  url: string;
 }
 
 const Post = styled.div`
@@ -53,6 +63,12 @@ color: #262323;
 `;
 
 export default (props: Entry & Props) => {
+  const [linkCard, setLinkCard] = useState<LinkCardState>({
+    title: "",
+    description: "",
+    thumbnail: "",
+    url: ""
+  });
   const [likeState, setLikeState] = useState<LikeState>({
     count: 0,
     isLike: false 
@@ -106,9 +122,52 @@ export default (props: Entry & Props) => {
     return movieId;
   }
 
-  const movieId = generateEmbedUrl(props.words);
+  const getOgp = async (words: string) => {
+    const getUrl = (value: string) => {
+      // const reg = new RegExp(/\bhttps:\/\/.*\b/,"gi");
+      const reg = new RegExp(/(https:\/\/\S+)/ig);
+      
+      const results = reg.exec(value);
+      if (!results) {
+        return [];
+      }
+      return results;
+    }
+    const matchUrl = getUrl(words);
+    const url = matchUrl[0];
+    if (url) {
+      setLinkCard({
+        title: props.ogp_title,
+        description: props.ogp_description,
+        thumbnail: makePathForImage(props.ogp_image, "ogp"),
+        url: url,
+      });
+    } else {
+      setLinkCard({
+        title: "",
+        description: "",
+        thumbnail: "",
+        url: "",
+      });
+    }
+    return;
+  }
+
+  const renderWords = (value: string) => {
+    const strings: any[] = props.words.split(/(https:\/\/\S+)/ig);
+    // URL文字列で区切り、[URL前の文字][URL][URL後の文字]に分割される為、
+    // index=1からスタートし、2ずつ加算
+    for (let i=1; i<strings.length; i+=2) {
+      strings[i] = <a href={strings[i]} target="_blank">{strings[i]}</a>;
+    }
+    return strings;
+  }
+  // const movieId = generateEmbedUrl(props.words);
 
   useEffect(() => {
+    (async () => {
+      const url = getOgp(props.words);
+    })();
     setLikeState({
       count: props.likes,
       isLike: props.isLike
@@ -123,10 +182,10 @@ export default (props: Entry & Props) => {
             {
               props.onDialog
               ?
-              <CircleIcon imgPath={props.avatar || noAvatar} />
+              <CircleIcon image={makePathForImage(props.avatar, "upfiles") || noAvatar} />
               :
               <Link to={"/user/" + props.name}>
-                <CircleIcon imgPath={props.avatar || noAvatar} />
+                <CircleIcon image={makePathForImage(props.avatar, "upfiles") || noAvatar} />
               </Link>
             }
           </IconColumn>
@@ -140,18 +199,28 @@ export default (props: Entry & Props) => {
               </Time>
             </CardHeader>
             <Text>
-              {props.words}
+              {
+                renderWords(props.words).map((element, index) => (
+                  <div key={index}>{element}</div>
+                ))
+              }
             </Text>
             {
-              (props.images.length > 0) &&
-              <PostedImageArea images={props.images} />
+              (props.images.length > 0)
+              ? <PostedImageArea images={props.images} />
+              : <></>
             }
-            {
+            {/* {
               movieId && 
               <div className="d-flex justify-content-center mt-2 mb-2">
                 <iframe width="560" height="315" src={"https://www.youtube.com/embed/" + movieId} title="YouTube video player" frameBorder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowFullScreen>
                 </iframe>
               </div>
+            } */}
+            {
+              linkCard.title 
+              ? <LinkCard title={linkCard.title} description={linkCard.description} thumbnail={linkCard.thumbnail} url={linkCard.url}/>
+              : <></>
             }
           </div>
         </div>

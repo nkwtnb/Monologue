@@ -1,9 +1,12 @@
 import axios from "axios";
+import { makePathForImage } from "./Resources";
+import noAvatar from "@img/no_avatar.png";
 
 export interface Type {
   name: string,
   email: string,
-  avatar?: string | ArrayBuffer | null,
+  // avatar?: string | ArrayBuffer | null,
+  avatar?: string | null,
   message?: string,
   imgFile?: Blob | string | null,
 }
@@ -17,6 +20,7 @@ export const INITIAL_STATE: Type = {
 }
 
 export const getAuthenticatedUser = async (): Promise<Type> => {
-    const userInfo = await axios.get("/api/authenticatedUser");
-    return userInfo.data;
+    const userInfo: Type = (await axios.get("/api/authenticatedUser")).data;
+    console.log(userInfo);
+    return userInfo;
 }

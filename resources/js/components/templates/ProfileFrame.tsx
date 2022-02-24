@@ -4,6 +4,9 @@ import { Outlet, NavLink, useParams } from 'react-router-dom';
 import styled from 'styled-components';
 import { User } from '@interface/User';
 import UserProfile from '../organisms/UserProfile';
+// import { NoAvatar } from "@img/no_avatar"; 
+import noAvatar from "@img/no_avatar.png";
+import { makePathForImage } from '@api/Resources';
 
 const Header = styled.span`
   border: 1px solid #ddd;
@@ -15,12 +18,20 @@ const Header = styled.span`
 export default (props: any) => {
   const [isDone, setIsDone] = useState(true);
   const { name } = useParams();
-  const [user, setUser] = useState<User>();
+  const [user, setUser] = useState<User>({
+    email: "",
+    message: "",
+    name: "",
+    avatar: noAvatar
+  });
 
   useEffect(() => {
     (async () => {
       const resp: User = (await axios.get("/api/user/" + name)).data;
-      setUser(resp);
+      setUser({
+        ...resp,
+        avatar: resp.avatar ? makePathForImage(resp.avatar, "upfiles") : noAvatar
+      });
     })();
   }, [name]);
 

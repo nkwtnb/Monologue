@@ -1,3 +1,4 @@
+import { makePathForImage } from "@api/Resources";
 import styled, { css } from "styled-components";
 
 const SIZE = {
@@ -53,8 +54,10 @@ export default (props: any) => {
     const url = imageUrl;
     window.open(url, '_blank')
   }
+  const imagePath = makePathForImage(props.image, "upfiles");
+
   return (
-    <Image radius={props.radius} image={props.image} widthTimes={props.widthTimes} heightTimes={props.heightTimes} onClick={(() => handleClick(props.image))}
+    <Image radius={props.radius} image={imagePath} widthTimes={props.widthTimes} heightTimes={props.heightTimes} onClick={(() => handleClick(imagePath))}
     />
   )
 }

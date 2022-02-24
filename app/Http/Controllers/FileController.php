@@ -9,8 +9,8 @@ use Illuminate\Support\Facades\Response;
 
 class FileController extends Controller
 {
-    public function get(Request $request, $fileName) {
-        $path = storage_path('app/public/upfiles/' . $fileName);
+    public function get(Request $request, $type, $fileName) {
+        $path = storage_path('app/public/' . $type . "/" . $fileName);
         if (!File::exists($path)) {
             abort(404);
         }
@@ -42,8 +42,8 @@ class FileController extends Controller
         $basePath = "public/upfiles";
         $filePath = $file->store($basePath);
         $fileName = substr($filePath, strlen($basePath) + 1);
-        $downloadPath = $request->getUriForPath('') . "/upfiles/" . $fileName;
-        return $downloadPath;
+        // $downloadPath = $request->getUriForPath('') . "/upfiles/" . $fileName;
+        return $fileName;
     }
 
     public static function uploadFromController(Request $request, $base64) {

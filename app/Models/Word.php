@@ -72,6 +72,9 @@ class Word extends Model
             b.avatar,
             a.id,
             a.words,
+            ogp.ogp_title,
+            ogp.ogp_description,
+            ogp.ogp_image,
             a.image_1,
             a.image_2,
             a.image_3,
@@ -108,6 +111,16 @@ class Word extends Model
                 l.entry_id
         ) c ON a.id = c.entry_id
         left join (
+            SELECT
+                ogp_title,
+                ogp_description,
+                ogp_image,
+                word_id
+            FROM
+                ogps
+        ) ogp
+            on word_id = a.id
+        left join (
             SELECT 
                 w.reply_to,
                 count(w.reply_to) as count
@@ -136,6 +149,9 @@ class Word extends Model
             b.avatar,
             a.id,
             a.words,
+            ogp.ogp_title,
+            ogp.ogp_description,
+            ogp.ogp_image,
             a.image_1,
             a.image_2,
             a.image_3,
@@ -156,6 +172,16 @@ class Word extends Model
                 l.entry_id
         ) c ON a.id = c.entry_id
         left join (
+            SELECT
+                ogp_title,
+                ogp_description,
+                ogp_image,
+                word_id
+            FROM
+                ogps
+        ) ogp
+            on word_id = a.id
+        left join (
             SELECT 
                 w.reply_to,
                 count(w.reply_to) as count
@@ -169,8 +195,8 @@ class Word extends Model
         // 絞り込みなし
         if ($filterType === Word::FILTER_TYPE_NOTHING) {
             $query .= 
-            "where
-                a.reply_to IS NULL
+                "where
+                    a.reply_to IS NULL
             ";
         // ユーザー名絞り込みの場合
         } else if ($filterType === Word::FILTER_TYPE_NAME) {

@@ -3,11 +3,12 @@ import React, { useContext } from "react";
 import { Link, useNavigate } from "react-router-dom";
 import axios from "axios";
 import { AuthContext } from "../../Context";
+import { makePathForImage } from "@api/Resources";
 
 interface Props {
   width?: number;
   height?: number;
-  imgPath: string;
+  image: string;
   name?: string;
   isHeader?: boolean;
 }
@@ -58,7 +59,7 @@ export default (props: Props): JSX.Element => {
       <div className="dropleft d-flex justify-content-center align-items-center">
         <UserName className="me-2">{props.name}</UserName>
         <Wrapper role="button" id="dropdownMenuLink" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-          <Image className="d-flex justify-content-center align-items-center" src={props.imgPath} />
+          <Image className="d-flex justify-content-center align-items-center" src={props.image} />
         </Wrapper>
         <div className="dropdown-menu" aria-labelledby="dropdownMenuLink">
           {
@@ -90,7 +91,7 @@ export default (props: Props): JSX.Element => {
   } else {
     return (
       <Wrapper>
-        <Image className="d-flex justify-content-center align-items-center" src={props.imgPath} />
+        <Image className="d-flex justify-content-center align-items-center" src={props.image} />
       </Wrapper>
     );
   }

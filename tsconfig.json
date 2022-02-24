@@ -31,6 +31,7 @@
     "paths": {
       "@img/*": ["resources/img/*"],
       "@interface/*": ["resources/js/interface/*"],
+      "@api/*": ["resources/js/api/*"],
       "*.ts": ["*"]
     },                                      /* Specify a set of entries that re-map imports to additional lookup locations. */
     // "rootDirs": [],                                   /* Allow multiple folders to be treated as one when resolving modules. */

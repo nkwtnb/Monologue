@@ -1,6 +1,6 @@
 import { User } from "@interface/User";
+import { makePathForImage } from "@api/Resources";
 import styled from "styled-components";
-
 interface Props { 
   user: User | undefined
 }
@@ -45,6 +45,7 @@ const SIZE = {
 }
 
 export default (props: Props) => {
+
   return (
     <Wrapper className='container-fluid'>
       <div className="row" style={{ height: "200px" }}>

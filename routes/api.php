@@ -2,6 +2,7 @@
 
 use App\Http\Controllers\FileController;
 use App\Http\Controllers\LikeController;
+use App\Http\Controllers\OgpController;
 use App\Http\Controllers\UserController;
 use App\Http\Controllers\WordController;
 use Illuminate\Http\Request;
@@ -20,7 +21,6 @@ use Illuminate\Support\Facades\Route;
 
 Route::group(['middleware' => ['auth:sanctum']], function() {
     // ユーザー情報
-    Route::get("/user/{name}", [UserController::class, "getUserByName"]);
     Route::put("/user", [UserController::class, "put"]);
     // 投稿
     Route::post("/words", [WordController::class, "post"]);

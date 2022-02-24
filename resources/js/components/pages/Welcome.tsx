@@ -131,8 +131,8 @@ export default (props: Props) => {
                   <div className="offset-md-4 col-md-6">
                     <ul>
                       {
-                        errors.map(error => (
-                          <li>{error}</li>
+                        errors.map((error, index) => (
+                          <li key={index}>{error}</li>
                         ))
                       }
                     </ul>

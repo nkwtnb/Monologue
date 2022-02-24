@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from 'react';
-import styled from 'styled-components';
+import styled, { css } from 'styled-components';
 import CircleIcon from '../atoms/CircleIcon';
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faImage } from "@fortawesome/free-regular-svg-icons/faImage";
@@ -10,7 +10,9 @@ const LIMIT = {
   // ファイルサイズ
   SIZE: 1024 * 1024 * 1,
   // ファイル数
-  COUNT: 4
+  COUNT: 4,
+  // 文字数
+  STRINGS: 100,
 }
 
 interface PostMessgae  {
@@ -79,12 +81,17 @@ line-height: 0px;
 border-radius: 20px;
 `;
 
+const Counter = styled.div<{isOver: boolean}>`
+  ${({isOver}) => isOver && css`
+    color: red;
+  `}
+`;
+
 const uploadFiles = async (files: SelectedImage[], _index?: number, _uploaded?: string[]): Promise<string[]> => {
   let index = _index ? _index : 0;
   const uploaded = _uploaded ? _uploaded : [];
   const form = new FormData();
   const file: any = files[index];
-  console.log(file);
   form.append('upload_file', file.file);
   const settings = { headers: { 'content-type': 'multipart/form-data' } }
   const resp = await axios.post("/api/file/upload",
@@ -103,33 +110,40 @@ const uploadFiles = async (files: SelectedImage[], _index?: number, _uploaded?: 
 
 export default (props: Props) => {
   const [contents, setContents] = useState("");
+  const [stringsCount, setStringsCount] = useState<number>(0);
   const [errorMessages, setErrorMessages] = useState<string[]>([]);
   const [uploads, setUploads] = useState<SelectedImage[]>([]);
   const generateEmbedUrl = (words: string) => {
     const reg = new RegExp("\bhttps:\\/\\/www\\.youtube\\.com\\/watch\\?v=.*\b","gi");
-    // const reg = new RegExp("https.*","gi");
     const myArray = reg.exec(words);
-    console.log(myArray);
-    // props.words
   }
   const handleChange = (e: any) => {
     generateEmbedUrl(e.target.value);
     setContents(e.target.value);
     setErrorMessages([]);
-
-    (async () => {
-      const url = "https://qiita.com/ksyunnnn/items/bfe2b9c568e97bb6b494";
-      const resp: any = await fetch(url);
-      const text: string = resp.text();
-      const el = new DOMParser().parseFromString(text, "text/html")
-      const headEls = (el.head.children)
-      Array.from(headEls).map(v => {
-          const prop = v.getAttribute('property')
-          if (!prop) return;
-          console.log(prop, v.getAttribute("content"))
-      })
-    })();
+    setStringsCount(Array.from(e.target.value).length);
   }
+
+  // const countStrings = (value: string) => {
+  //   const ZWJ = 8205;
+  //   let ZWJCount = 0;
+  //   let count = 0;
+  //   const stringArray = Array.from(value);
+  //   for (let i=0; i<stringArray.length; i++) {
+  //     const char = stringArray[i];
+  //     count++;
+  //     console.log(char.charCodeAt(0));
+  //     if (char.charCodeAt(0) === ZWJ) {
+  //       ZWJCount++;
+  //     }
+  //   }
+  //   console.log(`全体 : ${count}, 制御文字 : ${ZWJCount}, 結果 : ${count - (ZWJCount*2)}`);
+  //   // const spaces = (value.split(" ").length - 1);
+  //   // const converted = Array.from(value);
+  //   // converted.indexOf(" ");
+
+  //   // setStringsCount();
+  // }
 
   const handleClick = () => {
     if (contents === "") {
@@ -153,7 +167,6 @@ export default (props: Props) => {
         const messages: string[] = [];
         for(let key in errors) {
           errors[key].forEach((message: string) => {
-            console.log(message);
             messages.push(message);
           });
         }
@@ -233,28 +246,31 @@ export default (props: Props) => {
                 <input type="file" className="uploader" hidden onClick={handleUploadClick} onChange={handleUploadChange}></input>
               </FaWrapper>
             </div>
-            {
-              errorMessages.length > 0 &&
-              <div className='row align-items-center'>
-                <div className='col d-flex justify-content-start'>
-                  <div className="w-100 alert alert-danger" role="alert">
-                    <ul>
-                    {
-                      errorMessages.map(message => (
-                        <li>{message}</li>
-                      ))
-                    }
-                    </ul>
-                  </div>
-                </div>
-              </div>
-            }
             <div className='col d-flex justify-content-end'>
+              <Counter className={'me-2 mt-1 mb-2 d-flex align-items-center'} isOver={(stringsCount > LIMIT.STRINGS ? true : false)}>
+                {stringsCount + " / " + LIMIT.STRINGS}
+              </Counter>
               <div className='ml-auto mt-1 mb-2'>
                 <Button className="btn btn-primary" onClick={handleClick}>つぶやく</Button>
               </div>
             </div>
           </div>
+          {
+            errorMessages.length > 0 &&
+            <div className='row align-items-center'>
+              <div className='col d-flex justify-content-start'>
+                <div className="w-100 alert alert-danger" role="alert">
+                  <ul>
+                  {
+                    errorMessages.map((message, index) => (
+                      <li key={index}>{message}</li>
+                    ))
+                  }
+                  </ul>
+                </div>
+              </div>
+            </div>
+          }
         </NewPostArea>
       </div>
     </>

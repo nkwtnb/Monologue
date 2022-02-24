@@ -129,7 +129,7 @@ export default (props: Props) => {
         <div className="row">
         {
           columns.map((column, index) => (
-            <div className={classNames.join(" ") + " " + getJustifyAndAlign(columns, index)}>
+            <div key={index} className={classNames.join(" ") + " " + getJustifyAndAlign(columns, index)}>
               {
                 column.map((value, index) => {
                   return (

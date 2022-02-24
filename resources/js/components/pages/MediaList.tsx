@@ -1,3 +1,4 @@
+import { makePathForImage } from "@api/Resources";
 import { Entry } from "@interface/Entry";
 import axios from "axios";
 import { useEffect, useState } from "react"
@@ -11,7 +12,7 @@ interface Media {
   url: string;
 }
 
-const Image = styled.div`
+const Image = styled.div<{imagePath: string}>`
 position: relative;
 width: 100%;
 height: 300px;
@@ -19,6 +20,7 @@ border: 1px solid #ddd;
 background-size: cover;
 background-position: center center;
 background-repeat: no-repeat;
+background-image: url(${({imagePath}) => imagePath});
 &:hover { 
   cursor: pointer;
   border: 2px solid #ddd;
@@ -52,9 +54,11 @@ const Label = styled.div`
 
 export default (props: any) => {
   const { name } = useParams();
+  const [isLoaded, setIsLoaded] = useState(false);
   const [postedImages, setPostedImages] = useState<Media[]>([]);
 
   useEffect(() => {
+    setIsLoaded(false);
     (async () => {
       const posts = (await axios.get(`/api/words/user/${name}/posts`)).data;
       const _images: Media[] = [];
@@ -67,9 +71,15 @@ export default (props: any) => {
         });
       });
       setPostedImages([..._images]);
+      setIsLoaded(true);
     })();
   }, []);
 
+  // 読み込み中
+  if (!isLoaded) {
+    return <></>;
+  }
+  // 読み込み完了
   return (
     <>
     {
@@ -84,7 +94,7 @@ export default (props: any) => {
                 <Label className="label">aaaa</Label>
               </ImageMask>
             </Link>
-            <Image style={{backgroundImage: `url(${postedImage.url})`}} />
+            <Image imagePath={makePathForImage(postedImage.url, "upfiles")}/>
           </ImageWrapper>
         ))
     }

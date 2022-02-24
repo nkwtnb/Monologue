@@ -3,6 +3,7 @@ import CircleIcon from '../atoms/CircleIcon';
 import noAvatar from "@img/no_avatar.png";
 import { Link } from 'react-router-dom';
 import { AuthContext } from "../../Context";
+import { makePathForImage } from '@api/Resources';
 
 export default () => {
   const {authState} = useContext(AuthContext);
@@ -16,7 +17,7 @@ export default () => {
           </Link>
         </div>
         <div className="p-2 bd-highlight">
-          <CircleIcon imgPath={authState.avatar || noAvatar} name={authState.name} isHeader={true}/>
+          <CircleIcon image={makePathForImage(authState.avatar, "upfiles") || noAvatar} name={authState.name} isHeader={true}/>
         </div>
       </div>
     </nav>

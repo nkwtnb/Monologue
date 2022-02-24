@@ -11,6 +11,7 @@ import styled from 'styled-components';
 import { AuthContext } from "../../Context";
 import * as userApi from "../../api/User";
 import { Navigate, useNavigate, useParams } from 'react-router-dom';
+import { makePathForImage } from '@api/Resources';
 
 /**
  * ユーザー情報更新
@@ -35,11 +36,18 @@ font-size: 13px;
 white-space: nowrap;
 `;
 
+interface UserInfo extends userApi.Type{
+  currentAvatar?: string | null;
+}
+
 export default () => {
   const navigate = useNavigate();
   const { name } = useParams();
   const { authState, setAuthState } = useContext(AuthContext);
-  const [userInfo, setUserInfo] = useState<userApi.Type>(authState)
+  const [userInfo, setUserInfo] = useState<UserInfo>({
+    ...authState,
+    currentAvatar: makePathForImage(authState.avatar, "upfiles")
+  });
   const [error, setError] = useState([]);
 
   const handleClick = () => {
@@ -97,7 +105,7 @@ export default () => {
       setUserInfo(
         {
           ...userInfo,
-          "avatar": loadEvent.target!.result,
+          "currentAvatar": loadEvent.target!.result as string,
           "imgFile": file
         }
       )
@@ -129,7 +137,7 @@ export default () => {
                 プロフィール写真
               </div>
               <div className='col-md-1'>
-                <CircleIcon imgPath={userInfo.avatar || NoAvatar} />
+                <CircleIcon image={userInfo.currentAvatar || NoAvatar} />
               </div>
               <div className='col-md-3'>
                 <a>

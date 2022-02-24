@@ -16,6 +16,9 @@ export default () => {
     isLike: false,
     likes: 0,
     words: "",
+    ogp_title: "",
+    ogp_description: "",
+    ogp_image: "",
     replyCount: 0,
     images: []
   });
@@ -45,6 +48,9 @@ export default () => {
             images={entry!.images}
             replyCount={entry!.replyCount}
             words={entry!.words}
+            ogp_title={entry!.ogp_title}
+            ogp_description={entry!.ogp_description}
+            ogp_image={entry!.ogp_image}
             onDialog={false}
           />
           <CommentDialog {...entry}/>
@@ -65,6 +71,9 @@ export default () => {
                   images={reply.images}
                   replyCount={reply.replyCount}
                   words={reply.words}
+                  ogp_title={reply.ogp_title}
+                  ogp_description={reply.ogp_description}
+                  ogp_image={reply.ogp_image}
                   onDialog={false}
                 />
                 <CommentDialog {...reply}/>

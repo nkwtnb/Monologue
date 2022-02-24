@@ -12,9 +12,11 @@ interface Props {
 
 export default (props: Props): JSX.Element => {
 
+  const [isLoaded, setIsLoaded] = useState(false);
   const [entries, setEntries] = useState<Entry[]>([]);
-
   useEffect(() => {
+    setIsLoaded(false);
+    setEntries([]);
     (async () => {
       // 全投稿取得
       let resp;
@@ -30,18 +32,20 @@ export default (props: Props): JSX.Element => {
         }
       }
       const entries = resp.data;
-      console.log(entries);
       setEntries(entries);
+      setIsLoaded(true);
     })();
   }, [props.name, props.filter]);
 
-  return (
-    <>
-      {
-        entries.length === 0
-        ?
-          <div>対象の投稿がありません</div>
-        :
+  if (!isLoaded) {
+    return <></>;
+  }
+  if (entries.length === 0) {
+    return <div>対象の投稿がありません</div>;
+  } else {
+    return (
+      <>
+        {
           entries.map((entry: Entry, index) => {
             return (
               <div className='px-0 mb-1' key={index}>
@@ -51,6 +55,9 @@ export default (props: Props): JSX.Element => {
                   created_at={entry.created_at}
                   avatar={entry.avatar}
                   words={entry.words}
+                  ogp_title={entry.ogp_title}
+                  ogp_description={entry.ogp_description}
+                  ogp_image={entry.ogp_image}
                   images={entry.images}
                   isLike={entry.isLike}
                   likes={entry.likes}
@@ -62,6 +69,7 @@ export default (props: Props): JSX.Element => {
             )
           })
       }
-    </>
-  );
+      </>
+    );
+  }
 }

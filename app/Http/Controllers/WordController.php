@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Libs\OgpUtil;
 use App\Models\Like;
 use App\Models\Word;
 use Illuminate\Http\Request;
@@ -40,6 +41,7 @@ class WordController extends Controller
 
     public function post(Request $request)
     {
+        // バリデーション
         $request->validate([
             'words' => 'required|max:100',
             'images' => [
@@ -50,7 +52,8 @@ class WordController extends Controller
                 }
             ]
         ]);
-        
+
+        // 内容をポスト
         $param = [
             "user_id" => Auth::id(),
             "words" => $request->words,
@@ -59,7 +62,14 @@ class WordController extends Controller
         foreach($request->images as $index => $image) {
             $param["image_" . ($index+1)] = $image;
         }
-        Word::create($param);
+        $word = Word::create($param);
+
+        // OGP情報設定
+        $url = OgpUtil::getURL($request->words);
+        if (count($url) > 0) {
+            $ogpInfo = OgpUtil::saveOgpImage($url);
+            OgpUtil::post($request, $ogpInfo, $word->id);
+        }
     }
 
     /**

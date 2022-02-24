@@ -4,6 +4,7 @@ use App\Http\Controllers\Auth\LoginController;
 use App\Http\Controllers\Auth\RegisterController;
 use App\Http\Controllers\FileController;
 use App\Http\Controllers\LikeController;
+use App\Http\Controllers\OgpController;
 use App\Http\Controllers\RootController;
 use App\Http\Controllers\UserController;
 use App\Http\Controllers\WordController;
@@ -28,11 +29,14 @@ Route::prefix("api")->group(function() {
   Route::get("/words/user/{name}/likes", [WordController::class, "getWordsByUserLikes"]);
   Route::get("/words/post/{postId}", [WordController::class, "getWordsByPostId"]);
   Route::get("/words", [WordController::class, "get"]);
+
+  // OGP
+  Route::get("/ogp", [OgpController::class, "get"]);
   
   Route::get("/authenticatedUser", [UserController::class, "getAuthenticatedUser"]);
 });
 
-Route::get("/upfiles/{fileName}", [FileController::class, "get"])->where("fileName", ".*");
+Route::get("/images/{type}/{fileName}", [FileController::class, "get"])->where("fileName", ".*");
 Route::post('/register', [RegisterController::class, 'callRegister'])->name('register');
 Route::post('/login', [LoginController::class, 'loginTest'])->name('login');
 Route::post('/logout', [LoginController::class, 'logout'])->name('logout');
