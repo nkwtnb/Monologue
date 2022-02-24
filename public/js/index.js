@@ -6258,6 +6258,9 @@ __webpack_require__.r(__webpack_exports__);
       },
       children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_1__.jsx)("ul", {
         id: "errors",
+        style: {
+          marginBottom: "0px"
+        },
         children: props.messages.map(function (message, i) {
           return /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_1__.jsx)("li", {
             children: message

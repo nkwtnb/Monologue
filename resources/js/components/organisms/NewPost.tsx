@@ -260,16 +260,6 @@ export default (props: Props) => {
           <div className='row align-items-center'>
             <div className='col d-flex justify-content-start'>
               <ErrorMessage messages={errorMessages}></ErrorMessage>
-
-              {/* <div className="w-100 alert alert-danger" role="alert">
-                <ul>
-                {
-                  errorMessages.map((message, index) => (
-                    <li key={index}>{message}</li>
-                  ))
-                }
-                </ul>
-              </div> */}
             </div>
           </div>
         </NewPostArea>
