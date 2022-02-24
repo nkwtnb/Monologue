@@ -134,13 +134,6 @@ export default (props: Props) => {
                     <div className='w-100'>
                       <ErrorMessage messages={errors}></ErrorMessage>
                     </div>
-                    {/* <ul>
-                      {
-                        errors.map((error, index) => (
-                          <li key={index}>{error}</li>
-                        ))
-                      }
-                    </ul> */}
                   </div>
                 </div>
                 {/* アクション */}
