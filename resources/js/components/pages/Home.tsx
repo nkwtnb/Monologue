@@ -10,7 +10,7 @@ export default () => {
       <div className='offset-md-2 col-md-8'>
         {
           authState.name !== "" &&
-          <NewPost />
+          <NewPost caption='ひとりごとをつぶやく...'/>
         }
         <TImeline name="" filter="post"/>
       </div>

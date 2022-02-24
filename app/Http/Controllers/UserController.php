@@ -22,11 +22,6 @@ class UserController extends Controller
     public function getUserByName(Request $request, $name) {
         $user = User::where("name", $name)->first();
         return $user;
-        // if (Auth::check()) {
-        //     return User::find(Auth::id());
-        // } else {
-        //     return User::getDefaultValue();
-        // }
     }
 
     public function put(Request $request) {
@@ -54,8 +49,12 @@ class UserController extends Controller
             'name' => [
                 'required',
                 'string',
-                'max:255',
+                'max:10',
                 ValidationRule::unique("users")->ignore($user->id),
+            ],
+            'message' => [
+                'string',
+                'max:100',
             ],
             'email' => [
                 'required',

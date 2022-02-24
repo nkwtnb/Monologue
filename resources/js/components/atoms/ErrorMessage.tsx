@@ -1,22 +1,16 @@
 import React from 'react';
 
 interface Props {
-  type: string;
-  error: any;
+  messages: string[]
 }
 
 export default (props: Props) => {
-  let messages = [];
-  for (let key in props.error.errors) {
-    const message = props.error.errors[key];
-    messages.push(message);
-  }
   return (
     <>
-      <div id="alert" className="alert alert-danger" role="alert" style={{ display: 'none' }}>
+      <div id="alert" className="w-100 alert alert-danger" role="alert" style={props.messages.length === 0 ? {display: "none"} : {display: "block"}}>
         <ul id="errors">
           {
-            messages.map((message, i) => (
+            props.messages.map((message, i) => (
               <li key={i}>{message}</li>
             ))
           }

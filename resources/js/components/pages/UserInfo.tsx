@@ -22,7 +22,24 @@ const postUserInfo = async (param: userApi.Type) => {
   return await axios.put("/api/user", param);
 }
 
-const FileUploader = styled.span`
+const AvatarArea = styled.div`
+position: relative;
+`;
+
+const AvatarDeleteButton = styled.button`
+position: absolute;
+right: 0;
+top: 0;
+background-color: #a5a3a387;
+border: none;
+width: 20px;
+height: 20px;
+line-height: 20px;
+border-radius: 10px;
+`;
+
+
+const FileControlButton = styled.span`
 border: 1px solid #ddd;
 padding: 4px 12px;
 border-radius: 4px;
@@ -48,7 +65,7 @@ export default () => {
     ...authState,
     currentAvatar: makePathForImage(authState.avatar, "upfiles")
   });
-  const [error, setError] = useState([]);
+  const [error, setError] = useState<string[]>([]);
 
   const handleClick = () => {
     const message = document.getElementById("alert");
@@ -65,10 +82,12 @@ export default () => {
       window.location.reload();
     } catch(e: any) {
       const error = e.response.data;
-      const element = document.getElementById("alert");
-      element?.setAttribute("style", "display: block");
       if (error.errors) {
-        setError(error);
+        const messages: string[] = [];
+        for(let key in error.errors) {
+          messages.push(error.errors[key]);
+        }
+        setError(messages);
       }
       return;
     }
@@ -96,7 +115,7 @@ export default () => {
       return;
     }
     if (file.size > 102400) {
-      alert("ファイルサイズは100kb以下にしてください");
+      setError(["ファイルサイズは100kb以下にしてください"]);
       return;
     }
     // プロフィール画像変更
@@ -113,6 +132,15 @@ export default () => {
     reader.readAsDataURL(file);
   }
   
+  const handleAvatarDelete = () => {
+    setUserInfo({
+      ...userInfo,
+      currentAvatar: "",
+      avatar: "",
+      imgFile: "",
+    });
+  }
+
   const handleChange = (e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement>, target: string) => {
     setUserInfo({ ...userInfo, [target]: e.target.value });
     return;
@@ -132,16 +160,26 @@ export default () => {
       <div className='row justify-content-center'>
         <div className='col-md-8'>
           <div className='container'>
-            <div className='mt-3 row justify-content-center align-items-end'>
+            <div className='mt-3 row justify-content-left align-items-start'>
               <div className='col-md-4'>
                 プロフィール写真
               </div>
-              <div className='col-md-1'>
-                <CircleIcon image={userInfo.currentAvatar || NoAvatar} />
+              <div className='col-md-1' style={{width: "80px"}}>
+                <AvatarArea>
+                  {/* アバターが設定されている場合、クリアボタンの描画 */}
+                  {
+                    userInfo.currentAvatar
+                    ?
+                      <AvatarDeleteButton onClick={handleAvatarDelete}>×</AvatarDeleteButton>
+                    :
+                      <></>
+                  }
+                  <CircleIcon image={userInfo.currentAvatar || NoAvatar} />
+                </AvatarArea>
               </div>
-              <div className='col-md-3'>
+              <div className='col-md-1 flex-grow-1'>
                 <a>
-                  <FileUploader className="file-upload btn btn-info" onClick={triggerUpload} >参照</FileUploader>
+                  <FileControlButton className="file-upload btn btn-info" onClick={triggerUpload} >参照</FileControlButton>
                   <FileUploaderLabel>png,jpeg,jpg,gif形式（100KBまで）</FileUploaderLabel>
                   <div className='file-upload-wrapper' hidden>
                     <input type="file" id="avatar" accept=".png, .jpeg, .jpg, .gif" onChange={((e) => handleUploadChange(e))}></input>
@@ -149,33 +187,31 @@ export default () => {
                 </a>
               </div>
             </div>
-            <div className='mt-3 row justify-content-center align-items-end'>
+            <div className='mt-3 row justify-content-center align-items-start'>
               <div className='col-md-4'>ユーザー名</div>
-              <div className='col-md-4'>
+              <div className='col-md flex-grow-1'>
                 <input className="w-100 form-control" type="text" value={userInfo.name} onChange={((e) => handleChange(e, "name"))}></input>
               </div>
             </div>
-            <div className='mt-3 row justify-content-center align-items-end'>
+            <div className='mt-3 row justify-content-center align-items-start'>
               <div className='col-md-4'>一言メッセージ</div>
-              <div className='col-md-4'>
-                <textarea className="w-100 form-control" value={userInfo.message} onChange={((e) => handleChange(e, "message"))} />
+              <div className='col-md flex-grow-1'>
+                <textarea className="w-100 form-control" value={userInfo.message || ""} onChange={((e) => handleChange(e, "message"))} />
               </div>
             </div>
-            <div className='mt-3 row justify-content-center align-items-end'>
+            <div className='mt-3 row justify-content-center align-items-start'>
               <div className='col-md-4'>メールアドレス</div>
-              <div className='col-md-4'>
+              <div className='col-md flex-grow-1'>
                 <input className="w-100 form-control" type="text" value={userInfo.email} onChange={((e) => handleChange(e, "email"))}></input>
               </div>
             </div>
             <div className='mt-3 row justify-content-center'>
-              <div className='col-md-8'>
-                <div className='w-100'>
-                  <ErrorMessage type="alert" error={error}></ErrorMessage>
-                </div>
+              <div className='col flex-grow-1'>
+                <ErrorMessage messages={error}></ErrorMessage>
               </div>
             </div>
             <div className='mt-5 row justify-content-center'>
-              <div className='col-md-8'>
+              <div className='col-md-8 flex-grow-1'>
                 <div className='d-flex justify-content-end'>
                   <button className="btn btn-primary" onClick={handleClick}>保存</button>
                 </div>

@@ -4,6 +4,7 @@ import { Navigate, useNavigate } from 'react-router-dom';
 import CardButton from "../molecules/CardButton";
 import { AuthContext } from ".././../Context";
 import * as userApi from "../../api/User";
+import ErrorMessage from '../atoms/ErrorMessage';
 
 interface Credentials {
   name: string;
@@ -66,6 +67,7 @@ export default (props: Props) => {
           messages.push(fieldError);
         });
       }
+      console.log(messages);
       setErrors(messages);
     }
   }
@@ -129,13 +131,16 @@ export default (props: Props) => {
                 }
                 <div className="row mb-3">
                   <div className="offset-md-4 col-md-6">
-                    <ul>
+                    <div className='w-100'>
+                      <ErrorMessage messages={errors}></ErrorMessage>
+                    </div>
+                    {/* <ul>
                       {
                         errors.map((error, index) => (
                           <li key={index}>{error}</li>
                         ))
                       }
-                    </ul>
+                    </ul> */}
                   </div>
                 </div>
                 {/* アクション */}

@@ -154,7 +154,10 @@ return [
     */
 
     'attributes' => [
-        'words' => 'つぶやき'
+        'name' => 'ユーザー名',
+        'password' => "パスワード",
+        'email' => 'メールアドレス',
+        'message' => '一言メッセージ',
+        'words' => 'つぶやき',
     ],
-
 ];

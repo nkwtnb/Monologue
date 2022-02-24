@@ -7,14 +7,13 @@ import noAvatar from "@img/no_avatar.png";
 import { faHeart as regularHeart } from "@fortawesome/free-regular-svg-icons/faHeart";
 import { faHeart as solidHeart } from "@fortawesome/free-solid-svg-icons/faHeart";
 import { Entry } from "@interface/Entry";
-import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import DetailIcon from "../molecules/DetailIcon";
 import PostedImageArea from "../molecules/PostedImageArea";
 import axios from "axios";
-import { useEffect, useState } from "react";
+import { useContext, useEffect, useState } from "react";
 import LinkCard from "../molecules/LinkCard";
-import { render } from "react-dom";
 import { makePathForImage } from "@api/Resources";
+import { AuthContext } from "../../Context";
 
 interface Props {
   onDialog: boolean;
@@ -63,6 +62,7 @@ color: #262323;
 `;
 
 export default (props: Entry & Props) => {
+  const { authState } = useContext(AuthContext);
   const [linkCard, setLinkCard] = useState<LinkCardState>({
     title: "",
     description: "",
@@ -76,24 +76,32 @@ export default (props: Entry & Props) => {
   const navigate = useNavigate();
 
   const handleLike = (e: any, id: number) => {
-    (async () => {
-      setLikeState(prev => {
-        return {
-          count: prev.isLike ? (prev.count-1) : (prev.count+1),
-          isLike: !prev.isLike
+    if (authState.name === "") {
+      navigate("/login"); 
+    } else {
+      (async () => {
+        setLikeState(prev => {
+          return {
+            count: prev.isLike ? (prev.count-1) : (prev.count+1),
+            isLike: !prev.isLike
+          }
+        });
+        if (likeState.isLike) {
+          const resp = await axios.delete("/api/likes", { data: { entryId: id } });
+        } else {
+          const resp = await axios.post("/api/likes", { entryId: id });
         }
-      });
-      if (likeState.isLike) {
-        const resp = await axios.delete("/api/likes", { data: { entryId: id } });
-      } else {
-        const resp = await axios.post("/api/likes", { entryId: id });
-      }
-    })();
+      })();
+    }
   }
   
   const handleComment = (id: number) => {
-    const element = document.getElementById("toggle-modal-" + id);
-    element?.click();
+    if (authState.name === "") {
+      navigate("/login"); 
+    } else {
+      const element = document.getElementById("toggle-modal-" + id);
+      element?.click();
+    }
   }
 
   const handleClick = (e: any) => {

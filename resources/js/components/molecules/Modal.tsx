@@ -2,8 +2,8 @@ import { PropsWithChildren } from "react"
 
 interface Props {
   title: string;
-  approve: string;
-  cancel: string;
+  approve?: string;
+  cancel?: string;
   id: number;
 }
 
@@ -21,10 +21,10 @@ export default (props: PropsWithChildren<Props>) => {
             <div className="modal-body">
               {props.children}
             </div>
-            <div className="modal-footer">
+            {/* <div className="modal-footer">
               <button type="button" className="btn btn-secondary" data-dismiss="modal">{props.cancel}</button>
               <button type="button" className="btn btn-primary">{props.approve}</button>
-            </div>
+            </div> */}
           </div>
         </div>
       </div>

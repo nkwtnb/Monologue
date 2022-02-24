@@ -1,9 +1,9 @@
 import React, { useEffect, useState } from 'react';
 import styled, { css } from 'styled-components';
-import CircleIcon from '../atoms/CircleIcon';
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faImage } from "@fortawesome/free-regular-svg-icons/faImage";
 import axios from 'axios';
+import ErrorMessage from '../atoms/ErrorMessage';
 
 // 各上限
 const LIMIT = {
@@ -27,6 +27,7 @@ interface SelectedImage {
 }
 
 interface Props {
+  caption: string;
   replyTo?: number | undefined;
 }
 
@@ -147,6 +148,7 @@ export default (props: Props) => {
 
   const handleClick = () => {
     if (contents === "") {
+      setErrorMessages(["つぶやきを入力してください。"]);
       return;
     }
     (async () => {
@@ -190,7 +192,7 @@ export default (props: Props) => {
     }
     setErrorMessages([]);
     if (file.size > LIMIT.SIZE) {
-      setErrorMessages(["サイズ上限を超えています。"]);
+      setErrorMessages([`サイズ上限（${LIMIT.SIZE / 1024 / 1024} MB）を超えています。`]);
       return;
     }
     const reader = new FileReader();
@@ -216,7 +218,7 @@ export default (props: Props) => {
   return (
     <>
       <div className='mt-2 mb-1'>
-        <label >ひとりごとをつぶやく…</label>
+        <label >{props.caption}</label>
         <NewPostArea>
           <div className='row justify-content-center mb-2'>
             <div className="form-group">
@@ -251,26 +253,25 @@ export default (props: Props) => {
                 {stringsCount + " / " + LIMIT.STRINGS}
               </Counter>
               <div className='ml-auto mt-1 mb-2'>
-                <Button className="btn btn-primary" onClick={handleClick}>つぶやく</Button>
+                <Button className="btn btn-primary" onClick={handleClick}>投稿</Button>
               </div>
             </div>
           </div>
-          {
-            errorMessages.length > 0 &&
-            <div className='row align-items-center'>
-              <div className='col d-flex justify-content-start'>
-                <div className="w-100 alert alert-danger" role="alert">
-                  <ul>
-                  {
-                    errorMessages.map((message, index) => (
-                      <li key={index}>{message}</li>
-                    ))
-                  }
-                  </ul>
-                </div>
-              </div>
+          <div className='row align-items-center'>
+            <div className='col d-flex justify-content-start'>
+              <ErrorMessage messages={errorMessages}></ErrorMessage>
+
+              {/* <div className="w-100 alert alert-danger" role="alert">
+                <ul>
+                {
+                  errorMessages.map((message, index) => (
+                    <li key={index}>{message}</li>
+                  ))
+                }
+                </ul>
+              </div> */}
             </div>
-          }
+          </div>
         </NewPostArea>
       </div>
     </>
