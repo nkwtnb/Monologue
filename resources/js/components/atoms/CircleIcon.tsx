@@ -16,7 +16,7 @@ interface Props {
 const SIZE: number = 40;
 
 const Wrapper = styled.span`
-padding: 4px;
+padding: 2px;
 display: inline-block;
 `;
 

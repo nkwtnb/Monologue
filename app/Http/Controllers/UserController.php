@@ -53,6 +53,7 @@ class UserController extends Controller
                 ValidationRule::unique("users")->ignore($user->id),
             ],
             'message' => [
+                'nullable',
                 'string',
                 'max:100',
             ],

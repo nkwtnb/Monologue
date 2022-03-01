@@ -62,9 +62,9 @@ export default (props: Props): JSX.Element => {
                   isLike={entry.isLike}
                   likes={entry.likes}
                   replyCount={entry.replyCount}
-                  onDialog={false}
+                  isDialog={false}
                 />
-                <CommentDialog {...entry}/>
+                {/* <CommentDialog {...entry}/> */}
               </div>
             )
           })

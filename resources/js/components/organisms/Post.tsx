@@ -1,5 +1,6 @@
-import { Link, useNavigate } from "react-router-dom";
-import styled from "styled-components";
+declare var jQuery: any;
+import { Link, useLocation, useNavigate } from "react-router-dom";
+import styled, { css } from "styled-components";
 import CircleIcon from "../atoms/CircleIcon";
 import CommentIcon from "../molecules/CommentIcon";
 import Like from "../molecules/Like";
@@ -10,13 +11,13 @@ import { Entry } from "@interface/Entry";
 import DetailIcon from "../molecules/DetailIcon";
 import PostedImageArea from "../molecules/PostedImageArea";
 import axios from "axios";
-import { useContext, useEffect, useState } from "react";
+import { useContext, useEffect, useLayoutEffect, useState } from "react";
 import LinkCard from "../molecules/LinkCard";
 import { makePathForImage } from "@api/Resources";
 import { AuthContext } from "../../Context";
 
 interface Props {
-  onDialog: boolean;
+  isDialog: boolean;
 }
 
 interface LikeState {
@@ -31,8 +32,14 @@ interface LinkCardState {
   url: string;
 }
 
-const Post = styled.div`
+const Post = styled.div<{isDialog: boolean}>`
 border: 1px solid #ddd;
+${({isDialog}) => !isDialog && css`
+  cursor: pointer;
+  &:hover {
+    background-color: #dddddd99;
+  }
+`}
 `;
 
 const CardHeader = styled.div`
@@ -52,6 +59,13 @@ const IconColumn = styled.div`
 flex-basis: 70px;
 `;
 
+const IconWrapper = styled.div`
+border-radius: 40px;
+&:hover {
+  background-color: #01010126;
+}
+`;
+
 const Time = styled.span`
 font-size: 12px;
 font-weight: normal;
@@ -62,6 +76,7 @@ color: #262323;
 `;
 
 export default (props: Entry & Props) => {
+  const reactLocation = useLocation();
   const { authState } = useContext(AuthContext);
   const [linkCard, setLinkCard] = useState<LinkCardState>({
     title: "",
@@ -76,6 +91,7 @@ export default (props: Entry & Props) => {
   const navigate = useNavigate();
 
   const handleLike = (e: any, id: number) => {
+    e.stopPropagation();
     if (authState.name === "") {
       navigate("/login"); 
     } else {
@@ -94,18 +110,22 @@ export default (props: Entry & Props) => {
       })();
     }
   }
-  
-  const handleComment = (id: number) => {
-    if (authState.name === "") {
+
+  const handleComment = (e: any, id: number) => {
+    e.stopPropagation();
+    if (authState.name === "") {  
       navigate("/login"); 
     } else {
-      const element = document.getElementById("toggle-modal-" + id);
-      element?.click();
+      navigate(`#/comment/${id}`, {replace: false, state: {click: true, ...props}});
     }
   }
 
   const handleClick = (e: any) => {
-    navigate(`/post/${props.id}`)
+    const oldPath = reactLocation.pathname;
+    const newPath = `/post/${props.id}`;
+    if (oldPath !== newPath) {
+      navigate(newPath);
+    }
   }
 
   const generateEmbedUrl = (words: string): string | null => {
@@ -180,20 +200,35 @@ export default (props: Entry & Props) => {
       count: props.likes,
       isLike: props.isLike
     })
-  }, [props.likes, props.isLike]);
+  }, [props.likes, props.isLike]);	
+
+  const handleCardClcik = (e: any) => {
+    const oldPath = reactLocation.pathname;
+    const newPath = `/post/${props.id}`;
+    // ダイアログ表示では無く、新しい遷移先の場合、カードクリックで詳細ページへ移動
+    if (!props.isDialog && oldPath !== newPath) {
+      navigate(newPath);
+    }
+    // // ダイアログ表示では無い時、カードクリックで詳細ページへ移動
+    // if (!props.isDialog) {
+    //   navigate(`/post/${props.id}`);
+    // }
+  }
 
   return (
-    <Post className='justify-content-center entry-card'>
+    <Post id="card" className='justify-content-center entry-card' isDialog={props.isDialog} onClick={handleCardClcik}>
       <div className='container-fluid'>
         <div className='row flex-nowrap'>
           <IconColumn className='col-2 mt-2'>
             {
-              props.onDialog
+              props.isDialog
               ?
               <CircleIcon image={makePathForImage(props.avatar, "upfiles") || noAvatar} />
               :
-              <Link to={"/user/" + props.name}>
-                <CircleIcon image={makePathForImage(props.avatar, "upfiles") || noAvatar} />
+              <Link to={"/user/" + props.name} onClick={((e) => {e.stopPropagation()})}>
+                <IconWrapper className="d-flex align-items-center justify-content-center">
+                  <CircleIcon image={makePathForImage(props.avatar, "upfiles") || noAvatar} />
+                </IconWrapper>
               </Link>
             }
           </IconColumn>
@@ -233,11 +268,11 @@ export default (props: Entry & Props) => {
           </div>
         </div>
         {/* ダイアログの時はフッターは表示しない */}
-        {!props.onDialog &&
+        {!props.isDialog &&
           <>
             <div className='row mt-2 mb-2'>
               <div className='col d-flex justify-content-center'>
-                <div onClick={(() => handleComment(props.id))}>
+                <div onClick={((e) => handleComment(e, props.id))}>
                   <CommentIcon count={props.replyCount} {...props}></CommentIcon>
                 </div>
               </div>

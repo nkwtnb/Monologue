@@ -1,7 +1,9 @@
 <?php
 
+use App\Http\Controllers\Auth\ForgotPasswordController;
 use App\Http\Controllers\Auth\LoginController;
 use App\Http\Controllers\Auth\RegisterController;
+use App\Http\Controllers\Auth\ResetPasswordController;
 use App\Http\Controllers\FileController;
 use App\Http\Controllers\LikeController;
 use App\Http\Controllers\OgpController;
@@ -40,6 +42,11 @@ Route::get("/images/{type}/{fileName}", [FileController::class, "get"])->where("
 Route::post('/register', [RegisterController::class, 'callRegister'])->name('register');
 Route::post('/login', [LoginController::class, 'loginTest'])->name('login');
 Route::post('/logout', [LoginController::class, 'logout'])->name('logout');
+
+// Route::get('password/reset', 'Auth\ForgotPasswordController@showLinkRequestForm')->name('password.request');
+Route::post('password/email', [ForgotPasswordController::class, "sendResetLinkEmail"])->name('password.email');
+Route::get('password/reset/{token}', [ResetPasswordController::class, "showResetForm"])->name('password.reset');
+Route::post('password/reset',  [ResetPasswordController::class, "reset"])->name('password.update');
 
 // 認証済み画面
 Route::get('/{any}', [RootController::class, "index"])->where("any", ".*")->name("home");

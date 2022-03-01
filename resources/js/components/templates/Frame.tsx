@@ -1,8 +1,12 @@
-import React from 'react';
+declare var bootstrap: any;
+declare var jQuery: any;
+import React, { useEffect, useLayoutEffect } from 'react';
 import styled from 'styled-components';
-import { Outlet } from 'react-router-dom';
+import { Outlet, useLocation, useNavigate } from 'react-router-dom';
 // Components
 import Header from '../organisms/Header';
+// import { closeDialogIfLeave } from '../molecules/Modal';
+import TestModal from '../atoms/TestModal';
 
 const Fluid = styled.div`
 background-color: #4d4b4b;
@@ -21,6 +25,7 @@ export default () => {
             <Fluid className='container-fluid'>
                 <Header />
             </Fluid>
+            <TestModal />
             <Main className='container'>
                 <Outlet />
             </Main>

@@ -50,14 +50,15 @@ border-bottom-left-radius: ${radius!["border-bottom-left-radius"]};
 
 export default (props: any) => {
 
-  const handleClick = (imageUrl: string | undefined) => {
+  const handleClick = (e: any, imageUrl: string | undefined) => {
+    e.stopPropagation();
     const url = imageUrl;
     window.open(url, '_blank')
   }
   const imagePath = makePathForImage(props.image, "upfiles");
 
   return (
-    <Image radius={props.radius} image={imagePath} widthTimes={props.widthTimes} heightTimes={props.heightTimes} onClick={(() => handleClick(imagePath))}
+    <Image radius={props.radius} image={imagePath} widthTimes={props.widthTimes} heightTimes={props.heightTimes} onClick={((e) => handleClick(e, imagePath))}
     />
   )
 }

@@ -83,25 +83,29 @@ const Link = styled.a`
   text-decoration: none;
 `;
 
+const handleClick = (e: any) => {
+  e.stopPropagation();
+}
+
 export default (props: Props) => {
   return (
       <LinkCardArea className="mt-2 mb-2 container">
-        <Link href={props.url} target="_blank" className="text-reset">
-        <div className="row">
-          <div className="col px-0">
-            <Image image={props.thumbnail} />
+        <Link href={props.url} target="_blank" className="text-reset" onClick={((e) => handleClick(e))}>
+          <div className="row">
+            <div className="col px-0">
+              <Image image={props.thumbnail} />
+            </div>
           </div>
-        </div>
-        <div className="row">
-          <div className="col px-0">
-            <Title>{props.title}</Title>
+          <div className="row">
+            <div className="col px-0">
+              <Title>{props.title}</Title>
+            </div>
           </div>
-        </div>
-        <div className="row">
-          <div className="col px-0">
-            <Description>{props.description}</Description>
+          <div className="row">
+            <div className="col px-0">
+              <Description>{props.description}</Description>
+            </div>
           </div>
-        </div>
         </Link>
       </LinkCardArea>
   )

@@ -9,8 +9,8 @@ export default () => {
   const {authState} = useContext(AuthContext);
 
   return (
-    <nav className='container h-100'>
-      <div className="d-flex bd-highlight mb-3 h-100">
+    <nav className='container h-100 '>
+      <div className="d-flex bd-highlight mb-3 h-100 align-items-center">
         <div className="me-auto p-2 bd-highlight">
           <Link to="/" className='logo'>
             Monologue

@@ -10,7 +10,7 @@ export default (props: PropsWithChildren<Entry>) => {
   return (
     <Modal title="コメントの投稿" id={props.id}>
       <div>
-        <Post onDialog={true} {...props}></Post>
+        <Post isDialog={true} {...props}></Post>
       </div>
       {/* ログイン済みの場合のみ表示 */}
       {

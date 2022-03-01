@@ -41,13 +41,30 @@ export default (props: Props) => {
 
   const toggleView = () => {
     if (props.isRegister) {
+      setCredentials(
+        {
+          name: "",
+          email: "",
+          password: "",
+          password_confirmation: ""
+        }
+      );
       navigate("/login");
     } else {
+      setCredentials(
+        {
+          name: "",
+          email: "",
+          password: "",
+          password_confirmation: ""
+        }
+      );
       navigate("/register");
     }
   }
 
   const submit = async () => {
+    setErrors([]);
     try {
       let authenticatedUser: userApi.Type;
       if (props.isRegister) {

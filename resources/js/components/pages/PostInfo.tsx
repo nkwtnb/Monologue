@@ -51,7 +51,7 @@ export default () => {
             ogp_title={entry!.ogp_title}
             ogp_description={entry!.ogp_description}
             ogp_image={entry!.ogp_image}
-            onDialog={false}
+            isDialog={false}
           />
           <CommentDialog {...entry}/>
         </div>
@@ -74,7 +74,7 @@ export default () => {
                   ogp_title={reply.ogp_title}
                   ogp_description={reply.ogp_description}
                   ogp_image={reply.ogp_image}
-                  onDialog={false}
+                  isDialog={false}
                 />
                 <CommentDialog {...reply}/>
               </div>

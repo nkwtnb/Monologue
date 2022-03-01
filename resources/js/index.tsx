@@ -1,6 +1,6 @@
 import ReactDOM from "react-dom";
 import React from "react";
-import { BrowserRouter, Route, Routes } from "react-router-dom";
+import { BrowserRouter, HashRouter, Route, Routes } from "react-router-dom";
 import "../css/app.css";
 
 // Components
@@ -14,12 +14,20 @@ import ProfileFrame from "./components/templates/ProfileFrame";
 import UserPosts from "./components/pages/UserPosts";
 import PostInfo from "./components/pages/PostInfo";
 import MediaList from "./components/pages/MediaList";
+import Email from "./components/pages/Email";
+import Reset from "./components/pages/Reset";
+import TestModal from "./components/atoms/TestModal";
 
 (async () => {
   const authenticatedUser = await userApi.getAuthenticatedUser();
 
   ReactDOM.render(
     <Context user={authenticatedUser}>
+      {/* <HashRouter>
+        <Routes>
+          <Route path="/comment" element={<TestModal />}></Route>
+        </Routes>
+      </HashRouter> */}
       <BrowserRouter>
         <Routes>
           <Route path="/" element={<Frame />}>
@@ -33,6 +41,8 @@ import MediaList from "./components/pages/MediaList";
             <Route path="/settings" element={<User />} />
             <Route path="/register" element={<Welcome isRegister={true} />} />
             <Route path="/login" element={<Welcome isRegister={false} />} />
+            <Route path="/password/email" element={<Email />} />
+            <Route path="/password/reset" element={<Reset />} />
             <Route path="*" element={(
               <p>Not Found</p>
             )} />
