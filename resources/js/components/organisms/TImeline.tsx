@@ -2,7 +2,6 @@ import React, { memo, useEffect, useLayoutEffect } from 'react';
 import { useState } from 'react';
 import Post from './Post';
 import axios from 'axios';
-import CommentDialog from './CommentDialog';
 import { Entry } from "@interface/Entry";
 
 interface Props {
@@ -64,7 +63,6 @@ export default (props: Props): JSX.Element => {
                   replyCount={entry.replyCount}
                   isDialog={false}
                 />
-                {/* <CommentDialog {...entry}/> */}
               </div>
             )
           })

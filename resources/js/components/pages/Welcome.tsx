@@ -1,17 +1,11 @@
 import axios from 'axios';
-import React, { useState, useContext } from 'react';
+import React, { useState, useContext, useEffect } from 'react';
 import { Navigate, useNavigate } from 'react-router-dom';
 import CardButton from "../molecules/CardButton";
 import { AuthContext } from ".././../Context";
 import * as userApi from "../../api/User";
 import ErrorMessage from '../atoms/ErrorMessage';
-
-interface Credentials {
-  name: string;
-  email: string;
-  password: string;
-  password_confirmation: string;
-}
+import * as Credentials from "@api/Creadentials";
 
 interface Props {
   isRegister: boolean;
@@ -30,35 +24,19 @@ const LABEL = {
 
 export default (props: Props) => {
   const [errors, setErrors] = useState<string[]>([]);
-  const [credentials, setCredentials] = useState<Credentials>({
-    name: "",
-    email: "",
-    password: "",
-    password_confirmation: ""
-  });
+  const [credentials, setCredentials] = useState<Credentials.Type>(Credentials.INITIAL_STATE);
   const navigate = useNavigate();
-  const {authState, setAuthState} = useContext(AuthContext);
+  const { authState, setAuthState } = useContext(AuthContext);
+
+  useEffect(() => {
+    setCredentials(Credentials.INITIAL_STATE);
+    setErrors([]);
+  }, [props.isRegister]);
 
   const toggleView = () => {
     if (props.isRegister) {
-      setCredentials(
-        {
-          name: "",
-          email: "",
-          password: "",
-          password_confirmation: ""
-        }
-      );
       navigate("/login");
     } else {
-      setCredentials(
-        {
-          name: "",
-          email: "",
-          password: "",
-          password_confirmation: ""
-        }
-      );
       navigate("/register");
     }
   }
@@ -69,7 +47,6 @@ export default (props: Props) => {
       let authenticatedUser: userApi.Type;
       if (props.isRegister) {
         authenticatedUser = (await axios.post("/register", credentials)).data;
-        console.log(authenticatedUser);
       } else {
         authenticatedUser = (await axios.post("/login", credentials)).data;
       }
@@ -84,7 +61,6 @@ export default (props: Props) => {
           messages.push(fieldError);
         });
       }
-      console.log(messages);
       setErrors(messages);
     }
   }
@@ -156,7 +132,7 @@ export default (props: Props) => {
                 {/* アクション */}
                 <div className="row">
                   <div className="col-md-6 offset-md-4">
-                    <CardButton isSubmit={true} label={props.isRegister ? LABEL.Submit.Register : LABEL.Submit.Login} onClick={submit}/>
+                    <CardButton isSubmit={true} label={props.isRegister ? LABEL.Submit.Register : LABEL.Submit.Login} onClick={submit} />
                   </div>
                 </div>
                 <div className="row mb-3 mt-3 justify-content-center d-flex w-100">
@@ -164,7 +140,7 @@ export default (props: Props) => {
                 </div>
                 <div className="row">
                   <div className="col-md-6 offset-md-4">
-                    <CardButton isSubmit={false} label={props.isRegister ? LABEL.Toggle.Login : LABEL.Toggle.Register} onClick={toggleView}/>
+                    <CardButton isSubmit={false} label={props.isRegister ? LABEL.Toggle.Login : LABEL.Toggle.Register} onClick={toggleView} />
                   </div>
                 </div>
               </div>

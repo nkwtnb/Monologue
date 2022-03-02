@@ -68,29 +68,30 @@ export default () => {
   const [error, setError] = useState<string[]>([]);
 
   const handleClick = () => {
+    setError([]);
     const message = document.getElementById("alert");
     message?.setAttribute("style", "display: none");
     (async () => {
-    try {
-      const filePath = await upload();
-      const resp = await postUserInfo({
-        "name": userInfo.name,  
-        "email": userInfo.email,
-        "avatar": filePath ? filePath : userInfo.avatar,
-        "message": userInfo.message,
-      });
-      window.location.reload();
-    } catch(e: any) {
-      const error = e.response.data;
-      if (error.errors) {
-        const messages: string[] = [];
-        for(let key in error.errors) {
-          messages.push(error.errors[key]);
+      try {
+        const filePath = await upload();
+        const resp = await postUserInfo({
+          "name": userInfo.name,  
+          "email": userInfo.email,
+          "avatar": filePath ? filePath : userInfo.avatar,
+          "message": userInfo.message,
+        });
+        window.location.reload();
+      } catch(e: any) {
+        const error = e.response.data;
+        if (error.errors) {
+          const messages: string[] = [];
+          for(let key in error.errors) {
+            messages.push(error.errors[key]);
+          }
+          setError(messages);
         }
-        setError(messages);
+        return;
       }
-      return;
-    }
     })();
   }
 

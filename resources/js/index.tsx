@@ -1,8 +1,7 @@
 import ReactDOM from "react-dom";
 import React from "react";
-import { BrowserRouter, HashRouter, Route, Routes } from "react-router-dom";
+import { BrowserRouter, Route, Routes } from "react-router-dom";
 import "../css/app.css";
-
 // Components
 import Frame from "./components/templates/Frame";
 import User from "./components/pages/UserInfo";
@@ -16,18 +15,12 @@ import PostInfo from "./components/pages/PostInfo";
 import MediaList from "./components/pages/MediaList";
 import Email from "./components/pages/Email";
 import Reset from "./components/pages/Reset";
-import TestModal from "./components/atoms/TestModal";
 
 (async () => {
   const authenticatedUser = await userApi.getAuthenticatedUser();
 
   ReactDOM.render(
     <Context user={authenticatedUser}>
-      {/* <HashRouter>
-        <Routes>
-          <Route path="/comment" element={<TestModal />}></Route>
-        </Routes>
-      </HashRouter> */}
       <BrowserRouter>
         <Routes>
           <Route path="/" element={<Frame />}>

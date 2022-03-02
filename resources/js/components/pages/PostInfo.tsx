@@ -4,27 +4,13 @@ import { useParams } from 'react-router-dom';
 import Post from '../organisms/Post';
 import { Entry } from "@interface/Entry";
 import axios from 'axios';
-import CommentDialog from '../organisms/CommentDialog';
 
 export default () => {
   const { postId } = useParams();
-  const [entry, setEntry] = useState<Entry>({
-    id: 0,
-    name: "",
-    avatar: "",
-    created_at: "",
-    isLike: false,
-    likes: 0,
-    words: "",
-    ogp_title: "",
-    ogp_description: "",
-    ogp_image: "",
-    replyCount: 0,
-    images: []
-  });
+  const [entry, setEntry] = useState<Entry | undefined>();
   const [replies, setReplies] = useState<Entry[]>([]);
 
-  useLayoutEffect(() => {
+  useEffect(() => {
     (async () => {
       const resp = (await axios.get("/api/words/post/" + postId)).data;
       const entry: Entry = resp.entries[0];
@@ -38,22 +24,23 @@ export default () => {
     <>
       <div className='row mb-1'>
         <div className='offset-md-2 col-md-8'>
-          <Post
-            id={entry!.id}
-            avatar={entry!.avatar}
-            created_at={entry!.created_at}
-            isLike={entry!.isLike}
-            likes={entry!.likes}
-            name={entry!.name}
-            images={entry!.images}
-            replyCount={entry!.replyCount}
-            words={entry!.words}
-            ogp_title={entry!.ogp_title}
-            ogp_description={entry!.ogp_description}
-            ogp_image={entry!.ogp_image}
-            isDialog={false}
-          />
-          <CommentDialog {...entry}/>
+          {entry &&
+            <Post
+              id={entry!.id}
+              avatar={entry!.avatar}
+              created_at={entry!.created_at}
+              isLike={entry!.isLike}
+              likes={entry!.likes}
+              name={entry!.name}
+              images={entry!.images}
+              replyCount={entry!.replyCount}
+              words={entry!.words}
+              ogp_title={entry!.ogp_title}
+              ogp_description={entry!.ogp_description}
+              ogp_image={entry!.ogp_image}
+              isDialog={false}
+            />
+          }
         </div>
       </div>
       <div className='row'>
@@ -76,7 +63,6 @@ export default () => {
                   ogp_image={reply.ogp_image}
                   isDialog={false}
                 />
-                <CommentDialog {...reply}/>
               </div>
             ))
           }

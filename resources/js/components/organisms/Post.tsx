@@ -11,7 +11,7 @@ import { Entry } from "@interface/Entry";
 import DetailIcon from "../molecules/DetailIcon";
 import PostedImageArea from "../molecules/PostedImageArea";
 import axios from "axios";
-import { useContext, useEffect, useLayoutEffect, useState } from "react";
+import React, { useContext, useEffect, useLayoutEffect, useState } from "react";
 import LinkCard from "../molecules/LinkCard";
 import { makePathForImage } from "@api/Resources";
 import { AuthContext } from "../../Context";
@@ -34,10 +34,12 @@ interface LinkCardState {
 
 const Post = styled.div<{isDialog: boolean}>`
 border: 1px solid #ddd;
+transition: background-color 0.2s;
 ${({isDialog}) => !isDialog && css`
   cursor: pointer;
   &:hover {
     background-color: #dddddd99;
+    transition: background-color 0.2s;
   }
 `}
 `;
@@ -116,7 +118,12 @@ export default (props: Entry & Props) => {
     if (authState.name === "") {  
       navigate("/login"); 
     } else {
-      navigate(`#/comment/${id}`, {replace: false, state: {click: true, ...props}});
+      navigate(
+        reactLocation.pathname === "/" ?
+                      `#/comment/${id}` :
+                      `${reactLocation.pathname}/#/comment/${id}`
+        , {replace: false, state: {click: true, ...props}}
+      );
     }
   }
 
@@ -152,9 +159,7 @@ export default (props: Entry & Props) => {
 
   const getOgp = async (words: string) => {
     const getUrl = (value: string) => {
-      // const reg = new RegExp(/\bhttps:\/\/.*\b/,"gi");
       const reg = new RegExp(/(https:\/\/\S+)/ig);
-      
       const results = reg.exec(value);
       if (!results) {
         return [];
@@ -244,7 +249,7 @@ export default (props: Entry & Props) => {
             <Text>
               {
                 renderWords(props.words).map((element, index) => (
-                  <div key={index}>{element}</div>
+                  <React.Fragment key={index}>{element}</React.Fragment>
                 ))
               }
             </Text>
@@ -261,9 +266,8 @@ export default (props: Entry & Props) => {
               </div>
             } */}
             {
-              linkCard.title 
-              ? <LinkCard title={linkCard.title} description={linkCard.description} thumbnail={linkCard.thumbnail} url={linkCard.url}/>
-              : <></>
+              linkCard.title &&
+              <LinkCard title={linkCard.title} description={linkCard.description} thumbnail={linkCard.thumbnail} url={linkCard.url}/>
             }
           </div>
         </div>

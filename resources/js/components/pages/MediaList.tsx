@@ -15,7 +15,8 @@ interface Media {
 const Image = styled.div<{imagePath: string}>`
 position: relative;
 width: 100%;
-height: 300px;
+height: 100%;
+/* height: 300px; */
 border: 1px solid #ddd;
 background-size: cover;
 background-position: center center;
@@ -50,7 +51,20 @@ const Label = styled.div`
 
  const ImageWrapper = styled.div`
  position: relative;
+ &::before {
+  content: "";
+  display: block;
+  padding-top: 100%;
+ }
 `;
+
+const ImageArea = styled.div`
+position: absolute;
+width: 100%;
+height: 100%;
+top: 0;
+left: 0;
+`
 
 export default (props: any) => {
   const { name } = useParams();
@@ -88,13 +102,16 @@ export default (props: any) => {
         <div>画像の投稿がありません</div>
       :
         postedImages.map((postedImage, index) => (
-          <ImageWrapper key={index} className="col-12 col-sm-12 col-md-6 col-lg-6 col-xl-4 px-0">
-            <Link to={"/post/" + postedImage.postId}>
-              <ImageMask>
-                <Label className="label">aaaa</Label>
-              </ImageMask>
-            </Link>
-            <Image imagePath={makePathForImage(postedImage.url, "upfiles")}/>
+          // <ImageWrapper key={index} className="col-12 col-sm-12 col-md-6 col-lg-6 col-xl-4 px-0">
+          <ImageWrapper key={index} className="col-4 px-0">
+            <ImageArea>
+              <Link to={"/post/" + postedImage.postId}>
+                <ImageMask>
+                  <Label className="label">aaaa</Label>
+                </ImageMask>
+              </Link>
+              <Image imagePath={makePathForImage(postedImage.url, "upfiles")}/>
+            </ImageArea>
           </ImageWrapper>
         ))
     }

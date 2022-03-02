@@ -163,6 +163,7 @@ export default (props: Props) => {
           "images": uploadedFilePaths
         };
         const resp = await postMessage(param);
+        window.__modal.hide();
         window.location.reload();
       } catch(error: any) {
         const errors = error.response.data.errors;
@@ -222,7 +223,7 @@ export default (props: Props) => {
         <NewPostArea>
           <div className='row justify-content-center mb-2'>
             <div className="form-group">
-              <textarea style={{resize: "none", border: "none"}} className="form-control" id="words" rows={3} value={contents} onChange={handleChange} ></textarea>
+              <textarea style={{resize: "none", border: "none"}} className="form-control" id="words" rows={3} value={contents} onChange={handleChange} autoFocus></textarea>
             </div>
           </div>
           <div className='row justify-content-start mb-2'>
