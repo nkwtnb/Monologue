@@ -6468,7 +6468,7 @@ function _arrayWithHoles(arr) { if (Array.isArray(arr)) return arr; }
         }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_4__.jsx)("div", {
           className: "mt-2",
           children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_4__.jsx)(_organisms_NewPost__WEBPACK_IMPORTED_MODULE_2__["default"], {
-            caption: "\u30B3\u30E1\u30F3\u30C8\u3092\u6295\u7A3F...",
+            placeholder: "\u30B3\u30E1\u30F3\u30C8\u3092\u6295\u7A3F...",
             replyTo: postState.id
           })
         })]
@@ -6983,7 +6983,7 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var axios__WEBPACK_IMPORTED_MODULE_3___default = /*#__PURE__*/__webpack_require__.n(axios__WEBPACK_IMPORTED_MODULE_3__);
 /* harmony import */ var _atoms_ErrorMessage__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(/*! ../atoms/ErrorMessage */ "./resources/js/components/atoms/ErrorMessage.tsx");
 /* harmony import */ var react_jsx_runtime__WEBPACK_IMPORTED_MODULE_5__ = __webpack_require__(/*! react/jsx-runtime */ "./node_modules/react/jsx-runtime.js");
-var _templateObject, _templateObject2, _templateObject3, _templateObject4, _templateObject5, _templateObject6, _templateObject7, _templateObject8;
+var _templateObject, _templateObject2, _templateObject3, _templateObject4, _templateObject5, _templateObject6, _templateObject7, _templateObject8, _templateObject9;
 
 function _toConsumableArray(arr) { return _arrayWithoutHoles(arr) || _iterableToArray(arr) || _unsupportedIterableToArray(arr) || _nonIterableSpread(); }
 
@@ -7086,14 +7086,15 @@ var postMessage = function postMessage(param) {
 };
 
 var Button = styled_components__WEBPACK_IMPORTED_MODULE_6__["default"].button(_templateObject || (_templateObject = _taggedTemplateLiteral(["\nwidth: 100px;\n"])));
-var NewPostArea = styled_components__WEBPACK_IMPORTED_MODULE_6__["default"].div(_templateObject2 || (_templateObject2 = _taggedTemplateLiteral(["\nborder: 1px solid #ddd;\npadding: 2px 6px;\n"])));
-var FaWrapper = styled_components__WEBPACK_IMPORTED_MODULE_6__["default"].label(_templateObject3 || (_templateObject3 = _taggedTemplateLiteral(["\n  width: 40px;\n  height: 40px;\n  border-radius: 40px;\n  border: 1px solid #ddd;\n  color: #2363a5;\n  &:hover {\n    background-color: #ddd;\n    cursor: pointer;\n  }\n"])));
-var UploadThumbnailWrapper = styled_components__WEBPACK_IMPORTED_MODULE_6__["default"].div(_templateObject4 || (_templateObject4 = _taggedTemplateLiteral(["\nmax-width: 80px;\nmax-height: 80px;\nborder: 1px solid #ddd;\ndisplay: inline-block;\nmargin: 2px 4px;\n"])));
-var UploadThumbnail = styled_components__WEBPACK_IMPORTED_MODULE_6__["default"].img(_templateObject5 || (_templateObject5 = _taggedTemplateLiteral(["\nwidth: 100%;\nheight: 100%;\n"])));
-var ThumbnailClose = styled_components__WEBPACK_IMPORTED_MODULE_6__["default"].button(_templateObject6 || (_templateObject6 = _taggedTemplateLiteral(["\nposition: absolute;\nright: 0;\nborder: none;\nbackground-color: #808080ab;\ncolor: white;\nwidth: 20px;\nheight: 20px;\nline-height: 0px;\nborder-radius: 20px;\n"])));
-var Counter = styled_components__WEBPACK_IMPORTED_MODULE_6__["default"].div(_templateObject7 || (_templateObject7 = _taggedTemplateLiteral(["\n  ", "\n"])), function (_ref) {
+var NewPostArea = styled_components__WEBPACK_IMPORTED_MODULE_6__["default"].div(_templateObject2 || (_templateObject2 = _taggedTemplateLiteral(["\nbackground-color: #fff;\nborder: 1px solid #ddd;\npadding: 2px 6px;\n"])));
+var TextArea = styled_components__WEBPACK_IMPORTED_MODULE_6__["default"].textarea(_templateObject3 || (_templateObject3 = _taggedTemplateLiteral(["\nbackground-color: #fff;\n&:focus {\n  background-color: #fff;\n}\n"])));
+var FaWrapper = styled_components__WEBPACK_IMPORTED_MODULE_6__["default"].label(_templateObject4 || (_templateObject4 = _taggedTemplateLiteral(["\n  width: 40px;\n  height: 40px;\n  border-radius: 40px;\n  border: 1px solid #ddd;\n  color: #2363a5;\n  &:hover {\n    background-color: #ddd;\n    cursor: pointer;\n  }\n"])));
+var UploadThumbnailWrapper = styled_components__WEBPACK_IMPORTED_MODULE_6__["default"].div(_templateObject5 || (_templateObject5 = _taggedTemplateLiteral(["\nmax-width: 80px;\nmax-height: 80px;\nborder: 1px solid #ddd;\ndisplay: inline-block;\nmargin: 2px 4px;\n"])));
+var UploadThumbnail = styled_components__WEBPACK_IMPORTED_MODULE_6__["default"].img(_templateObject6 || (_templateObject6 = _taggedTemplateLiteral(["\nwidth: 100%;\nheight: 100%;\n"])));
+var ThumbnailClose = styled_components__WEBPACK_IMPORTED_MODULE_6__["default"].button(_templateObject7 || (_templateObject7 = _taggedTemplateLiteral(["\nposition: absolute;\nright: 0;\nborder: none;\nbackground-color: #808080ab;\ncolor: white;\nwidth: 20px;\nheight: 20px;\nline-height: 0px;\nborder-radius: 20px;\n"])));
+var Counter = styled_components__WEBPACK_IMPORTED_MODULE_6__["default"].div(_templateObject8 || (_templateObject8 = _taggedTemplateLiteral(["\n  ", "\n"])), function (_ref) {
   var isOver = _ref.isOver;
-  return isOver && (0,styled_components__WEBPACK_IMPORTED_MODULE_6__.css)(_templateObject8 || (_templateObject8 = _taggedTemplateLiteral(["\n    color: red;\n  "])));
+  return isOver && (0,styled_components__WEBPACK_IMPORTED_MODULE_6__.css)(_templateObject9 || (_templateObject9 = _taggedTemplateLiteral(["\n    color: red;\n  "])));
 });
 
 var uploadFiles = function uploadFiles(files, _index, _uploaded) {
@@ -7332,16 +7333,14 @@ var uploadFiles = function uploadFiles(files, _index, _uploaded) {
   };
 
   return /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_5__.jsx)(react_jsx_runtime__WEBPACK_IMPORTED_MODULE_5__.Fragment, {
-    children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_5__.jsxs)("div", {
+    children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_5__.jsx)("div", {
       className: "mt-2 mb-1",
-      children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_5__.jsx)("label", {
-        children: props.caption
-      }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_5__.jsxs)(NewPostArea, {
+      children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_5__.jsxs)(NewPostArea, {
         children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_5__.jsx)("div", {
           className: "row justify-content-center mb-2",
           children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_5__.jsx)("div", {
             className: "form-group",
-            children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_5__.jsx)("textarea", {
+            children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_5__.jsx)(TextArea, {
               style: {
                 resize: "none",
                 border: "none"
@@ -7351,6 +7350,7 @@ var uploadFiles = function uploadFiles(files, _index, _uploaded) {
               rows: 3,
               value: contents,
               onChange: handleChange,
+              placeholder: props.placeholder,
               autoFocus: true
             })
           })
@@ -7418,7 +7418,7 @@ var uploadFiles = function uploadFiles(files, _index, _uploaded) {
             })
           })
         })]
-      })]
+      })
     })
   });
 });
@@ -7530,7 +7530,7 @@ var __awaiter = undefined && undefined.__awaiter || function (thisArg, _argument
 
 
 
-var Post = styled_components__WEBPACK_IMPORTED_MODULE_13__["default"].div(_templateObject || (_templateObject = _taggedTemplateLiteral(["\nborder: 1px solid #ddd;\ntransition: background-color 0.2s;\n", "\n"])), function (_ref) {
+var Post = styled_components__WEBPACK_IMPORTED_MODULE_13__["default"].div(_templateObject || (_templateObject = _taggedTemplateLiteral(["\nborder: 1px solid #ddd;\nbackground-color: #fff;\ntransition: background-color 0.2s;\n", "\n"])), function (_ref) {
   var isDialog = _ref.isDialog;
   return !isDialog && (0,styled_components__WEBPACK_IMPORTED_MODULE_13__.css)(_templateObject2 || (_templateObject2 = _taggedTemplateLiteral(["\n  cursor: pointer;\n  &:hover {\n    background-color: #dddddd99;\n    transition: background-color 0.2s;\n  }\n"])));
 });
@@ -8332,7 +8332,7 @@ __webpack_require__.r(__webpack_exports__);
     children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_4__.jsxs)("div", {
       className: "offset-md-2 col-md-8",
       children: [authState.name !== "" && /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_4__.jsx)(_organisms_NewPost__WEBPACK_IMPORTED_MODULE_1__["default"], {
-        caption: "\u3072\u3068\u308A\u3054\u3068\u3092\u3064\u3076\u3084\u304F..."
+        placeholder: "\u3072\u3068\u308A\u3054\u3068\u3092\u3064\u3076\u3084\u304F..."
       }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_4__.jsx)(_organisms_TImeline__WEBPACK_IMPORTED_MODULE_2__["default"], {
         name: "",
         filter: "post"

@@ -63,7 +63,7 @@ export default () => {
               <Post {...postState} isDialog={true} ></Post>
             </div>
             <div className="mt-2">
-              <NewPost caption="コメントを投稿..." replyTo={postState.id} />
+              <NewPost placeholder="コメントを投稿..." replyTo={postState.id} />
             </div>
           </>
         }

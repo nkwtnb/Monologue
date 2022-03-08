@@ -27,7 +27,7 @@ interface SelectedImage {
 }
 
 interface Props {
-  caption: string;
+  placeholder: string;
   replyTo?: number | undefined;
 }
 
@@ -41,8 +41,16 @@ width: 100px;
 `;
 
 const NewPostArea = styled.div`
+background-color: #fff;
 border: 1px solid #ddd;
 padding: 2px 6px;
+`;
+
+const TextArea = styled.textarea`
+background-color: #fff;
+&:focus {
+  background-color: #fff;
+}
 `;
 
 const FaWrapper = styled.label`
@@ -225,11 +233,10 @@ export default (props: Props) => {
   return (
     <>
       <div className='mt-2 mb-1'>
-        <label >{props.caption}</label>
         <NewPostArea>
           <div className='row justify-content-center mb-2'>
             <div className="form-group">
-              <textarea style={{resize: "none", border: "none"}} className="form-control" id="words" rows={3} value={contents} onChange={handleChange} autoFocus></textarea>
+              <TextArea style={{resize: "none", border: "none"}} className="form-control" id="words" rows={3} value={contents} onChange={handleChange} placeholder={props.placeholder} autoFocus></TextArea>
             </div>
           </div>
           <div className='row justify-content-start mb-2'>

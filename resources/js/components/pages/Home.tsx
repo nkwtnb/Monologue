@@ -11,7 +11,7 @@ export default () => {
       <div className='offset-md-2 col-md-8'>
         {
           authState.name !== "" &&
-          <NewPost caption='ひとりごとをつぶやく...'/>
+          <NewPost placeholder='ひとりごとをつぶやく...'/>
         }
         <TImeline name="" filter="post"/>
       </div>

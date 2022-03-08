@@ -16,7 +16,7 @@ export default (props: PropsWithChildren<Entry>) => {
       {
       authState.name !== "" &&
         <div className="mt-2">
-          <NewPost caption="コメントを投稿..." replyTo={props.id} />
+          <NewPost placeholder="コメントを投稿..." replyTo={props.id} />
         </div>
       }
     </Modal>

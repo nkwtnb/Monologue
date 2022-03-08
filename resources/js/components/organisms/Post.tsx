@@ -35,6 +35,7 @@ interface LinkCardState {
 
 const Post = styled.div<{isDialog: boolean}>`
 border: 1px solid #ddd;
+background-color: #fff;
 transition: background-color 0.2s;
 ${({isDialog}) => !isDialog && css`
   cursor: pointer;
