@@ -15,6 +15,9 @@ import PostInfo from "./components/pages/PostInfo";
 import MediaList from "./components/pages/MediaList";
 import Email from "./components/pages/Email";
 import Reset from "./components/pages/Reset";
+import RestrictedRoute from "./routes/RestrictedRoute";
+import PrivateRoute from "./routes/PrivateRoute";
+import GuestRoute from "./routes/GuestRoute";
 
 (async () => {
   const authenticatedUser = await userApi.getAuthenticatedUser();
@@ -31,11 +34,11 @@ import Reset from "./components/pages/Reset";
               <Route path="like" element={<UserPosts filter="like"/>}/>
               <Route path="media" element={<MediaList filter="media"/>}/>
             </Route>
-            <Route path="/settings" element={<User />} />
-            <Route path="/register" element={<Welcome isRegister={true} />} />
-            <Route path="/login" element={<Welcome isRegister={false} />} />
-            <Route path="/password/email" element={<Email />} />
-            <Route path="/password/reset" element={<Reset />} />
+            <Route path="/settings" element={<PrivateRoute><User /></PrivateRoute>} />
+            <Route path="/register" element={<GuestRoute><Welcome isRegister={true} /></GuestRoute>} />
+            <Route path="/login" element={<GuestRoute><Welcome isRegister={false} /></GuestRoute>} />
+            <Route path="/password/email" element={<GuestRoute><Email /></GuestRoute>} />
+            <Route path="/password/reset/*" element={<GuestRoute><Reset /></GuestRoute>} />
             <Route path="*" element={(
               <p>Not Found</p>
             )} />

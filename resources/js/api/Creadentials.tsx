@@ -3,6 +3,7 @@ export interface Type {
   email: string;
   password: string;
   password_confirmation: string;
+  remember: true | undefined;
 }
 
 export const INITIAL_STATE: Type = {
@@ -10,4 +11,5 @@ export const INITIAL_STATE: Type = {
   email: "",
   password: "",
   password_confirmation: "",
+  remember: true,
 }

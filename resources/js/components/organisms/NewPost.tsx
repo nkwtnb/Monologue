@@ -147,6 +147,7 @@ export default (props: Props) => {
   // }
 
   const handleClick = () => {
+    setErrorMessages([]);
     if (contents === "") {
       setErrorMessages(["つぶやきを入力してください。"]);
       return;
@@ -166,6 +167,11 @@ export default (props: Props) => {
         window.__modal.hide();
         window.location.reload();
       } catch(error: any) {
+        const response = error.response;
+        if (response.status === 419 || response.status === 401) {
+          setErrorMessages(["セッションの有効期限切れか、未ログインの状態です。\nつぶやきの投稿はログインが必要です。"]);
+          return;
+        }
         const errors = error.response.data.errors;
         const messages: string[] = [];
         for(let key in errors) {

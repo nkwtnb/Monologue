@@ -1,4 +1,44 @@
+import axios from "axios";
+import { useEffect, useState } from "react"
+import { useLocation, useSearchParams } from "react-router-dom";
+
+interface ResetCredentials {
+  email: string;
+  password: string;
+  password_confirmation: string;
+  token: string;
+}
+
+const INITIAL_STATE: ResetCredentials = {
+  email: "",
+  password: "",
+  password_confirmation: "",
+  token: "",
+}
+
 export default () => {
+  const [resetCredentials, setResetCredentials] = useState<ResetCredentials>(INITIAL_STATE);
+  const [searchParams] = useSearchParams();
+
+  useEffect(() => {
+    setResetCredentials({
+      ...resetCredentials,
+      email: searchParams.get("email") === null ? "" : searchParams.get("email")!,
+      token: searchParams.get("token") === null ? "" : searchParams.get("token")!,
+    });
+    // console.log(searchParams.get("token"))
+  }, []);
+
+  const handleChange = (e: any) => {
+    setResetCredentials({...resetCredentials, [e.target.id]: e.target.value});
+  }
+
+  const handleSubmit = async (e: any) => {
+    e.preventDefault();
+    console.log(resetCredentials);
+    const resp = (await axios.post("/password/reset", resetCredentials)).data;
+  }
+
   return (
     <div className="container">
       <div className="row justify-content-center">
@@ -6,13 +46,13 @@ export default () => {
           <div className="card">
             <div className="card-header">パスワードリセット</div>
             <div className="card-body">
-              <form method="POST" action="{{ route('password.update') }}">
+              <form method="POST" action="">
                 <input type="hidden" name="token" value="" />
 
                   <div className="row mb-3">
                     <label htmlFor="email" className="col-md-4 col-form-label text-md-end">メールアドレス</label>
                     <div className="col-md-6">
-                      <input id="email" type="email" className="form-control @error('email') is-invalid @enderror" name="email" value="{{ $email ?? old('email') }}" required autoComplete="email" autoFocus />
+                      <input id="email" type="email" className="form-control" name="email" value={resetCredentials.email} required autoComplete="email" autoFocus onChange={(e => handleChange(e))} />
                         {/* <span className="invalid-feedback" role="alert"> */}
                           {/* <strong>{{ $message }}</strong> */}
                         {/* </span> */}
@@ -22,18 +62,18 @@ export default () => {
                   <div className="row mb-3">
                     <label htmlFor="password" className="col-md-4 col-form-label text-md-end">パスワード</label>
                     <div className="col-md-6">
-                      <input id="password" type="password" className="form-control @error('password') is-invalid @enderror" name="password" required autoComplete="new-password" />
+                      <input id="password" type="password" className="form-control" name="password" value={resetCredentials.password} required autoComplete="new-password" onChange={(e => handleChange(e))}/>
                     </div>
                   </div>
                   <div className="row mb-3">
                     <label htmlFor="password-confirm" className="col-md-4 col-form-label text-md-end">パスワード（確認）</label>
                     <div className="col-md-6">
-                      <input id="password-confirm" type="password" className="form-control" name="password_confirmation" required autoComplete="new-password" />
+                      <input id="password_confirmation" type="password" className="form-control" name="password_confirmation" value={resetCredentials.password_confirmation} required autoComplete="new-password" onChange={(e => handleChange(e))}/>
                     </div>
                   </div>
                   <div className="row mb-0">
                     <div className="col-md-6 offset-md-4">
-                      <button type="submit" className="btn btn-primary">
+                      <button type="submit" className="btn btn-primary" onClick={(e => handleSubmit(e))}>
                         送信
                       </button>
                     </div>

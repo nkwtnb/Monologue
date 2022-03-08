@@ -1,11 +1,12 @@
 import axios from 'axios';
-import React, { useState, useContext, useEffect } from 'react';
+import React, { useState, useContext, useEffect, useLayoutEffect } from 'react';
 import { Navigate, useNavigate } from 'react-router-dom';
 import CardButton from "../molecules/CardButton";
 import { AuthContext } from ".././../Context";
 import * as userApi from "../../api/User";
 import ErrorMessage from '../atoms/ErrorMessage';
 import * as Credentials from "@api/Creadentials";
+import { Link } from 'react-router-dom';
 
 interface Props {
   isRegister: boolean;
@@ -43,6 +44,7 @@ export default (props: Props) => {
 
   const submit = async () => {
     setErrors([]);
+    await axios.get("/sanctum/csrf-cookie");
     try {
       let authenticatedUser: userApi.Type;
       if (props.isRegister) {
@@ -66,14 +68,13 @@ export default (props: Props) => {
   }
 
   const handleChangeCredentials = (e: React.ChangeEvent<HTMLInputElement>, target: string) => {
-    setCredentials({ ...credentials, [target]: e.target.value })
+    if (target === "remember") {
+      setCredentials({ ...credentials, [target]: e.target.checked ? true : undefined })
+    } else {
+      setCredentials({ ...credentials, [target]: e.target.value })
+    }
   }
-
-  // ログイン済みの場合、リダイレクト
-  if (authState.name) {
-    return <Navigate to={"/"} />;
-  }
-
+  
   return (
     <>
       <div className="container">
@@ -113,34 +114,48 @@ export default (props: Props) => {
                   </div>
                 </div>
                 {props.isRegister &&
-                  <>
-                    <div className="row mb-3">
-                      <label htmlFor="password-confirm" className="col-md-4 col-form-label text-md-end">パスワード（確認）</label>
-                      <div className="col-md-6">
-                        <input id="password-confirm" type="password" className="form-control" name="password_confirmation" required autoComplete="new-password" value={credentials.password_confirmation} onChange={(e => handleChangeCredentials(e, "password_confirmation"))} />
-                      </div>
+                  <div className="row mb-3">
+                    <label htmlFor="password-confirm" className="col-md-4 col-form-label text-md-end">パスワード（確認）</label>
+                    <div className="col-md-6">
+                      <input id="password-confirm" type="password" className="form-control" name="password_confirmation" required autoComplete="new-password" value={credentials.password_confirmation} onChange={(e => handleChangeCredentials(e, "password_confirmation"))} />
                     </div>
-                  </>
+                  </div>
                 }
-                <div className="row mb-3">
+                {!props.isRegister &&
+                  <div className="row mb-3">
+                    <div className="col-md-6 offset-md-4">
+                      <div className="form-check">
+                          <input className="form-check-input" type="checkbox" name="remember" id="remember" onChange={(e => handleChangeCredentials(e, "remember"))}/>
+                          <label className="form-check-label" htmlFor="remember">ログイン情報を保持する</label>
+                      </div>
+                      </div>
+                  </div>
+                }
+                {
+                errors.length > 0 &&
+                <div className="row mb-3 mt-3">
                   <div className="offset-md-4 col-md-6">
                     <div className='w-100'>
                       <ErrorMessage messages={errors}></ErrorMessage>
                     </div>
                   </div>
                 </div>
+                }
                 {/* アクション */}
-                <div className="row">
+                <div className="row mb-3">
                   <div className="col-md-6 offset-md-4">
                     <CardButton isSubmit={true} label={props.isRegister ? LABEL.Submit.Register : LABEL.Submit.Login} onClick={submit} />
                   </div>
                 </div>
-                <div className="row mb-3 mt-3 justify-content-center d-flex w-100">
-                  <div className="w-75"></div>
-                </div>
-                <div className="row">
+                <div className="row mb-3">
                   <div className="col-md-6 offset-md-4">
                     <CardButton isSubmit={false} label={props.isRegister ? LABEL.Toggle.Login : LABEL.Toggle.Register} onClick={toggleView} />
+                  </div>
+                </div>
+                {/* パスワード再発行 */}
+                <div className="row">
+                  <div className="col-md-6 offset-md-4">
+                    <Link to={"/password/email"} >パスワードをお忘れの場合</Link>
                   </div>
                 </div>
               </div>

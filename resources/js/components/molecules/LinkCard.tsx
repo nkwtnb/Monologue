@@ -1,4 +1,5 @@
 import styled from "styled-components";
+import noThumbnail from "@img/no_thumbnail.png";
 
 interface Props {
   title: string;
@@ -31,8 +32,8 @@ height: ${SIZE.HEIGHT}px;
 border-top-left-radius: 20px;
 border-top-right-radius: 20px;
 border: 1px solid #ddd;
-background-image: url(${({ image }) => image});
-background-size: cover;
+background-image: url(${({ image }) => image ? image : noThumbnail});
+background-size: ${({image}) => image ? "cover" : "contain"};
 background-position: center center;
 background-repeat: no-repeat;
 `;

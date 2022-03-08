@@ -15,6 +15,7 @@ import React, { useContext, useEffect, useLayoutEffect, useState } from "react";
 import LinkCard from "../molecules/LinkCard";
 import { makePathForImage } from "@api/Resources";
 import { AuthContext } from "../../Context";
+import * as userApi from "@api/User";
 
 interface Props {
   isDialog: boolean;
@@ -92,12 +93,14 @@ export default (props: Entry & Props) => {
   });
   const navigate = useNavigate();
 
-  const handleLike = (e: any, id: number) => {
+  const handleLike = async (e: any, id: number) => {
     e.stopPropagation();
+    // const authenticatedUser = await userApi.getAuthenticatedUser();
+    // console.log(authenticatedUser);
     if (authState.name === "") {
       navigate("/login"); 
     } else {
-      (async () => {
+      try {
         setLikeState(prev => {
           return {
             count: prev.isLike ? (prev.count-1) : (prev.count+1),
@@ -109,7 +112,13 @@ export default (props: Entry & Props) => {
         } else {
           const resp = await axios.post("/api/likes", { entryId: id });
         }
-      })();
+      } catch (error: any) {
+        const response = error.response;
+        if (response.status === 419 || response.status === 401) {
+          // setErrorMessages(["セッションの有効期限切れか、未ログインの状態です。\nつぶやきの投稿はログインが必要です。"]);
+          return;
+        }
+      }
     }
   }
 
