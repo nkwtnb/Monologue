@@ -23,28 +23,20 @@ export default () => {
           <div className="card">
             <div className="card-header">パスワードリセット</div>
             <div className="card-body">
-              {/* @if (session('status'))
-            <div className="alert alert-success" role="alert">
-              {{ session('status') }}
-            </div>
-            @endif */}
               <form method="POST" action="/password/email">
                 <div className="row mb-3">
                   <label htmlFor="email" className="col-md-4 col-form-label text-md-end">メールアドレス</label>
                   <div className="col-md-6">
                     <input id="email" type="email" className="form-control @error('email')" name="email" value={email} onChange={handleEmail} required autoComplete="email" autoFocus />
-                    {/* @error('email') */}
                     <span className="invalid-feedback" role="alert">
                       <strong>（メッセージ）</strong>
                     </span>
-                    {/* @enderror */}
                   </div>
                 </div>
 
                 <div className="row mb-0">
                   <div className="col-md-6 offset-md-4">
                     <button type="submit" className="btn btn-primary" onClick={handleSubmit}>
-                      {/* {{ __('Send Password Reset Link') }} */}
                       送信
                     </button>
                   </div>
