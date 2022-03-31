@@ -1,6 +1,5 @@
 import { makePathForImage } from "@api/Resources";
 import styled, { css } from "styled-components";
-
 const SIZE = {
   WIDTH: 300,
   HEIGHT: 200,
