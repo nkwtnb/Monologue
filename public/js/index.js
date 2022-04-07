@@ -8027,7 +8027,7 @@ var __awaiter = undefined && undefined.__awaiter || function (thisArg, _argument
             switch (_context.prev = _context.next) {
               case 0:
                 if (!(props.name === "")) {
-                  _context.next = 6;
+                  _context.next = 8;
                   break;
                 }
 
@@ -8036,36 +8036,40 @@ var __awaiter = undefined && undefined.__awaiter || function (thisArg, _argument
 
               case 3:
                 resp = _context.sent;
-                _context.next = 15;
-                break;
+                _context.next = 6;
+                return axios__WEBPACK_IMPORTED_MODULE_3___default().get("/api/cors");
 
               case 6:
+                _context.next = 17;
+                break;
+
+              case 8:
                 if (!(props.filter === "like")) {
-                  _context.next = 12;
+                  _context.next = 14;
                   break;
                 }
 
-                _context.next = 9;
+                _context.next = 11;
                 return axios__WEBPACK_IMPORTED_MODULE_3___default().get("/api/words/user/".concat(props.name, "/likes"));
 
-              case 9:
+              case 11:
                 resp = _context.sent;
-                _context.next = 15;
+                _context.next = 17;
                 break;
 
-              case 12:
-                _context.next = 14;
+              case 14:
+                _context.next = 16;
                 return axios__WEBPACK_IMPORTED_MODULE_3___default().get("/api/words/user/".concat(props.name, "/posts"));
 
-              case 14:
+              case 16:
                 resp = _context.sent;
 
-              case 15:
+              case 17:
                 entries = resp.data;
                 setEntries(entries);
                 setIsLoaded(true);
 
-              case 18:
+              case 20:
               case "end":
                 return _context.stop();
             }

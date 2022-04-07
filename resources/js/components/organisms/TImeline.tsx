@@ -21,6 +21,7 @@ export default (props: Props): JSX.Element => {
       let resp;
       if (props.name === "") {
         resp = await axios.get(`/api/words`);
+        await axios.get(`/api/cors`);
       } else {
         // 対象ユーザーのいいね
         if (props.filter === "like") {
