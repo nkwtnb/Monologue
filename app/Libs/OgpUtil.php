@@ -166,6 +166,13 @@ class OgpUtil
       'jpg' => 'image/jpeg',
       'png' => 'image/png'
     );
+    //MIMEタイプから拡張子を出力
+    if ($ext = array_search($mime_type, $extension_array, true)) {
+      //拡張子の出力
+      logger("拡張子 : " . $ext);
+    } else {
+      logger("拡張子が取得できませんでした。");
+    }
     return $ext;
   }
 }
