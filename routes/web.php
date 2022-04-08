@@ -4,6 +4,7 @@ use App\Http\Controllers\Auth\ForgotPasswordController;
 use App\Http\Controllers\Auth\LoginController;
 use App\Http\Controllers\Auth\RegisterController;
 use App\Http\Controllers\Auth\ResetPasswordController;
+use App\Http\Controllers\CustomLoginController;
 use App\Http\Controllers\FileController;
 use App\Http\Controllers\LikeController;
 use App\Http\Controllers\OgpController;

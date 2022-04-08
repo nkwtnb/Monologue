@@ -44,4 +44,10 @@ class LoginController extends Controller
         $this->login($request);
         return UserController::getAuthenticatedUser($request);
     }
+
+    public function username()
+    {
+        return 'name';
+    }
+
 }
