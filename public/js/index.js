@@ -7440,7 +7440,8 @@ var uploadFiles = function uploadFiles(files, _index, _uploaded) {
                 className: "uploader",
                 hidden: true,
                 onClick: handleUploadClick,
-                onChange: handleUploadChange
+                onChange: handleUploadChange,
+                accept: "image/*"
               })]
             })
           }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_5__.jsxs)("div", {

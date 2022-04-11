@@ -259,7 +259,7 @@ export default (props: Props) => {
             <div className='col d-flex justify-content-start'>
               <FaWrapper className='d-flex justify-content-center align-items-center'>
                 <FontAwesomeIcon className='fa-lg' icon={faImage} />
-                <input type="file" className="uploader" hidden onClick={handleUploadClick} onChange={handleUploadChange}></input>
+                <input type="file" className="uploader" hidden onClick={handleUploadClick} onChange={handleUploadChange} accept="image/*"></input>
               </FaWrapper>
             </div>
             <div className='col d-flex justify-content-end'>
