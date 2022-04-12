@@ -130,8 +130,6 @@ class Word extends Model
                 w.reply_to
         ) reply
             on a.id = reply.reply_to
-        where
-            a.reply_to IS NULL
         order by
             a.created_at desc;
         ";
