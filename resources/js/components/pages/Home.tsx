@@ -2,7 +2,6 @@ import React, { useContext, useEffect, useLayoutEffect } from 'react';
 import NewPost from '../organisms/NewPost';
 import TImeline from '../organisms/TImeline';
 import { AuthContext } from "../../Context";
-import { Outlet } from 'react-router-dom';
 
 export default () => {
   const {authState, setAuthState} = useContext(AuthContext);

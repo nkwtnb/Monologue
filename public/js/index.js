@@ -7952,9 +7952,8 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var _Post__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ./Post */ "./resources/js/components/organisms/Post.tsx");
 /* harmony import */ var axios__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! axios */ "./node_modules/axios/index.js");
 /* harmony import */ var axios__WEBPACK_IMPORTED_MODULE_3___default = /*#__PURE__*/__webpack_require__.n(axios__WEBPACK_IMPORTED_MODULE_3__);
-/* harmony import */ var react_jsx_runtime__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(/*! react/jsx-runtime */ "./node_modules/react/jsx-runtime.js");
-
-
+/* harmony import */ var _Context__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(/*! ../../Context */ "./resources/js/Context.tsx");
+/* harmony import */ var react_jsx_runtime__WEBPACK_IMPORTED_MODULE_5__ = __webpack_require__(/*! react/jsx-runtime */ "./node_modules/react/jsx-runtime.js");
 function _slicedToArray(arr, i) { return _arrayWithHoles(arr) || _iterableToArrayLimit(arr, i) || _unsupportedIterableToArray(arr, i) || _nonIterableRest(); }
 
 function _nonIterableRest() { throw new TypeError("Invalid attempt to destructure non-iterable instance.\nIn order to be iterable, non-array objects must have a [Symbol.iterator]() method."); }
@@ -7966,6 +7965,8 @@ function _arrayLikeToArray(arr, len) { if (len == null || len > arr.length) len 
 function _iterableToArrayLimit(arr, i) { var _i = arr == null ? null : typeof Symbol !== "undefined" && arr[Symbol.iterator] || arr["@@iterator"]; if (_i == null) return; var _arr = []; var _n = true; var _d = false; var _s, _e; try { for (_i = _i.call(arr); !(_n = (_s = _i.next()).done); _n = true) { _arr.push(_s.value); if (i && _arr.length === i) break; } } catch (err) { _d = true; _e = err; } finally { try { if (!_n && _i["return"] != null) _i["return"](); } finally { if (_d) throw _e; } } return _arr; }
 
 function _arrayWithHoles(arr) { if (Array.isArray(arr)) return arr; }
+
+
 
 var __awaiter = undefined && undefined.__awaiter || function (thisArg, _arguments, P, generator) {
   function adopt(value) {
@@ -8004,8 +8005,123 @@ var __awaiter = undefined && undefined.__awaiter || function (thisArg, _argument
 
 
 
+/**
+ * パラメータに応じて、全投稿、いいねした投稿などを取得する
+ */
+
+
+
+
+var getEntries = function getEntries(_ref) {
+  var name = _ref.name,
+      filter = _ref.filter;
+  return __awaiter(void 0, void 0, void 0, /*#__PURE__*/_babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default().mark(function _callee() {
+    var entries, likeEntries, _entries2;
+
+    return _babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default().wrap(function _callee$(_context) {
+      while (1) {
+        switch (_context.prev = _context.next) {
+          case 0:
+            if (!(name === "")) {
+              _context.next = 7;
+              break;
+            }
+
+            _context.next = 3;
+            return axios__WEBPACK_IMPORTED_MODULE_3___default().get("/api/words");
+
+          case 3:
+            entries = _context.sent.data;
+            return _context.abrupt("return", entries);
+
+          case 7:
+            if (!(filter === "like")) {
+              _context.next = 14;
+              break;
+            }
+
+            _context.next = 10;
+            return axios__WEBPACK_IMPORTED_MODULE_3___default().get("/api/words/user/".concat(name, "/likes"));
+
+          case 10:
+            likeEntries = _context.sent.data;
+            return _context.abrupt("return", likeEntries);
+
+          case 14:
+            _context.next = 16;
+            return axios__WEBPACK_IMPORTED_MODULE_3___default().get("/api/words/user/".concat(name, "/posts"));
+
+          case 16:
+            _entries2 = _context.sent.data;
+            return _context.abrupt("return", _entries2);
+
+          case 18:
+          case "end":
+            return _context.stop();
+        }
+      }
+    }, _callee);
+  }));
+};
+/**
+ * 自分が「いいね」した投稿にフラグを立てる
+ * @returns
+ */
+
+
+var setLikeStatus = function setLikeStatus(entries, authName) {
+  return __awaiter(void 0, void 0, void 0, /*#__PURE__*/_babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default().mark(function _callee2() {
+    var likeEntries, resp;
+    return _babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default().wrap(function _callee2$(_context2) {
+      while (1) {
+        switch (_context2.prev = _context2.next) {
+          case 0:
+            if (!(authName === "")) {
+              _context2.next = 4;
+              break;
+            }
+
+            _context2.t0 = [];
+            _context2.next = 7;
+            break;
+
+          case 4:
+            _context2.next = 6;
+            return axios__WEBPACK_IMPORTED_MODULE_3___default().get("/api/words/user/".concat(authName, "/likes"));
+
+          case 6:
+            _context2.t0 = _context2.sent.data;
+
+          case 7:
+            likeEntries = _context2.t0;
+            resp = entries.map(function (entry) {
+              for (var i = 0; i < likeEntries.length; i++) {
+                var likeEntry = likeEntries[i];
+
+                if (entry.id === likeEntry.id) {
+                  entry.isLike = true;
+                  break;
+                }
+              }
+
+              return entry;
+            });
+            return _context2.abrupt("return", resp);
+
+          case 10:
+          case "end":
+            return _context2.stop();
+        }
+      }
+    }, _callee2);
+  }));
+};
 
 /* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = (function (props) {
+  var _useContext = (0,react__WEBPACK_IMPORTED_MODULE_1__.useContext)(_Context__WEBPACK_IMPORTED_MODULE_4__.AuthContext),
+      authState = _useContext.authState,
+      setAuthState = _useContext.setAuthState;
+
   var _useState = (0,react__WEBPACK_IMPORTED_MODULE_1__.useState)(false),
       _useState2 = _slicedToArray(_useState, 2),
       isLoaded = _useState2[0],
@@ -8021,79 +8137,50 @@ var __awaiter = undefined && undefined.__awaiter || function (thisArg, _argument
     setEntries([]);
 
     (function () {
-      return __awaiter(void 0, void 0, void 0, /*#__PURE__*/_babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default().mark(function _callee() {
-        var resp, entries;
-        return _babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default().wrap(function _callee$(_context) {
+      return __awaiter(void 0, void 0, void 0, /*#__PURE__*/_babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default().mark(function _callee3() {
+        var _entries, entries;
+
+        return _babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default().wrap(function _callee3$(_context3) {
           while (1) {
-            switch (_context.prev = _context.next) {
+            switch (_context3.prev = _context3.next) {
               case 0:
-                if (!(props.name === "")) {
-                  _context.next = 8;
-                  break;
-                }
+                _context3.next = 2;
+                return getEntries(props);
 
-                _context.next = 3;
-                return axios__WEBPACK_IMPORTED_MODULE_3___default().get("/api/words");
+              case 2:
+                _entries = _context3.sent;
+                _context3.next = 5;
+                return setLikeStatus(_entries, authState.name);
 
-              case 3:
-                resp = _context.sent;
-                _context.next = 6;
-                return axios__WEBPACK_IMPORTED_MODULE_3___default().get("/api/cors");
-
-              case 6:
-                _context.next = 17;
-                break;
-
-              case 8:
-                if (!(props.filter === "like")) {
-                  _context.next = 14;
-                  break;
-                }
-
-                _context.next = 11;
-                return axios__WEBPACK_IMPORTED_MODULE_3___default().get("/api/words/user/".concat(props.name, "/likes"));
-
-              case 11:
-                resp = _context.sent;
-                _context.next = 17;
-                break;
-
-              case 14:
-                _context.next = 16;
-                return axios__WEBPACK_IMPORTED_MODULE_3___default().get("/api/words/user/".concat(props.name, "/posts"));
-
-              case 16:
-                resp = _context.sent;
-
-              case 17:
-                entries = resp.data;
+              case 5:
+                entries = _context3.sent;
                 setEntries(entries);
                 setIsLoaded(true);
 
-              case 20:
+              case 8:
               case "end":
-                return _context.stop();
+                return _context3.stop();
             }
           }
-        }, _callee);
+        }, _callee3);
       }));
     })();
   }, [props.name, props.filter]);
 
   if (!isLoaded) {
-    return /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_4__.jsx)(react_jsx_runtime__WEBPACK_IMPORTED_MODULE_4__.Fragment, {});
+    return /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_5__.jsx)(react_jsx_runtime__WEBPACK_IMPORTED_MODULE_5__.Fragment, {});
   }
 
   if (entries.length === 0) {
-    return /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_4__.jsx)("div", {
+    return /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_5__.jsx)("div", {
       children: "\u5BFE\u8C61\u306E\u6295\u7A3F\u304C\u3042\u308A\u307E\u305B\u3093"
     });
   } else {
-    return /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_4__.jsx)(react_jsx_runtime__WEBPACK_IMPORTED_MODULE_4__.Fragment, {
+    return /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_5__.jsx)(react_jsx_runtime__WEBPACK_IMPORTED_MODULE_5__.Fragment, {
       children: entries.map(function (entry, index) {
-        return /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_4__.jsx)("div", {
+        return /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_5__.jsx)("div", {
           className: "px-0 mb-1",
-          children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_4__.jsx)(_Post__WEBPACK_IMPORTED_MODULE_2__["default"], {
+          children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_5__.jsx)(_Post__WEBPACK_IMPORTED_MODULE_2__["default"], {
             id: entry.id,
             name: entry.name,
             created_at: entry.created_at,

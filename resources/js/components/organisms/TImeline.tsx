@@ -1,37 +1,63 @@
-import React, { memo, useEffect, useLayoutEffect } from 'react';
+import React, { memo, useContext, useEffect, useLayoutEffect } from 'react';
 import { useState } from 'react';
 import Post from './Post';
 import axios from 'axios';
 import { Entry } from "@interface/Entry";
+import { AuthContext } from '../../Context';
 
 interface Props {
   name: string | undefined;
   filter: "post" | "like" | "media";
 }
 
-export default (props: Props): JSX.Element => {
+/**
+ * パラメータに応じて、全投稿、いいねした投稿などを取得する
+ */
+const getEntries = async ({name, filter}: Props): Promise<Entry[]> => {
+  // ホーム画面時
+  if (name === "") {
+    const entries = (await axios.get(`/api/words`)).data as Entry[];
+    return entries;
+  // ユーザー別 > いいね
+  } else if (filter === "like") {
+    const likeEntries = (await axios.get(`/api/words/user/${name}/likes`)).data as Entry[];
+    return likeEntries;
+  // ユーザー別 > 投稿 or メディア
+  } else {
+    const entries = (await axios.get(`/api/words/user/${name}/posts`)).data as Entry[];
+    return entries;
+  }
+}
 
+/**
+ * 自分が「いいね」した投稿にフラグを立てる
+ * @returns 
+ */
+const setLikeStatus = async (entries: Entry[], authName: string) => {
+  const likeEntries = authName === "" ? [] : (await axios.get(`/api/words/user/${authName}/likes`)).data as Entry[];
+  const resp = entries.map(entry => {
+    for (let i=0; i<likeEntries.length; i++) {
+      const likeEntry = likeEntries[i];
+      if (entry.id === likeEntry.id) {
+        entry.isLike = true;
+        break;
+      }
+    }
+    return entry;
+  });
+  return resp;
+}
+
+export default (props: Props): JSX.Element => {
+  const {authState, setAuthState} = useContext(AuthContext);
   const [isLoaded, setIsLoaded] = useState(false);
   const [entries, setEntries] = useState<Entry[]>([]);
   useEffect(() => {
     setIsLoaded(false);
     setEntries([]);
     (async () => {
-      // 全投稿取得
-      let resp;
-      if (props.name === "") {
-        resp = await axios.get(`/api/words`);
-        await axios.get(`/api/cors`);
-      } else {
-        // 対象ユーザーのいいね
-        if (props.filter === "like") {
-          resp = await axios.get(`/api/words/user/${props.name}/likes`);
-        // 対象ユーザーの全投稿
-        } else {
-          resp = await axios.get(`/api/words/user/${props.name}/posts`);
-        }
-      }
-      const entries = resp.data;
+      const _entries = await getEntries(props);
+      const entries = await setLikeStatus(_entries, authState.name);
       setEntries(entries);
       setIsLoaded(true);
     })();
