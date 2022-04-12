@@ -2,6 +2,7 @@
 
 namespace App\Models;
 
+use App\Notifications\ResetPasswordNotification;
 use Illuminate\Contracts\Auth\MustVerifyEmail;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Foundation\Auth\User as Authenticatable;
@@ -54,13 +55,25 @@ class User extends Authenticatable
     /**
      * 取得可能項目に対してデフォルト値を設定
      */
-    public static function getDefaultValue() {
+    public static function getDefaultValue()
+    {
         $result = [];
         $model = new User();
         $visible = $model->getVisible();
-        foreach($visible as $key) {
+        foreach ($visible as $key) {
             $result[$key] = "";
         }
         return $result;
+    }
+
+    /**
+     * パスワードリセット通知をユーザーに送信
+     *
+     * @param  string  $token
+     * @return void
+     */
+    public function sendPasswordResetNotification($token)
+    {
+        $this->notify(new ResetPasswordNotification($token));
     }
 }

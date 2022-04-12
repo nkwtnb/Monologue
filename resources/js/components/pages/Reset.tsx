@@ -1,6 +1,8 @@
 import axios from "axios";
 import { useEffect, useState } from "react"
 import { useLocation, useSearchParams } from "react-router-dom";
+import ErrorMessage from "../atoms/ErrorMessage";
+import Message from "../atoms/Message";
 
 interface ResetCredentials {
   email: string;
@@ -19,6 +21,8 @@ const INITIAL_STATE: ResetCredentials = {
 export default () => {
   const [resetCredentials, setResetCredentials] = useState<ResetCredentials>(INITIAL_STATE);
   const [searchParams] = useSearchParams();
+  const [messages, setMessages] = useState<string[]>([]);
+  const [errorMessages, setErrorMessages] = useState<string[]>([]);
 
   useEffect(() => {
     setResetCredentials({
@@ -26,7 +30,6 @@ export default () => {
       email: searchParams.get("email") === null ? "" : searchParams.get("email")!,
       token: searchParams.get("token") === null ? "" : searchParams.get("token")!,
     });
-    // console.log(searchParams.get("token"))
   }, []);
 
   const handleChange = (e: any) => {
@@ -34,9 +37,26 @@ export default () => {
   }
 
   const handleSubmit = async (e: any) => {
+    setMessages([]);
+    setErrorMessages([]);
     e.preventDefault();
     console.log(resetCredentials);
-    const resp = (await axios.post("/password/reset", resetCredentials)).data;
+    try {
+      const resp = (await axios.post("/password/reset", resetCredentials)).data;
+      setMessages([resp.message + "\n3秒後にトップ画面に戻ります。"]);
+      setTimeout(() => location.reload(), 3000);
+    } catch (_error: any) {
+      const error = _error.response;
+      console.log(error);
+      const errors: string[] = [];
+      for (let field in error.data.errors) {
+        Array.prototype.push.apply(errors, error.data.errors[field]);
+      }
+      console.log(errors);
+      if (errors.length > 0) {
+        setErrorMessages(errors);
+      }
+    }
   }
 
   return (
@@ -71,6 +91,23 @@ export default () => {
                       <input id="password_confirmation" type="password" className="form-control" name="password_confirmation" value={resetCredentials.password_confirmation} required autoComplete="new-password" onChange={(e => handleChange(e))}/>
                     </div>
                   </div>
+
+                  {
+                  messages.length > 0 &&
+                  <div className='row mb-3 align-items-center'>
+                    <div className='col-md-6 offset-md-4'>
+                      <Message messages={messages}></Message>
+                    </div>
+                  </div>
+                  }
+                  {
+                  errorMessages.length > 0 &&
+                  <div className='row mb-3 align-items-center'>
+                    <div className='col-md-6 offset-md-4'>
+                      <ErrorMessage messages={errorMessages}></ErrorMessage>
+                    </div>
+                  </div>
+                  }
                   <div className="row mb-0">
                     <div className="col-md-6 offset-md-4">
                       <button type="submit" className="btn btn-primary" onClick={(e => handleSubmit(e))}>

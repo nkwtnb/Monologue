@@ -34,7 +34,7 @@ Route::post('/login', [LoginController::class, 'loginTest'])->name('login');
 Route::post('/logout', [LoginController::class, 'logout'])->name('logout');
 
 Route::post('password/email', [ForgotPasswordController::class, "sendResetLinkEmail"])->name('password.email');
-Route::get('password/reset/{token}', [ResetPasswordController::class, "showResetForm"])->name('password.reset');
+// Route::get('password/reset/{token}', [ResetPasswordController::class, "showResetForm"])->name('password.reset');
 Route::post('password/reset',  [ResetPasswordController::class, "reset"])->name('password.update');
 
 // 認証済み画面
