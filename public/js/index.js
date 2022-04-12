@@ -5970,6 +5970,244 @@ var INITIAL_STATE = {
 
 /***/ }),
 
+/***/ "./resources/js/api/Entries.tsx":
+/*!**************************************!*\
+  !*** ./resources/js/api/Entries.tsx ***!
+  \**************************************/
+/***/ ((__unused_webpack_module, __webpack_exports__, __webpack_require__) => {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony export */ __webpack_require__.d(__webpack_exports__, {
+/* harmony export */   "getEntries": () => (/* binding */ getEntries),
+/* harmony export */   "getEntry": () => (/* binding */ getEntry),
+/* harmony export */   "getLikes": () => (/* binding */ getLikes),
+/* harmony export */   "setLikeStatus": () => (/* binding */ setLikeStatus)
+/* harmony export */ });
+/* harmony import */ var _babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! @babel/runtime/regenerator */ "./node_modules/@babel/runtime/regenerator/index.js");
+/* harmony import */ var _babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default = /*#__PURE__*/__webpack_require__.n(_babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0__);
+/* harmony import */ var axios__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! axios */ "./node_modules/axios/index.js");
+/* harmony import */ var axios__WEBPACK_IMPORTED_MODULE_1___default = /*#__PURE__*/__webpack_require__.n(axios__WEBPACK_IMPORTED_MODULE_1__);
+
+
+var __awaiter = undefined && undefined.__awaiter || function (thisArg, _arguments, P, generator) {
+  function adopt(value) {
+    return value instanceof P ? value : new P(function (resolve) {
+      resolve(value);
+    });
+  }
+
+  return new (P || (P = Promise))(function (resolve, reject) {
+    function fulfilled(value) {
+      try {
+        step(generator.next(value));
+      } catch (e) {
+        reject(e);
+      }
+    }
+
+    function rejected(value) {
+      try {
+        step(generator["throw"](value));
+      } catch (e) {
+        reject(e);
+      }
+    }
+
+    function step(result) {
+      result.done ? resolve(result.value) : adopt(result.value).then(fulfilled, rejected);
+    }
+
+    step((generator = generator.apply(thisArg, _arguments || [])).next());
+  });
+};
+
+
+/**
+ * パラメータに応じて、全投稿、いいねした投稿などを取得する
+ */
+
+var getEntries = function getEntries(_ref) {
+  var name = _ref.name,
+      filter = _ref.filter;
+  return __awaiter(void 0, void 0, void 0, /*#__PURE__*/_babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default().mark(function _callee() {
+    var entries, likeEntries, _entries;
+
+    return _babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default().wrap(function _callee$(_context) {
+      while (1) {
+        switch (_context.prev = _context.next) {
+          case 0:
+            if (!(name === "")) {
+              _context.next = 7;
+              break;
+            }
+
+            _context.next = 3;
+            return axios__WEBPACK_IMPORTED_MODULE_1___default().get("/api/words");
+
+          case 3:
+            entries = _context.sent.data;
+            return _context.abrupt("return", entries);
+
+          case 7:
+            if (!(filter === "like")) {
+              _context.next = 14;
+              break;
+            }
+
+            _context.next = 10;
+            return axios__WEBPACK_IMPORTED_MODULE_1___default().get("/api/words/user/".concat(name, "/likes"));
+
+          case 10:
+            likeEntries = _context.sent.data;
+            return _context.abrupt("return", likeEntries);
+
+          case 14:
+            _context.next = 16;
+            return axios__WEBPACK_IMPORTED_MODULE_1___default().get("/api/words/user/".concat(name, "/posts"));
+
+          case 16:
+            _entries = _context.sent.data;
+            return _context.abrupt("return", _entries);
+
+          case 18:
+          case "end":
+            return _context.stop();
+        }
+      }
+    }, _callee);
+  }));
+};
+/**
+ * 指定されたポストIDの投稿を取得する
+ * @param postId
+ */
+
+var getEntry = function getEntry(postId) {
+  return __awaiter(void 0, void 0, void 0, /*#__PURE__*/_babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default().mark(function _callee2() {
+    var resp, entry, replies;
+    return _babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default().wrap(function _callee2$(_context2) {
+      while (1) {
+        switch (_context2.prev = _context2.next) {
+          case 0:
+            _context2.next = 2;
+            return axios__WEBPACK_IMPORTED_MODULE_1___default().get("/api/words/post/" + postId);
+
+          case 2:
+            resp = _context2.sent.data;
+            entry = resp.entries[0];
+            replies = resp.replies;
+            return _context2.abrupt("return", {
+              entry: entry,
+              replies: replies
+            });
+
+          case 6:
+          case "end":
+            return _context2.stop();
+        }
+      }
+    }, _callee2);
+  }));
+};
+/**
+ * じぶんの「いいね」を取得する
+ * @param authName
+ * @returns
+ */
+
+var getLikes = function getLikes(authName) {
+  return __awaiter(void 0, void 0, void 0, /*#__PURE__*/_babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default().mark(function _callee3() {
+    var likeEntries;
+    return _babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default().wrap(function _callee3$(_context3) {
+      while (1) {
+        switch (_context3.prev = _context3.next) {
+          case 0:
+            if (!(authName === "")) {
+              _context3.next = 4;
+              break;
+            }
+
+            _context3.t0 = [];
+            _context3.next = 7;
+            break;
+
+          case 4:
+            _context3.next = 6;
+            return axios__WEBPACK_IMPORTED_MODULE_1___default().get("/api/words/user/".concat(authName, "/likes"));
+
+          case 6:
+            _context3.t0 = _context3.sent.data;
+
+          case 7:
+            likeEntries = _context3.t0;
+            return _context3.abrupt("return", likeEntries);
+
+          case 9:
+          case "end":
+            return _context3.stop();
+        }
+      }
+    }, _callee3);
+  }));
+};
+/**
+ * 自分が「いいね」した投稿にフラグを立てる
+ * @returns
+ */
+
+var setLikeStatus = function setLikeStatus(entries, authName) {
+  return __awaiter(void 0, void 0, void 0, /*#__PURE__*/_babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default().mark(function _callee4() {
+    var likeEntries, resp;
+    return _babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default().wrap(function _callee4$(_context4) {
+      while (1) {
+        switch (_context4.prev = _context4.next) {
+          case 0:
+            console.log(entries);
+
+            if (!(authName === "")) {
+              _context4.next = 5;
+              break;
+            }
+
+            _context4.t0 = [];
+            _context4.next = 8;
+            break;
+
+          case 5:
+            _context4.next = 7;
+            return axios__WEBPACK_IMPORTED_MODULE_1___default().get("/api/words/user/".concat(authName, "/likes"));
+
+          case 7:
+            _context4.t0 = _context4.sent.data;
+
+          case 8:
+            likeEntries = _context4.t0;
+            resp = entries.map(function (entry) {
+              for (var i = 0; i < likeEntries.length; i++) {
+                var likeEntry = likeEntries[i];
+
+                if (entry.id === likeEntry.id) {
+                  entry.isLike = true;
+                  break;
+                }
+              }
+
+              return entry;
+            });
+            return _context4.abrupt("return", resp);
+
+          case 11:
+          case "end":
+            return _context4.stop();
+        }
+      }
+    }, _callee4);
+  }));
+};
+
+/***/ }),
+
 /***/ "./resources/js/api/Resources.ts":
 /*!***************************************!*\
   !*** ./resources/js/api/Resources.ts ***!
@@ -7950,10 +8188,11 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var _babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default = /*#__PURE__*/__webpack_require__.n(_babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0__);
 /* harmony import */ var react__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! react */ "./node_modules/react/index.js");
 /* harmony import */ var _Post__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ./Post */ "./resources/js/components/organisms/Post.tsx");
-/* harmony import */ var axios__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! axios */ "./node_modules/axios/index.js");
-/* harmony import */ var axios__WEBPACK_IMPORTED_MODULE_3___default = /*#__PURE__*/__webpack_require__.n(axios__WEBPACK_IMPORTED_MODULE_3__);
+/* harmony import */ var _api_Entries__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! @api/Entries */ "./resources/js/api/Entries.tsx");
 /* harmony import */ var _Context__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(/*! ../../Context */ "./resources/js/Context.tsx");
 /* harmony import */ var react_jsx_runtime__WEBPACK_IMPORTED_MODULE_5__ = __webpack_require__(/*! react/jsx-runtime */ "./node_modules/react/jsx-runtime.js");
+
+
 function _slicedToArray(arr, i) { return _arrayWithHoles(arr) || _iterableToArrayLimit(arr, i) || _unsupportedIterableToArray(arr, i) || _nonIterableRest(); }
 
 function _nonIterableRest() { throw new TypeError("Invalid attempt to destructure non-iterable instance.\nIn order to be iterable, non-array objects must have a [Symbol.iterator]() method."); }
@@ -7965,8 +8204,6 @@ function _arrayLikeToArray(arr, len) { if (len == null || len > arr.length) len 
 function _iterableToArrayLimit(arr, i) { var _i = arr == null ? null : typeof Symbol !== "undefined" && arr[Symbol.iterator] || arr["@@iterator"]; if (_i == null) return; var _arr = []; var _n = true; var _d = false; var _s, _e; try { for (_i = _i.call(arr); !(_n = (_s = _i.next()).done); _n = true) { _arr.push(_s.value); if (i && _arr.length === i) break; } } catch (err) { _d = true; _e = err; } finally { try { if (!_n && _i["return"] != null) _i["return"](); } finally { if (_d) throw _e; } } return _arr; }
 
 function _arrayWithHoles(arr) { if (Array.isArray(arr)) return arr; }
-
-
 
 var __awaiter = undefined && undefined.__awaiter || function (thisArg, _arguments, P, generator) {
   function adopt(value) {
@@ -8005,117 +8242,7 @@ var __awaiter = undefined && undefined.__awaiter || function (thisArg, _argument
 
 
 
-/**
- * パラメータに応じて、全投稿、いいねした投稿などを取得する
- */
 
-
-
-
-var getEntries = function getEntries(_ref) {
-  var name = _ref.name,
-      filter = _ref.filter;
-  return __awaiter(void 0, void 0, void 0, /*#__PURE__*/_babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default().mark(function _callee() {
-    var entries, likeEntries, _entries2;
-
-    return _babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default().wrap(function _callee$(_context) {
-      while (1) {
-        switch (_context.prev = _context.next) {
-          case 0:
-            if (!(name === "")) {
-              _context.next = 7;
-              break;
-            }
-
-            _context.next = 3;
-            return axios__WEBPACK_IMPORTED_MODULE_3___default().get("/api/words");
-
-          case 3:
-            entries = _context.sent.data;
-            return _context.abrupt("return", entries);
-
-          case 7:
-            if (!(filter === "like")) {
-              _context.next = 14;
-              break;
-            }
-
-            _context.next = 10;
-            return axios__WEBPACK_IMPORTED_MODULE_3___default().get("/api/words/user/".concat(name, "/likes"));
-
-          case 10:
-            likeEntries = _context.sent.data;
-            return _context.abrupt("return", likeEntries);
-
-          case 14:
-            _context.next = 16;
-            return axios__WEBPACK_IMPORTED_MODULE_3___default().get("/api/words/user/".concat(name, "/posts"));
-
-          case 16:
-            _entries2 = _context.sent.data;
-            return _context.abrupt("return", _entries2);
-
-          case 18:
-          case "end":
-            return _context.stop();
-        }
-      }
-    }, _callee);
-  }));
-};
-/**
- * 自分が「いいね」した投稿にフラグを立てる
- * @returns
- */
-
-
-var setLikeStatus = function setLikeStatus(entries, authName) {
-  return __awaiter(void 0, void 0, void 0, /*#__PURE__*/_babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default().mark(function _callee2() {
-    var likeEntries, resp;
-    return _babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default().wrap(function _callee2$(_context2) {
-      while (1) {
-        switch (_context2.prev = _context2.next) {
-          case 0:
-            if (!(authName === "")) {
-              _context2.next = 4;
-              break;
-            }
-
-            _context2.t0 = [];
-            _context2.next = 7;
-            break;
-
-          case 4:
-            _context2.next = 6;
-            return axios__WEBPACK_IMPORTED_MODULE_3___default().get("/api/words/user/".concat(authName, "/likes"));
-
-          case 6:
-            _context2.t0 = _context2.sent.data;
-
-          case 7:
-            likeEntries = _context2.t0;
-            resp = entries.map(function (entry) {
-              for (var i = 0; i < likeEntries.length; i++) {
-                var likeEntry = likeEntries[i];
-
-                if (entry.id === likeEntry.id) {
-                  entry.isLike = true;
-                  break;
-                }
-              }
-
-              return entry;
-            });
-            return _context2.abrupt("return", resp);
-
-          case 10:
-          case "end":
-            return _context2.stop();
-        }
-      }
-    }, _callee2);
-  }));
-};
 
 /* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = (function (props) {
   var _useContext = (0,react__WEBPACK_IMPORTED_MODULE_1__.useContext)(_Context__WEBPACK_IMPORTED_MODULE_4__.AuthContext),
@@ -8137,32 +8264,32 @@ var setLikeStatus = function setLikeStatus(entries, authName) {
     setEntries([]);
 
     (function () {
-      return __awaiter(void 0, void 0, void 0, /*#__PURE__*/_babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default().mark(function _callee3() {
+      return __awaiter(void 0, void 0, void 0, /*#__PURE__*/_babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default().mark(function _callee() {
         var _entries, entries;
 
-        return _babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default().wrap(function _callee3$(_context3) {
+        return _babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default().wrap(function _callee$(_context) {
           while (1) {
-            switch (_context3.prev = _context3.next) {
+            switch (_context.prev = _context.next) {
               case 0:
-                _context3.next = 2;
-                return getEntries(props);
+                _context.next = 2;
+                return _api_Entries__WEBPACK_IMPORTED_MODULE_3__.getEntries(props);
 
               case 2:
-                _entries = _context3.sent;
-                _context3.next = 5;
-                return setLikeStatus(_entries, authState.name);
+                _entries = _context.sent;
+                _context.next = 5;
+                return _api_Entries__WEBPACK_IMPORTED_MODULE_3__.setLikeStatus(_entries, authState.name);
 
               case 5:
-                entries = _context3.sent;
+                entries = _context.sent;
                 setEntries(entries);
                 setIsLoaded(true);
 
               case 8:
               case "end":
-                return _context3.stop();
+                return _context.stop();
             }
           }
-        }, _callee3);
+        }, _callee);
       }));
     })();
   }, [props.name, props.filter]);
@@ -8747,11 +8874,11 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var _babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! @babel/runtime/regenerator */ "./node_modules/@babel/runtime/regenerator/index.js");
 /* harmony import */ var _babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default = /*#__PURE__*/__webpack_require__.n(_babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0__);
 /* harmony import */ var react__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! react */ "./node_modules/react/index.js");
-/* harmony import */ var react_router_dom__WEBPACK_IMPORTED_MODULE_5__ = __webpack_require__(/*! react-router-dom */ "./node_modules/react-router/index.js");
+/* harmony import */ var react_router_dom__WEBPACK_IMPORTED_MODULE_6__ = __webpack_require__(/*! react-router-dom */ "./node_modules/react-router/index.js");
 /* harmony import */ var _organisms_Post__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ../organisms/Post */ "./resources/js/components/organisms/Post.tsx");
-/* harmony import */ var axios__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! axios */ "./node_modules/axios/index.js");
-/* harmony import */ var axios__WEBPACK_IMPORTED_MODULE_3___default = /*#__PURE__*/__webpack_require__.n(axios__WEBPACK_IMPORTED_MODULE_3__);
-/* harmony import */ var react_jsx_runtime__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(/*! react/jsx-runtime */ "./node_modules/react/jsx-runtime.js");
+/* harmony import */ var _api_Entries__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! @api/Entries */ "./resources/js/api/Entries.tsx");
+/* harmony import */ var _Context__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(/*! ../../Context */ "./resources/js/Context.tsx");
+/* harmony import */ var react_jsx_runtime__WEBPACK_IMPORTED_MODULE_5__ = __webpack_require__(/*! react/jsx-runtime */ "./node_modules/react/jsx-runtime.js");
 
 
 function _toConsumableArray(arr) { return _arrayWithoutHoles(arr) || _iterableToArray(arr) || _unsupportedIterableToArray(arr) || _nonIterableSpread(); }
@@ -8813,8 +8940,9 @@ var __awaiter = undefined && undefined.__awaiter || function (thisArg, _argument
 
 
 
+
 /* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = (function () {
-  var _useParams = (0,react_router_dom__WEBPACK_IMPORTED_MODULE_5__.useParams)(),
+  var _useParams = (0,react_router_dom__WEBPACK_IMPORTED_MODULE_6__.useParams)(),
       postId = _useParams.postId;
 
   var _useState = (0,react__WEBPACK_IMPORTED_MODULE_1__.useState)(),
@@ -8827,25 +8955,38 @@ var __awaiter = undefined && undefined.__awaiter || function (thisArg, _argument
       replies = _useState4[0],
       setReplies = _useState4[1];
 
+  var _useContext = (0,react__WEBPACK_IMPORTED_MODULE_1__.useContext)(_Context__WEBPACK_IMPORTED_MODULE_4__.AuthContext),
+      authState = _useContext.authState,
+      setAuthState = _useContext.setAuthState;
+
   (0,react__WEBPACK_IMPORTED_MODULE_1__.useEffect)(function () {
     (function () {
       return __awaiter(void 0, void 0, void 0, /*#__PURE__*/_babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default().mark(function _callee() {
-        var resp, entry, replies;
+        var resp, _postWithReplies, postWithReplies, entry, replies;
+
         return _babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default().wrap(function _callee$(_context) {
           while (1) {
             switch (_context.prev = _context.next) {
               case 0:
                 _context.next = 2;
-                return axios__WEBPACK_IMPORTED_MODULE_3___default().get("/api/words/post/" + postId);
+                return _api_Entries__WEBPACK_IMPORTED_MODULE_3__.getEntry(postId);
 
               case 2:
-                resp = _context.sent.data;
-                entry = resp.entries[0];
-                replies = resp.replies;
+                resp = _context.sent;
+                _postWithReplies = [resp.entry].concat(resp.replies);
+                _context.next = 6;
+                return _api_Entries__WEBPACK_IMPORTED_MODULE_3__.setLikeStatus(_postWithReplies, authState.name);
+
+              case 6:
+                postWithReplies = _context.sent;
+                // 先頭要素は対象の投稿
+                entry = postWithReplies[0]; // 2要素目以降は対象の投稿へのリプライ
+
+                replies = postWithReplies.slice(1);
                 setEntry(Object.assign({}, entry));
                 setReplies(_toConsumableArray(replies));
 
-              case 7:
+              case 11:
               case "end":
                 return _context.stop();
             }
@@ -8854,12 +8995,12 @@ var __awaiter = undefined && undefined.__awaiter || function (thisArg, _argument
       }));
     })();
   }, [postId]);
-  return /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_4__.jsxs)(react_jsx_runtime__WEBPACK_IMPORTED_MODULE_4__.Fragment, {
-    children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_4__.jsx)("div", {
+  return /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_5__.jsxs)(react_jsx_runtime__WEBPACK_IMPORTED_MODULE_5__.Fragment, {
+    children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_5__.jsx)("div", {
       className: "row mb-1",
-      children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_4__.jsx)("div", {
+      children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_5__.jsx)("div", {
         className: "offset-md-2 col-md-8",
-        children: entry && /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_4__.jsx)(_organisms_Post__WEBPACK_IMPORTED_MODULE_2__["default"], {
+        children: entry && /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_5__.jsx)(_organisms_Post__WEBPACK_IMPORTED_MODULE_2__["default"], {
           id: entry.id,
           avatar: entry.avatar,
           created_at: entry.created_at,
@@ -8875,14 +9016,14 @@ var __awaiter = undefined && undefined.__awaiter || function (thisArg, _argument
           isDialog: false
         })
       })
-    }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_4__.jsx)("div", {
+    }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_5__.jsx)("div", {
       className: "row",
-      children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_4__.jsx)("div", {
+      children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_5__.jsx)("div", {
         className: "offset-md-2 col-md-8",
         children: replies.map(function (reply, index) {
-          return /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_4__.jsx)("div", {
+          return /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_5__.jsx)("div", {
             className: "mb-1",
-            children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_4__.jsx)(_organisms_Post__WEBPACK_IMPORTED_MODULE_2__["default"], {
+            children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_5__.jsx)(_organisms_Post__WEBPACK_IMPORTED_MODULE_2__["default"], {
               id: reply.id,
               avatar: reply.avatar,
               created_at: reply.created_at,

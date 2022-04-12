@@ -3,18 +3,25 @@ import TImeline from '../organisms/TImeline';
 import { useParams } from 'react-router-dom';
 import Post from '../organisms/Post';
 import { Entry } from "@interface/Entry";
+import * as entryUtil from "@api/Entries";
 import axios from 'axios';
+import { AuthContext } from '../../Context';
 
 export default () => {
   const { postId } = useParams();
   const [entry, setEntry] = useState<Entry | undefined>();
   const [replies, setReplies] = useState<Entry[]>([]);
+  const {authState, setAuthState} = useContext(AuthContext);
 
   useEffect(() => {
     (async () => {
-      const resp = (await axios.get("/api/words/post/" + postId)).data;
-      const entry: Entry = resp.entries[0];
-      const replies: Entry[] = resp.replies;
+      const resp = await entryUtil.getEntry(postId);
+      const _postWithReplies = [resp.entry].concat(resp.replies);
+      const postWithReplies = await entryUtil.setLikeStatus(_postWithReplies, authState.name);
+      // 先頭要素は対象の投稿
+      const entry: Entry = postWithReplies[0];
+      // 2要素目以降は対象の投稿へのリプライ
+      const replies: Entry[] = postWithReplies.slice(1);
       setEntry({...entry});
       setReplies([...replies]);
     })();
