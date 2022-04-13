@@ -115,8 +115,10 @@ export default (props: Entry & Props) => {
         }
       } catch (error: any) {
         const response = error.response;
+        console.log(response);
         if (response.status === 419 || response.status === 401) {
-          // setErrorMessages(["セッションの有効期限切れか、未ログインの状態です。\nつぶやきの投稿はログインが必要です。"]);
+          alert("セッションの有効期限切れの為、再ログインしてください。");
+          navigate("/login");
           return;
         }
       }
@@ -205,7 +207,6 @@ export default (props: Entry & Props) => {
     }
     return strings;
   }
-  // const movieId = generateEmbedUrl(props.words);
 
   useEffect(() => {
     (async () => {

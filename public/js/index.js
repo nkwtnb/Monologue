@@ -7870,7 +7870,7 @@ var Time = styled_components__WEBPACK_IMPORTED_MODULE_13__["default"].span(_temp
               }
 
               navigate("/login");
-              _context.next = 23;
+              _context.next = 26;
               break;
 
             case 5:
@@ -7909,22 +7909,25 @@ var Time = styled_components__WEBPACK_IMPORTED_MODULE_13__["default"].span(_temp
               _resp = _context.sent;
 
             case 16:
-              _context.next = 23;
+              _context.next = 26;
               break;
 
             case 18:
               _context.prev = 18;
               _context.t0 = _context["catch"](5);
               response = _context.t0.response;
+              console.log(response);
 
               if (!(response.status === 419 || response.status === 401)) {
-                _context.next = 23;
+                _context.next = 26;
                 break;
               }
 
+              alert("セッションの有効期限切れの為、再ログインしてください。");
+              navigate("/login");
               return _context.abrupt("return");
 
-            case 23:
+            case 26:
             case "end":
               return _context.stop();
           }
@@ -8045,8 +8048,7 @@ var Time = styled_components__WEBPACK_IMPORTED_MODULE_13__["default"].span(_temp
     }
 
     return strings;
-  }; // const movieId = generateEmbedUrl(props.words);
-
+  };
 
   (0,react__WEBPACK_IMPORTED_MODULE_8__.useEffect)(function () {
     (function () {
