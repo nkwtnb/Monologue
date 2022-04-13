@@ -4,6 +4,7 @@ import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faImage } from "@fortawesome/free-regular-svg-icons/faImage";
 import axios from 'axios';
 import ErrorMessage from '../atoms/ErrorMessage';
+import { useNavigate } from 'react-router-dom';
 
 // 各上限
 const LIMIT = {
@@ -122,6 +123,7 @@ export default (props: Props) => {
   const [stringsCount, setStringsCount] = useState<number>(0);
   const [errorMessages, setErrorMessages] = useState<string[]>([]);
   const [uploads, setUploads] = useState<SelectedImage[]>([]);
+  const navigate = useNavigate();
   const generateEmbedUrl = (words: string) => {
     const reg = new RegExp("\bhttps:\\/\\/www\\.youtube\\.com\\/watch\\?v=.*\b","gi");
     const myArray = reg.exec(words);
@@ -157,7 +159,7 @@ export default (props: Props) => {
   const handleClick = () => {
     setErrorMessages([]);
     if (contents === "") {
-      setErrorMessages(["つぶやきを入力してください。"]);
+      setErrorMessages(["ひとりごとを入力してください。"]);
       return;
     }
     (async () => {
@@ -172,8 +174,8 @@ export default (props: Props) => {
           "images": uploadedFilePaths
         };
         const resp = await postMessage(param);
-        window.__modal.hide();
-        window.location.reload();
+        navigate("/");
+        location.reload();
       } catch(error: any) {
         const response = error.response;
         if (response.status === 419 || response.status === 401) {

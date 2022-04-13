@@ -7265,10 +7265,11 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var react__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! react */ "./node_modules/react/index.js");
 /* harmony import */ var styled_components__WEBPACK_IMPORTED_MODULE_6__ = __webpack_require__(/*! styled-components */ "./node_modules/styled-components/dist/styled-components.browser.esm.js");
 /* harmony import */ var _fortawesome_react_fontawesome__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! @fortawesome/react-fontawesome */ "./node_modules/@fortawesome/react-fontawesome/index.es.js");
-/* harmony import */ var _fortawesome_free_regular_svg_icons_faImage__WEBPACK_IMPORTED_MODULE_7__ = __webpack_require__(/*! @fortawesome/free-regular-svg-icons/faImage */ "./node_modules/@fortawesome/free-regular-svg-icons/faImage.js");
+/* harmony import */ var _fortawesome_free_regular_svg_icons_faImage__WEBPACK_IMPORTED_MODULE_8__ = __webpack_require__(/*! @fortawesome/free-regular-svg-icons/faImage */ "./node_modules/@fortawesome/free-regular-svg-icons/faImage.js");
 /* harmony import */ var axios__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! axios */ "./node_modules/axios/index.js");
 /* harmony import */ var axios__WEBPACK_IMPORTED_MODULE_3___default = /*#__PURE__*/__webpack_require__.n(axios__WEBPACK_IMPORTED_MODULE_3__);
 /* harmony import */ var _atoms_ErrorMessage__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(/*! ../atoms/ErrorMessage */ "./resources/js/components/atoms/ErrorMessage.tsx");
+/* harmony import */ var react_router_dom__WEBPACK_IMPORTED_MODULE_7__ = __webpack_require__(/*! react-router-dom */ "./node_modules/react-router/index.js");
 /* harmony import */ var react_jsx_runtime__WEBPACK_IMPORTED_MODULE_5__ = __webpack_require__(/*! react/jsx-runtime */ "./node_modules/react/jsx-runtime.js");
 var _templateObject, _templateObject2, _templateObject3, _templateObject4, _templateObject5, _templateObject6, _templateObject7, _templateObject8, _templateObject9;
 
@@ -7329,6 +7330,7 @@ var __awaiter = undefined && undefined.__awaiter || function (thisArg, _argument
     step((generator = generator.apply(thisArg, _arguments || [])).next());
   });
 };
+
 
 
 
@@ -7454,6 +7456,8 @@ var uploadFiles = function uploadFiles(files, _index, _uploaded) {
       uploads = _useState8[0],
       setUploads = _useState8[1];
 
+  var navigate = (0,react_router_dom__WEBPACK_IMPORTED_MODULE_7__.useNavigate)();
+
   var generateEmbedUrl = function generateEmbedUrl(words) {
     var reg = new RegExp("\bhttps:\\/\\/www\\.youtube\\.com\\/watch\\?v=.*\b", "gi");
     var myArray = reg.exec(words);
@@ -7489,7 +7493,7 @@ var uploadFiles = function uploadFiles(files, _index, _uploaded) {
     setErrorMessages([]);
 
     if (contents === "") {
-      setErrorMessages(["つぶやきを入力してください。"]);
+      setErrorMessages(["ひとりごとを入力してください。"]);
       return;
     }
 
@@ -7526,10 +7530,8 @@ var uploadFiles = function uploadFiles(files, _index, _uploaded) {
 
               case 9:
                 resp = _context3.sent;
-
-                window.__modal.hide();
-
-                window.location.reload();
+                navigate("/");
+                location.reload();
                 _context3.next = 19;
                 break;
 
@@ -7672,7 +7674,7 @@ var uploadFiles = function uploadFiles(files, _index, _uploaded) {
               className: "d-flex justify-content-center align-items-center",
               children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_5__.jsx)(_fortawesome_react_fontawesome__WEBPACK_IMPORTED_MODULE_2__.FontAwesomeIcon, {
                 className: "fa-lg",
-                icon: _fortawesome_free_regular_svg_icons_faImage__WEBPACK_IMPORTED_MODULE_7__.faImage
+                icon: _fortawesome_free_regular_svg_icons_faImage__WEBPACK_IMPORTED_MODULE_8__.faImage
               }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_5__.jsx)("input", {
                 type: "file",
                 className: "uploader",
