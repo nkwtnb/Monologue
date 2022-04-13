@@ -6,11 +6,20 @@ import { Entry } from "@interface/Entry";
 import * as entryUtil from "@api/Entries";
 import axios from 'axios';
 import { AuthContext } from '../../Context';
+import styled from 'styled-components';
+
+const BeginComments = styled.div`
+  border: 1px solid #dddd;
+  padding: 8px;
+  background-color: #ffffff;
+  font-weight: bold;
+`;
 
 export default () => {
   const { postId } = useParams();
   const [entry, setEntry] = useState<Entry | undefined>();
   const [replies, setReplies] = useState<Entry[]>([]);
+  const [loaded, setLoaded] = useState(false);
   const {authState, setAuthState} = useContext(AuthContext);
 
   useEffect(() => {
@@ -24,6 +33,7 @@ export default () => {
       const replies: Entry[] = postWithReplies.slice(1);
       setEntry({...entry});
       setReplies([...replies]);
+      setLoaded(true);
     })();
   }, [postId]);
 
@@ -52,6 +62,12 @@ export default () => {
       </div>
       <div className='row'>
         <div className='offset-md-2 col-md-8'>
+          {
+            loaded &&
+            <BeginComments className='mb-1'>
+              コメント一覧
+            </BeginComments>
+          }
           {
             replies.map((reply: Entry, index) => (
                 <div className='mb-1' key={index}>

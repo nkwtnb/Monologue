@@ -8878,11 +8878,14 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var _babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! @babel/runtime/regenerator */ "./node_modules/@babel/runtime/regenerator/index.js");
 /* harmony import */ var _babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default = /*#__PURE__*/__webpack_require__.n(_babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0__);
 /* harmony import */ var react__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! react */ "./node_modules/react/index.js");
-/* harmony import */ var react_router_dom__WEBPACK_IMPORTED_MODULE_6__ = __webpack_require__(/*! react-router-dom */ "./node_modules/react-router/index.js");
+/* harmony import */ var react_router_dom__WEBPACK_IMPORTED_MODULE_7__ = __webpack_require__(/*! react-router-dom */ "./node_modules/react-router/index.js");
 /* harmony import */ var _organisms_Post__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ../organisms/Post */ "./resources/js/components/organisms/Post.tsx");
 /* harmony import */ var _api_Entries__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! @api/Entries */ "./resources/js/api/Entries.tsx");
 /* harmony import */ var _Context__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(/*! ../../Context */ "./resources/js/Context.tsx");
+/* harmony import */ var styled_components__WEBPACK_IMPORTED_MODULE_6__ = __webpack_require__(/*! styled-components */ "./node_modules/styled-components/dist/styled-components.browser.esm.js");
 /* harmony import */ var react_jsx_runtime__WEBPACK_IMPORTED_MODULE_5__ = __webpack_require__(/*! react/jsx-runtime */ "./node_modules/react/jsx-runtime.js");
+var _templateObject;
+
 
 
 function _toConsumableArray(arr) { return _arrayWithoutHoles(arr) || _iterableToArray(arr) || _unsupportedIterableToArray(arr) || _nonIterableSpread(); }
@@ -8904,6 +8907,8 @@ function _arrayLikeToArray(arr, len) { if (len == null || len > arr.length) len 
 function _iterableToArrayLimit(arr, i) { var _i = arr == null ? null : typeof Symbol !== "undefined" && arr[Symbol.iterator] || arr["@@iterator"]; if (_i == null) return; var _arr = []; var _n = true; var _d = false; var _s, _e; try { for (_i = _i.call(arr); !(_n = (_s = _i.next()).done); _n = true) { _arr.push(_s.value); if (i && _arr.length === i) break; } } catch (err) { _d = true; _e = err; } finally { try { if (!_n && _i["return"] != null) _i["return"](); } finally { if (_d) throw _e; } } return _arr; }
 
 function _arrayWithHoles(arr) { if (Array.isArray(arr)) return arr; }
+
+function _taggedTemplateLiteral(strings, raw) { if (!raw) { raw = strings.slice(0); } return Object.freeze(Object.defineProperties(strings, { raw: { value: Object.freeze(raw) } })); }
 
 var __awaiter = undefined && undefined.__awaiter || function (thisArg, _arguments, P, generator) {
   function adopt(value) {
@@ -8945,8 +8950,10 @@ var __awaiter = undefined && undefined.__awaiter || function (thisArg, _argument
 
 
 
+
+var BeginComments = styled_components__WEBPACK_IMPORTED_MODULE_6__["default"].div(_templateObject || (_templateObject = _taggedTemplateLiteral(["\n  border: 1px solid #dddd;\n  padding: 8px;\n  background-color: #ffffff;\n  font-weight: bold;\n"])));
 /* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = (function () {
-  var _useParams = (0,react_router_dom__WEBPACK_IMPORTED_MODULE_6__.useParams)(),
+  var _useParams = (0,react_router_dom__WEBPACK_IMPORTED_MODULE_7__.useParams)(),
       postId = _useParams.postId;
 
   var _useState = (0,react__WEBPACK_IMPORTED_MODULE_1__.useState)(),
@@ -8958,6 +8965,11 @@ var __awaiter = undefined && undefined.__awaiter || function (thisArg, _argument
       _useState4 = _slicedToArray(_useState3, 2),
       replies = _useState4[0],
       setReplies = _useState4[1];
+
+  var _useState5 = (0,react__WEBPACK_IMPORTED_MODULE_1__.useState)(false),
+      _useState6 = _slicedToArray(_useState5, 2),
+      loaded = _useState6[0],
+      setLoaded = _useState6[1];
 
   var _useContext = (0,react__WEBPACK_IMPORTED_MODULE_1__.useContext)(_Context__WEBPACK_IMPORTED_MODULE_4__.AuthContext),
       authState = _useContext.authState,
@@ -8989,8 +9001,9 @@ var __awaiter = undefined && undefined.__awaiter || function (thisArg, _argument
                 replies = postWithReplies.slice(1);
                 setEntry(Object.assign({}, entry));
                 setReplies(_toConsumableArray(replies));
+                setLoaded(true);
 
-              case 11:
+              case 12:
               case "end":
                 return _context.stop();
             }
@@ -9022,9 +9035,12 @@ var __awaiter = undefined && undefined.__awaiter || function (thisArg, _argument
       })
     }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_5__.jsx)("div", {
       className: "row",
-      children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_5__.jsx)("div", {
+      children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_5__.jsxs)("div", {
         className: "offset-md-2 col-md-8",
-        children: replies.map(function (reply, index) {
+        children: [loaded && /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_5__.jsx)(BeginComments, {
+          className: "mb-1",
+          children: "\u30B3\u30E1\u30F3\u30C8\u4E00\u89A7"
+        }), replies.map(function (reply, index) {
           return /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_5__.jsx)("div", {
             className: "mb-1",
             children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_5__.jsx)(_organisms_Post__WEBPACK_IMPORTED_MODULE_2__["default"], {
@@ -9043,7 +9059,7 @@ var __awaiter = undefined && undefined.__awaiter || function (thisArg, _argument
               isDialog: false
             })
           }, index);
-        })
+        })]
       })
     })]
   });
