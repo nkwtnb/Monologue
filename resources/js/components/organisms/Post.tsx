@@ -294,11 +294,11 @@ export default (props: Entry & Props) => {
               <div className='col d-flex justify-content-center'>
                 <Like count={likeState.count} icon={likeState.isLike ? solidHeart : regularHeart} onClick={(e) => handleLike(e, props.id)} className={likeState.isLike ? "liked" : ""}></Like>
               </div>
-              <div className='col d-flex justify-content-center'>
+              {/* <div className='col d-flex justify-content-center'>
                 <div onClick={handleClick}>
                   <DetailIcon />
                 </div>
-              </div>
+              </div> */}
             </div>
           </>
         }
