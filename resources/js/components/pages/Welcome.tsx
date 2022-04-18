@@ -42,7 +42,8 @@ export default (props: Props) => {
     }
   }
 
-  const submit = async () => {
+  const submit = async (e: any) => {
+    e.preventDefault();
     setErrors([]);
     await axios.get("/sanctum/csrf-cookie");
     try {
@@ -80,6 +81,7 @@ export default (props: Props) => {
       <div className="container">
         <div className="row justify-content-center">
           <div className="col-md-8">
+            <form onSubmit={submit}>
             <div className="card">
               <div className="card-header">{props.isRegister ? LABEL.Submit.Register : LABEL.Submit.Login}</div>
               <div className="card-body">
@@ -160,6 +162,7 @@ export default (props: Props) => {
                 </div>
               </div>
             </div>
+            </form>
           </div>
         </div>
       </div>
