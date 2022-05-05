@@ -22,6 +22,8 @@ use Illuminate\Support\Facades\Route;
 Route::group(['middleware' => ['auth:sanctum']], function() {
     // ユーザー情報
     Route::put("/user", [UserController::class, "put"]);
+    Route::delete("/user", [UserController::class, "delete"]);
+    
     // 投稿
     Route::post("/words", [WordController::class, "post"]);
     // いいね

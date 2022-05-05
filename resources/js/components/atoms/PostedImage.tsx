@@ -1,3 +1,4 @@
+import React from "react";
 import { makePathForImage } from "@api/Resources";
 import styled, { css } from "styled-components";
 const SIZE = {

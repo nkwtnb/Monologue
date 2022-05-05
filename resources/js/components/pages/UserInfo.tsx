@@ -1,5 +1,5 @@
 import axios from 'axios';
-import React, { useContext } from 'react';
+import React, { useContext, useRef } from 'react';
 import ReactDOM from 'react-dom';
 // Components
 import CircleIcon from '../atoms/CircleIcon';
@@ -59,13 +59,33 @@ interface UserInfo extends userApi.Type{
 
 export default () => {
   const navigate = useNavigate();
-  const { name } = useParams();
   const { authState, setAuthState } = useContext(AuthContext);
   const [userInfo, setUserInfo] = useState<UserInfo>({
     ...authState,
     currentAvatar: makePathForImage(authState.avatar, "upfiles")
   });
   const [error, setError] = useState<string[]>([]);
+  const [leave, setLeave] = useState(false);
+  const [confirmed, setConfirmed] = useState(false);
+  const [message, setMessgae] = useState([]);
+  const confirmedCheck = useRef<HTMLInputElement>(null);
+
+  const handleError = (error: any) => {
+    console.log(error);
+    const messages: string[] = [];
+    if (error.errors) {
+      for(let key in error.errors) {
+        messages.push(error.errors[key]);
+      }
+    } else if (error.message) {
+      messages.push(error.message);
+    }
+    setError(messages);
+  }
+  const leaveUser = async () => {
+    const resp = (await axios.delete("/api/user")).data;
+    return resp;
+  };
 
   const handleClick = () => {
     setError([]);
@@ -82,15 +102,24 @@ export default () => {
         });
         window.location.reload();
       } catch(e: any) {
-        const error = e.response.data;
-        if (error.errors) {
-          const messages: string[] = [];
-          for(let key in error.errors) {
-            messages.push(error.errors[key]);
-          }
-          setError(messages);
-        }
+        handleError(e.response.data);
         return;
+      }
+    })();
+  }
+
+  const handleLeave = () => {
+    if (!leave) {
+      setLeave(true);
+      return;
+    }
+    (async () => {
+      setError([]);
+      try {
+        const resp = await leaveUser();
+        navigate("/register");
+      } catch (e: any) {
+        handleError(e.response.data);
       }
     })();
   }
@@ -206,16 +235,39 @@ export default () => {
                 <input className="w-100 form-control" type="text" value={userInfo.email} onChange={((e) => handleChange(e, "email"))}></input>
               </div>
             </div>
-            <div className='mt-3 row justify-content-center'>
+            {/* <div className='mt-3 row justify-content-center'>
               <div className='col flex-grow-1'>
                 <ErrorMessage messages={error}></ErrorMessage>
               </div>
-            </div>
+            </div> */}
             <div className='mt-5 row justify-content-center'>
               <div className='col-md-8 flex-grow-1'>
-                <div className='d-flex justify-content-end'>
-                  <button className="btn btn-primary" onClick={handleClick}>保存</button>
+                <div className='d-flex'>
+                  <div className='col d-flex justify-content-start'>
+                    {
+                      leave === false ?
+                        <button className="btn btn-danger" onClick={handleLeave}>退会</button>
+                      :
+                        <>
+                          <div className="form-check d-flex align-items-center me-2">
+                            <div className='d-flex align-items-center'>
+                              <input className="form-check-input" type="checkbox" value="confirmed" id="confirm-check" onChange={(() => setConfirmed(pre => !pre))}/>
+                            </div>
+                            <label className="form-check-label" htmlFor="confirm-check">本当に退会しますか？</label>
+                          </div>
+                          <button className="btn btn-danger" onClick={handleLeave} disabled={!confirmed}>退会</button>
+                        </>
+                    }
+                  </div>
+                  <div className='col d-flex justify-content-end'>
+                    <button className="btn btn-primary" onClick={handleClick}>保存</button>
+                  </div>
                 </div>
+              </div>
+            </div>
+            <div className='mt-3 row justify-content-center'>
+              <div className='col flex-grow-1'>
+                <ErrorMessage messages={error}></ErrorMessage>
               </div>
             </div>
           </div>

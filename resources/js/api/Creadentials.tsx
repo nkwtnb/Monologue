@@ -11,5 +11,5 @@ export const INITIAL_STATE: Type = {
   email: "",
   password: "",
   password_confirmation: "",
-  remember: true,
+  remember: undefined,
 }

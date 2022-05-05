@@ -2,7 +2,6 @@ import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import styled from "styled-components";
 import { faComment } from "@fortawesome/free-regular-svg-icons/faComment";
 
-import "../../../css/app.css";
 interface Props {
   // icon: any;
   count: number;

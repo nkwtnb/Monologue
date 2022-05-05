@@ -56,16 +56,16 @@ export default (props: Props): JSX.Element => {
   // ユーザー情報の場合
   if (props.isHeader) {
     return (
-      <div className="dropleft d-flex justify-content-center align-items-center">
-        <UserName className="me-2">{props.name}</UserName>
-        <Wrapper role="button" id="dropdownMenuLink" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+      <div data-testid="circle-icon" className="circle-icon-header dropleft d-flex justify-content-center align-items-center">
+        <UserName data-testid="username" className="me-2">{props.name}</UserName>
+        <Wrapper role="button" data-testid="circle-icon-menu" id="dropdownMenuLink" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
           <Image className="d-flex justify-content-center align-items-center" src={props.image} />
         </Wrapper>
-        <div className="dropdown-menu" aria-labelledby="dropdownMenuLink">
+        <div className="dropdown-menu" data-testid="dropdown-menu" aria-labelledby="dropdownMenuLink">
           {
             authState.name ?
             <>
-              <Link to={"/user/" + authState.name} className="dropdown-item">
+              <Link to={"/user/" + authState.name} className="dropdown-item" data-testid="menu-user-info">
                 ユーザー情報
               </Link>
               <Link to="/settings" className="dropdown-item">
@@ -90,7 +90,7 @@ export default (props: Props): JSX.Element => {
     );
   } else {
     return (
-      <Wrapper>
+      <Wrapper data-testid="circle-icon" className="circle-icon">
         <Image className="d-flex justify-content-center align-items-center" src={props.image} />
       </Wrapper>
     );

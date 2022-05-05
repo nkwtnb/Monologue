@@ -21,7 +21,7 @@ export default (props: Props) => {
   return (
     <>
       <MessageArea id="alert" className="w-100 alert alert-danger" role="alert" style={props.messages.length === 0 ? {display: "none"} : {display: "block"}}>
-        <Messages id="errors">
+        <Messages data-testid="errors" id="errors">
           {
             props.messages.map((message, i) => (
               <Message key={i}>{message}</Message>

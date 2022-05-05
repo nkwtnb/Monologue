@@ -1,6 +1,6 @@
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import styled from "styled-components";
-import "../../../css/app.css";
+// import "../../../css/app.css";
 interface Props {
   icon: any;
   count: number;

@@ -1,0 +1,3 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`Timeline unit test 配列で受け取ったメッセージが表示される 1`] = `[Function]`;

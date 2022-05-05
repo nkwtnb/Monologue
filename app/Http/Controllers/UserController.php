@@ -2,10 +2,14 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\Like;
+use App\Models\Ogp;
 use App\Models\User;
+use App\Models\Word;
 use Exception;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Validator;
 use Illuminate\Validation\Rule as ValidationRule;
 
@@ -34,6 +38,23 @@ class UserController extends Controller
         
         $user->save();
         return $user;
+    }
+
+    public function delete(Request $request) {
+        DB::transaction(function() { 
+            $user_id = Auth::id();
+            $words = Word::where('user_id', $user_id)->get();
+            $deleteId = [];
+            foreach($words as $word) {
+                $deleteId[] = $word->id;
+            }
+            Ogp::whereIn("word_id", $deleteId)->delete();
+            Word::where('user_id', $user_id)->delete();
+            Like::where('user_id', $user_id)->delete();
+            User::find($user_id)->delete();
+        });
+        return;
+        // logger($user);
     }
 
     /**
