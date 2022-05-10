@@ -4,6 +4,7 @@ import Post from './Post';
 import { Entry } from "@interface/Entry";
 import * as entryUtil from "@api/Entries";
 import { AuthContext } from '../../Context';
+import useRequest from './hooks/useRequest';
 
 interface Props {
   name: string | undefined;
@@ -12,29 +13,18 @@ interface Props {
 
 export default (props: Props): JSX.Element => {
   const {authState, setAuthState} = useContext(AuthContext);
-  const [isLoaded, setIsLoaded] = useState(false);
-  const [entries, setEntries] = useState<Entry[]>([]);
-  useEffect(() => {
-    setIsLoaded(false);
-    setEntries([]);
-    (async () => {
-      const _entries = await entryUtil.getEntries(props);
-      const entries = await entryUtil.setLikeStatus(_entries, authState.name);
-      setEntries(entries);
-      setIsLoaded(true);
-    })();
-  }, [props.name, props.filter]);
-
-  if (!isLoaded) {
+  const {data, error, isLoading} = useRequest({name: props.name, filter: props.filter, authState: authState});
+ 
+  if (isLoading) {
     return <></>;
   }
-  if (entries.length === 0) {
+  if (data.length === 0) {
     return <div>対象の投稿がありません</div>;
   } else {
     return (
       <>
         {
-          entries.map((entry: Entry, index) => {
+          data.map((entry: Entry, index) => {
             return (
               <div className='px-0 mb-1' key={index}>
                 <Post
