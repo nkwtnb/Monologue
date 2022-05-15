@@ -20,7 +20,8 @@ export default (props: Props) => {
     (async () => {
       try {
         const _entries = await entryUtil.getEntries({name: props.name, filter: props.filter});
-        const entries = await entryUtil.setLikeStatus(_entries, props.authState.name);
+        const likeEntries = await entryUtil.getLikes(props.authState.name);
+        const entries = entryUtil.setLikeStatus(_entries, likeEntries);
         setData(entries);
         setLoading(false);
       } catch (e: any) {
