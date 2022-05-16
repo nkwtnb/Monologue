@@ -1,5 +1,5 @@
 import React from 'react';
-import TImeline from '../organisms/TImeline';
+import Timeline from '../organisms/Timeline';
 import { useParams } from 'react-router-dom';
 
 interface Props {
@@ -11,7 +11,7 @@ export default (props: Props) => {
 
   return (
     <>
-      <TImeline name={name} filter={props.filter}/>
+      <Timeline name={name} filter={props.filter}/>
     </>
   );
 }

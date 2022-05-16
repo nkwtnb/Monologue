@@ -1,6 +1,6 @@
 import React, { useContext, useEffect, useLayoutEffect } from 'react';
 import NewPost from '../organisms/NewPost';
-import TImeline from '../organisms/TImeline';
+import Timeline from '../organisms/Timeline';
 import { AuthContext } from "../../Context";
 import { Navigate } from 'react-router-dom';
 import { Link } from 'react-router-dom';
@@ -19,7 +19,7 @@ export default () => {
               <b>投稿</b>、<b>コメント</b>、<b>いいね</b>などのアクションをするには、<Link to="/login">ログイン</Link>が必要です。
             </div>
         }
-        <TImeline name="" filter="post"/>
+        <Timeline name="" filter="post"/>
       </div>
     </>
   );

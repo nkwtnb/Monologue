@@ -5972,6 +5972,7 @@ const getEntries = ({
     return likeEntries; // ユーザー別 > 投稿 or メディア
   } else {
     const entries = (yield axios__WEBPACK_IMPORTED_MODULE_0___default().get(`/api/words/user/${name}/posts`)).data;
+    console.log(entries);
     return entries;
   }
 });
@@ -5988,7 +5989,27 @@ const getEntry = postId => __awaiter(void 0, void 0, void 0, function* () {
     entry,
     replies
   };
-});
+}); // /**
+//  * 指定されたポストIDの投稿を取得する
+//  * @param postId 
+//  */
+//  export const getEntry = async (postId: string | undefined): Promise<Entry[]> => {
+//   const resp = (await axios.get("/api/words/post/" + postId)).data as Entry[];
+//   return resp;
+// }
+// /**
+//  * 対象の投稿を、投稿／コメントに分ける
+//  * @param _entry
+//  */
+// export const separateEntry = (_entry: any): {entry: Entry, replies: Entry[]} => {
+//   const entry: Entry = _entry.entries[0];
+//   const replies: Entry[] = _entry.replies;
+//   return {
+//     entry,
+//     replies
+//   };
+// }
+
 /**
  * じぶんの「いいね」を取得する
  * @param authName
@@ -6004,9 +6025,7 @@ const getLikes = authName => __awaiter(void 0, void 0, void 0, function* () {
  * @returns
  */
 
-const setLikeStatus = (entries, authName) => __awaiter(void 0, void 0, void 0, function* () {
-  console.log(entries);
-  const likeEntries = authName === "" ? [] : (yield axios__WEBPACK_IMPORTED_MODULE_0___default().get(`/api/words/user/${authName}/likes`)).data;
+const setLikeStatus = (entries, likeEntries) => {
   const resp = entries.map(entry => {
     for (let i = 0; i < likeEntries.length; i++) {
       const likeEntry = likeEntries[i];
@@ -6020,7 +6039,7 @@ const setLikeStatus = (entries, authName) => __awaiter(void 0, void 0, void 0, f
     return entry;
   });
   return resp;
-});
+};
 
 /***/ }),
 
@@ -6225,13 +6244,14 @@ border-radius: ${SIZE}px;
           src: props.image
         })
       }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_3__.jsx)("div", {
-        className: "dropdown-menu menutest",
+        className: "dropdown-menu",
         "data-testid": "dropdown-menu",
         "aria-labelledby": "dropdownMenuLink",
         children: authState.name ? /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_3__.jsxs)(react_jsx_runtime__WEBPACK_IMPORTED_MODULE_3__.Fragment, {
           children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_3__.jsx)(react_router_dom__WEBPACK_IMPORTED_MODULE_6__.Link, {
             to: "/user/" + authState.name,
             className: "dropdown-item",
+            "data-testid": "menu-user-info",
             children: "\u30E6\u30FC\u30B6\u30FC\u60C5\u5831"
           }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_3__.jsx)(react_router_dom__WEBPACK_IMPORTED_MODULE_6__.Link, {
             to: "/settings",
@@ -6308,6 +6328,7 @@ const MessageArea = styled_components__WEBPACK_IMPORTED_MODULE_2__["default"].di
         display: "block"
       },
       children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_1__.jsx)(Messages, {
+        "data-testid": "errors",
         id: "errors",
         children: props.messages.map((message, i) => /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_1__.jsx)(Message, {
           children: message
@@ -6587,10 +6608,10 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony export */ __webpack_require__.d(__webpack_exports__, {
 /* harmony export */   "default": () => (__WEBPACK_DEFAULT_EXPORT__)
 /* harmony export */ });
-/* harmony import */ var _fortawesome_react_fontawesome__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! @fortawesome/react-fontawesome */ "./node_modules/@fortawesome/react-fontawesome/index.es.js");
+/* harmony import */ var react__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! react */ "./node_modules/react/index.js");
+/* harmony import */ var _fortawesome_react_fontawesome__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! @fortawesome/react-fontawesome */ "./node_modules/@fortawesome/react-fontawesome/index.es.js");
 /* harmony import */ var styled_components__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! styled-components */ "./node_modules/styled-components/dist/styled-components.browser.esm.js");
 /* harmony import */ var _fortawesome_free_regular_svg_icons_faComment__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(/*! @fortawesome/free-regular-svg-icons/faComment */ "./node_modules/@fortawesome/free-regular-svg-icons/faComment.js");
-/* harmony import */ var _css_app_css__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ../../../css/app.css */ "./resources/css/app.css");
 /* harmony import */ var react_jsx_runtime__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! react/jsx-runtime */ "./node_modules/react/jsx-runtime.js");
 
 
@@ -6614,7 +6635,7 @@ padding: 2px 10px;
 /* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = (props => {
   return /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_2__.jsx)(react_jsx_runtime__WEBPACK_IMPORTED_MODULE_2__.Fragment, {
     children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_2__.jsxs)(Wrapper, {
-      children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_2__.jsx)(_fortawesome_react_fontawesome__WEBPACK_IMPORTED_MODULE_0__.FontAwesomeIcon, {
+      children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_2__.jsx)(_fortawesome_react_fontawesome__WEBPACK_IMPORTED_MODULE_1__.FontAwesomeIcon, {
         icon: _fortawesome_free_regular_svg_icons_faComment__WEBPACK_IMPORTED_MODULE_4__.faComment
       }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_2__.jsx)(Count, {
         children: props.count
@@ -6636,9 +6657,9 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony export */ __webpack_require__.d(__webpack_exports__, {
 /* harmony export */   "default": () => (__WEBPACK_DEFAULT_EXPORT__)
 /* harmony export */ });
-/* harmony import */ var _fortawesome_react_fontawesome__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! @fortawesome/react-fontawesome */ "./node_modules/@fortawesome/react-fontawesome/index.es.js");
+/* harmony import */ var react__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! react */ "./node_modules/react/index.js");
+/* harmony import */ var _fortawesome_react_fontawesome__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! @fortawesome/react-fontawesome */ "./node_modules/@fortawesome/react-fontawesome/index.es.js");
 /* harmony import */ var styled_components__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! styled-components */ "./node_modules/styled-components/dist/styled-components.browser.esm.js");
-/* harmony import */ var _css_app_css__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ../../../css/app.css */ "./resources/css/app.css");
 /* harmony import */ var react_jsx_runtime__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! react/jsx-runtime */ "./node_modules/react/jsx-runtime.js");
 
 
@@ -6662,7 +6683,7 @@ padding: 2px 10px;
   return /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_2__.jsx)(react_jsx_runtime__WEBPACK_IMPORTED_MODULE_2__.Fragment, {
     children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_2__.jsxs)(Wrapper, {
       onClick: props.onClick,
-      children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_2__.jsx)(_fortawesome_react_fontawesome__WEBPACK_IMPORTED_MODULE_0__.FontAwesomeIcon, {
+      children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_2__.jsx)(_fortawesome_react_fontawesome__WEBPACK_IMPORTED_MODULE_1__.FontAwesomeIcon, {
         icon: props.icon,
         className: props.className
       }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_2__.jsx)(Count, {
@@ -7820,10 +7841,10 @@ color: #262323;
 
 /***/ }),
 
-/***/ "./resources/js/components/organisms/TImeline.tsx":
-/*!********************************************************!*\
-  !*** ./resources/js/components/organisms/TImeline.tsx ***!
-  \********************************************************/
+/***/ "./resources/js/components/organisms/Timeline/Presenter.tsx":
+/*!******************************************************************!*\
+  !*** ./resources/js/components/organisms/Timeline/Presenter.tsx ***!
+  \******************************************************************/
 /***/ ((__unused_webpack_module, __webpack_exports__, __webpack_require__) => {
 
 "use strict";
@@ -7832,83 +7853,32 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony export */   "default": () => (__WEBPACK_DEFAULT_EXPORT__)
 /* harmony export */ });
 /* harmony import */ var react__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! react */ "./node_modules/react/index.js");
-/* harmony import */ var _Post__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ./Post */ "./resources/js/components/organisms/Post.tsx");
-/* harmony import */ var _api_Entries__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! @api/Entries */ "./resources/js/api/Entries.tsx");
-/* harmony import */ var _Context__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! ../../Context */ "./resources/js/Context.tsx");
-/* harmony import */ var react_jsx_runtime__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(/*! react/jsx-runtime */ "./node_modules/react/jsx-runtime.js");
-var __awaiter = undefined && undefined.__awaiter || function (thisArg, _arguments, P, generator) {
-  function adopt(value) {
-    return value instanceof P ? value : new P(function (resolve) {
-      resolve(value);
-    });
-  }
-
-  return new (P || (P = Promise))(function (resolve, reject) {
-    function fulfilled(value) {
-      try {
-        step(generator.next(value));
-      } catch (e) {
-        reject(e);
-      }
-    }
-
-    function rejected(value) {
-      try {
-        step(generator["throw"](value));
-      } catch (e) {
-        reject(e);
-      }
-    }
-
-    function step(result) {
-      result.done ? resolve(result.value) : adopt(result.value).then(fulfilled, rejected);
-    }
-
-    step((generator = generator.apply(thisArg, _arguments || [])).next());
-  });
-};
-
-
-
-
+/* harmony import */ var _Post__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ../Post */ "./resources/js/components/organisms/Post.tsx");
+/* harmony import */ var react_jsx_runtime__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! react/jsx-runtime */ "./node_modules/react/jsx-runtime.js");
 
 
 
 
 /* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = (props => {
-  const {
-    authState,
-    setAuthState
-  } = (0,react__WEBPACK_IMPORTED_MODULE_0__.useContext)(_Context__WEBPACK_IMPORTED_MODULE_3__.AuthContext);
-  const [isLoaded, setIsLoaded] = (0,react__WEBPACK_IMPORTED_MODULE_0__.useState)(false);
-  const [entries, setEntries] = (0,react__WEBPACK_IMPORTED_MODULE_0__.useState)([]);
-  (0,react__WEBPACK_IMPORTED_MODULE_0__.useEffect)(() => {
-    setIsLoaded(false);
-    setEntries([]);
-
-    (() => __awaiter(void 0, void 0, void 0, function* () {
-      const _entries = yield _api_Entries__WEBPACK_IMPORTED_MODULE_2__.getEntries(props);
-
-      const entries = yield _api_Entries__WEBPACK_IMPORTED_MODULE_2__.setLikeStatus(_entries, authState.name);
-      setEntries(entries);
-      setIsLoaded(true);
-    }))();
-  }, [props.name, props.filter]);
-
-  if (!isLoaded) {
-    return /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_4__.jsx)(react_jsx_runtime__WEBPACK_IMPORTED_MODULE_4__.Fragment, {});
+  if (props.isLoading) {
+    return /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_2__.jsx)(react_jsx_runtime__WEBPACK_IMPORTED_MODULE_2__.Fragment, {
+      children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_2__.jsx)("span", {
+        "data-testid": "loading",
+        children: "\u8AAD\u307F\u8FBC\u307F\u4E2D"
+      })
+    });
   }
 
-  if (entries.length === 0) {
-    return /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_4__.jsx)("div", {
+  if (props.data.length === 0) {
+    return /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_2__.jsx)("div", {
       children: "\u5BFE\u8C61\u306E\u6295\u7A3F\u304C\u3042\u308A\u307E\u305B\u3093"
     });
   } else {
-    return /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_4__.jsx)(react_jsx_runtime__WEBPACK_IMPORTED_MODULE_4__.Fragment, {
-      children: entries.map((entry, index) => {
-        return /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_4__.jsx)("div", {
+    return /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_2__.jsx)(react_jsx_runtime__WEBPACK_IMPORTED_MODULE_2__.Fragment, {
+      children: props.data.map((entry, index) => {
+        return /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_2__.jsx)("div", {
           className: "px-0 mb-1",
-          children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_4__.jsx)(_Post__WEBPACK_IMPORTED_MODULE_1__["default"], {
+          children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_2__.jsx)(_Post__WEBPACK_IMPORTED_MODULE_1__["default"], {
             id: entry.id,
             name: entry.name,
             created_at: entry.created_at,
@@ -7927,6 +7897,50 @@ var __awaiter = undefined && undefined.__awaiter || function (thisArg, _argument
       })
     });
   }
+});
+
+/***/ }),
+
+/***/ "./resources/js/components/organisms/Timeline/index.tsx":
+/*!**************************************************************!*\
+  !*** ./resources/js/components/organisms/Timeline/index.tsx ***!
+  \**************************************************************/
+/***/ ((__unused_webpack_module, __webpack_exports__, __webpack_require__) => {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony export */ __webpack_require__.d(__webpack_exports__, {
+/* harmony export */   "default": () => (__WEBPACK_DEFAULT_EXPORT__)
+/* harmony export */ });
+/* harmony import */ var react__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! react */ "./node_modules/react/index.js");
+/* harmony import */ var _Context__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ../../../Context */ "./resources/js/Context.tsx");
+/* harmony import */ var _hooks_useRequest__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ../hooks/useRequest */ "./resources/js/components/organisms/hooks/useRequest.tsx");
+/* harmony import */ var _Presenter__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! ./Presenter */ "./resources/js/components/organisms/Timeline/Presenter.tsx");
+/* harmony import */ var react_jsx_runtime__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(/*! react/jsx-runtime */ "./node_modules/react/jsx-runtime.js");
+
+
+
+
+
+/* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = (props => {
+  const {
+    authState,
+    setAuthState
+  } = (0,react__WEBPACK_IMPORTED_MODULE_0__.useContext)(_Context__WEBPACK_IMPORTED_MODULE_1__.AuthContext);
+  const {
+    data,
+    error,
+    isLoading
+  } = (0,_hooks_useRequest__WEBPACK_IMPORTED_MODULE_2__["default"])({
+    name: props.name,
+    filter: props.filter,
+    authState: authState
+  });
+  return /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_4__.jsx)(_Presenter__WEBPACK_IMPORTED_MODULE_3__["default"], {
+    data: data,
+    error: error,
+    isLoading: isLoading
+  });
 });
 
 /***/ }),
@@ -8021,6 +8035,86 @@ const SIZE = {
       })]
     })
   });
+});
+
+/***/ }),
+
+/***/ "./resources/js/components/organisms/hooks/useRequest.tsx":
+/*!****************************************************************!*\
+  !*** ./resources/js/components/organisms/hooks/useRequest.tsx ***!
+  \****************************************************************/
+/***/ ((__unused_webpack_module, __webpack_exports__, __webpack_require__) => {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony export */ __webpack_require__.d(__webpack_exports__, {
+/* harmony export */   "default": () => (__WEBPACK_DEFAULT_EXPORT__)
+/* harmony export */ });
+/* harmony import */ var react__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! react */ "./node_modules/react/index.js");
+/* harmony import */ var _api_Entries__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! @api/Entries */ "./resources/js/api/Entries.tsx");
+var __awaiter = undefined && undefined.__awaiter || function (thisArg, _arguments, P, generator) {
+  function adopt(value) {
+    return value instanceof P ? value : new P(function (resolve) {
+      resolve(value);
+    });
+  }
+
+  return new (P || (P = Promise))(function (resolve, reject) {
+    function fulfilled(value) {
+      try {
+        step(generator.next(value));
+      } catch (e) {
+        reject(e);
+      }
+    }
+
+    function rejected(value) {
+      try {
+        step(generator["throw"](value));
+      } catch (e) {
+        reject(e);
+      }
+    }
+
+    function step(result) {
+      result.done ? resolve(result.value) : adopt(result.value).then(fulfilled, rejected);
+    }
+
+    step((generator = generator.apply(thisArg, _arguments || [])).next());
+  });
+};
+
+
+
+/* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = (props => {
+  const [isLoading, setLoading] = (0,react__WEBPACK_IMPORTED_MODULE_0__.useState)(true);
+  const [data, setData] = (0,react__WEBPACK_IMPORTED_MODULE_0__.useState)([]);
+  const [error, setError] = (0,react__WEBPACK_IMPORTED_MODULE_0__.useState)(null);
+  (0,react__WEBPACK_IMPORTED_MODULE_0__.useEffect)(() => {
+    setLoading(true);
+    setData([]);
+
+    (() => __awaiter(void 0, void 0, void 0, function* () {
+      try {
+        const _entries = yield _api_Entries__WEBPACK_IMPORTED_MODULE_1__.getEntries({
+          name: props.name,
+          filter: props.filter
+        });
+
+        const likeEntries = yield _api_Entries__WEBPACK_IMPORTED_MODULE_1__.getLikes(props.authState.name);
+        const entries = _api_Entries__WEBPACK_IMPORTED_MODULE_1__.setLikeStatus(_entries, likeEntries);
+        setData(entries);
+        setLoading(false);
+      } catch (e) {
+        setError(e.response);
+      }
+    }))();
+  }, [props.name, props.filter]);
+  return {
+    isLoading,
+    data,
+    error
+  };
 });
 
 /***/ }),
@@ -8221,7 +8315,7 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony export */ });
 /* harmony import */ var react__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! react */ "./node_modules/react/index.js");
 /* harmony import */ var _organisms_NewPost__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ../organisms/NewPost */ "./resources/js/components/organisms/NewPost.tsx");
-/* harmony import */ var _organisms_TImeline__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ../organisms/TImeline */ "./resources/js/components/organisms/TImeline.tsx");
+/* harmony import */ var _organisms_Timeline__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ../organisms/Timeline */ "./resources/js/components/organisms/Timeline/index.tsx");
 /* harmony import */ var _Context__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! ../../Context */ "./resources/js/Context.tsx");
 /* harmony import */ var react_router_dom__WEBPACK_IMPORTED_MODULE_5__ = __webpack_require__(/*! react-router-dom */ "./node_modules/react-router-dom/index.js");
 /* harmony import */ var react_jsx_runtime__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(/*! react/jsx-runtime */ "./node_modules/react/jsx-runtime.js");
@@ -8256,7 +8350,7 @@ __webpack_require__.r(__webpack_exports__);
           to: "/login",
           children: "\u30ED\u30B0\u30A4\u30F3"
         }), "\u304C\u5FC5\u8981\u3067\u3059\u3002"]
-      }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_4__.jsx)(_organisms_TImeline__WEBPACK_IMPORTED_MODULE_2__["default"], {
+      }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_4__.jsx)(_organisms_Timeline__WEBPACK_IMPORTED_MODULE_2__["default"], {
         name: "",
         filter: "post"
       })]
@@ -8516,7 +8610,8 @@ const BeginComments = styled_components__WEBPACK_IMPORTED_MODULE_5__["default"].
 
       const _postWithReplies = [resp.entry].concat(resp.replies);
 
-      const postWithReplies = yield _api_Entries__WEBPACK_IMPORTED_MODULE_2__.setLikeStatus(_postWithReplies, authState.name); // 先頭要素は対象の投稿
+      const likeEntries = yield _api_Entries__WEBPACK_IMPORTED_MODULE_2__.getLikes(authState.name);
+      const postWithReplies = _api_Entries__WEBPACK_IMPORTED_MODULE_2__.setLikeStatus(_postWithReplies, likeEntries); // 先頭要素は対象の投稿
 
       const entry = postWithReplies[0]; // 2要素目以降は対象の投稿へのリプライ
 
@@ -9215,7 +9310,7 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony export */   "default": () => (__WEBPACK_DEFAULT_EXPORT__)
 /* harmony export */ });
 /* harmony import */ var react__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! react */ "./node_modules/react/index.js");
-/* harmony import */ var _organisms_TImeline__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ../organisms/TImeline */ "./resources/js/components/organisms/TImeline.tsx");
+/* harmony import */ var _organisms_Timeline__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ../organisms/Timeline */ "./resources/js/components/organisms/Timeline/index.tsx");
 /* harmony import */ var react_router_dom__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! react-router-dom */ "./node_modules/react-router/index.js");
 /* harmony import */ var react_jsx_runtime__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! react/jsx-runtime */ "./node_modules/react/jsx-runtime.js");
 
@@ -9228,7 +9323,7 @@ __webpack_require__.r(__webpack_exports__);
     name
   } = (0,react_router_dom__WEBPACK_IMPORTED_MODULE_3__.useParams)();
   return /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_2__.jsx)(react_jsx_runtime__WEBPACK_IMPORTED_MODULE_2__.Fragment, {
-    children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_2__.jsx)(_organisms_TImeline__WEBPACK_IMPORTED_MODULE_1__["default"], {
+    children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_2__.jsx)(_organisms_Timeline__WEBPACK_IMPORTED_MODULE_1__["default"], {
       name: name,
       filter: props.filter
     })

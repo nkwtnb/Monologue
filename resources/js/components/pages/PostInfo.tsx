@@ -1,5 +1,4 @@
 import React, { useContext, useEffect, useLayoutEffect, useState } from 'react';
-import TImeline from '../organisms/TImeline';
 import { useParams } from 'react-router-dom';
 import Post from '../organisms/Post';
 import { Entry } from "@interface/Entry";
@@ -26,7 +25,8 @@ export default () => {
     (async () => {
       const resp = await entryUtil.getEntry(postId);
       const _postWithReplies = [resp.entry].concat(resp.replies);
-      const postWithReplies = await entryUtil.setLikeStatus(_postWithReplies, authState.name);
+      const likeEntries = await entryUtil.getLikes(authState.name);
+      const postWithReplies = entryUtil.setLikeStatus(_postWithReplies, likeEntries);
       // 先頭要素は対象の投稿
       const entry: Entry = postWithReplies[0];
       // 2要素目以降は対象の投稿へのリプライ

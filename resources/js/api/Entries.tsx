@@ -21,6 +21,7 @@ export const getEntries = async ({ name, filter }: Props): Promise<Entry[]> => {
     // ユーザー別 > 投稿 or メディア
   } else {
     const entries = (await axios.get(`/api/words/user/${name}/posts`)).data as Entry[];
+    console.log(entries);
     return entries;
   }
 }
@@ -39,12 +40,35 @@ export const getEntry = async (postId: string | undefined): Promise<{entry: Entr
   };
 }
 
+
+// /**
+//  * 指定されたポストIDの投稿を取得する
+//  * @param postId 
+//  */
+//  export const getEntry = async (postId: string | undefined): Promise<Entry[]> => {
+//   const resp = (await axios.get("/api/words/post/" + postId)).data as Entry[];
+//   return resp;
+// }
+
+// /**
+//  * 対象の投稿を、投稿／コメントに分ける
+//  * @param _entry
+//  */
+// export const separateEntry = (_entry: any): {entry: Entry, replies: Entry[]} => {
+//   const entry: Entry = _entry.entries[0];
+//   const replies: Entry[] = _entry.replies;
+//   return {
+//     entry,
+//     replies
+//   };
+// }
+
 /**
  * じぶんの「いいね」を取得する
  * @param authName 
  * @returns 
  */
-export const getLikes = async (authName: string) => {
+export const getLikes = async (authName: string | undefined) => {
   const likeEntries = authName === "" ? [] : (await axios.get(`/api/words/user/${authName}/likes`)).data as Entry[];
   return likeEntries;
 }
@@ -53,9 +77,7 @@ export const getLikes = async (authName: string) => {
  * 自分が「いいね」した投稿にフラグを立てる
  * @returns 
  */
-export const setLikeStatus = async (entries: Entry[], authName: string): Promise<Entry[]> => {
-  console.log(entries);
-  const likeEntries = authName === "" ? [] : (await axios.get(`/api/words/user/${authName}/likes`)).data as Entry[];
+export const setLikeStatus = (entries: Entry[], likeEntries: Entry[]): Entry[] => {
   const resp = entries.map(entry => {
     for (let i = 0; i < likeEntries.length; i++) {
       const likeEntry = likeEntries[i];
