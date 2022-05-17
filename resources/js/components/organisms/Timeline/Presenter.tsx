@@ -10,17 +10,17 @@ interface Props {
 
 export default (props: Props): JSX.Element => {
   if (props.isLoading) {
-    return <><span data-testid="loading">読み込み中</span></>;
+    return <span data-testid="loading">読み込み中</span>;
   }
   if (props.data.length === 0) {
-    return <div>対象の投稿がありません</div>;
+    return <div data-testid="no-data">対象の投稿がありません</div>;
   } else {
     return (
       <>
         {
           props.data.map((entry: Entry, index) => {
             return (
-              <div className='px-0 mb-1' key={index}>
+              <div data-testid="post" className='px-0 mb-1' key={index}>
                 <Post
                   id={entry.id}
                   name={entry.name}

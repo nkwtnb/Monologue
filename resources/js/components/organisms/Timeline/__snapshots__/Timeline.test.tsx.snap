@@ -1,9 +1,10 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
-exports[`Timeline unit test 配列で受け取ったメッセージが表示される 1`] = `
+exports[`Timeline unit test 配列で受け取ったメッセージが表示される > データが表示される 1`] = `
 <DocumentFragment>
   <div
     class="px-0 mb-1"
+    data-testid="post"
   >
     <div
       class="sc-crHmcD cximqd justify-content-center entry-card"

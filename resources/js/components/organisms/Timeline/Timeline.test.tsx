@@ -6,7 +6,25 @@ import { BrowserRouter } from "react-router-dom";
 
 afterEach(() => cleanup());
 describe("Timeline unit test", () => {
-  it("配列で受け取ったメッセージが表示される", async () => {
+  it("配列で受け取ったメッセージが表示される > メッセージ表示[読み込み中]", async () => {
+    // レンダリング、テスト
+    const result = render(
+      <BrowserRouter>
+        <Timeline data={[]} isLoading={true}></Timeline>
+      </BrowserRouter>
+    );
+    expect(screen.getByTestId("loading")).toBeTruthy();
+  });
+  it("配列で受け取ったメッセージが表示される > メッセージ表示[投稿がありません]", async () => {
+    // レンダリング、テスト
+    const result = render(
+      <BrowserRouter>
+        <Timeline data={[]} isLoading={false}></Timeline>
+      </BrowserRouter>
+    );
+    expect(screen.getByTestId("no-data")).toBeTruthy();
+  });
+  it("配列で受け取ったメッセージが表示される > データが表示される", async () => {
     const resolveValue = [
       {
         name: "username",
@@ -35,6 +53,7 @@ describe("Timeline unit test", () => {
         <Timeline data={resolveValue} isLoading={false}></Timeline>
       </BrowserRouter>
     );
+    expect(screen.getByTestId("post")).toBeTruthy();
     expect(result.asFragment()).toMatchSnapshot();
   });
 })
