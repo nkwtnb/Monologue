@@ -7861,22 +7861,22 @@ __webpack_require__.r(__webpack_exports__);
 
 /* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = (props => {
   if (props.isLoading) {
-    return /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_2__.jsx)(react_jsx_runtime__WEBPACK_IMPORTED_MODULE_2__.Fragment, {
-      children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_2__.jsx)("span", {
-        "data-testid": "loading",
-        children: "\u8AAD\u307F\u8FBC\u307F\u4E2D"
-      })
+    return /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_2__.jsx)("span", {
+      "data-testid": "loading",
+      children: "\u8AAD\u307F\u8FBC\u307F\u4E2D"
     });
   }
 
   if (props.data.length === 0) {
     return /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_2__.jsx)("div", {
+      "data-testid": "no-data",
       children: "\u5BFE\u8C61\u306E\u6295\u7A3F\u304C\u3042\u308A\u307E\u305B\u3093"
     });
   } else {
     return /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_2__.jsx)(react_jsx_runtime__WEBPACK_IMPORTED_MODULE_2__.Fragment, {
       children: props.data.map((entry, index) => {
         return /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_2__.jsx)("div", {
+          "data-testid": "post",
           className: "px-0 mb-1",
           children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_2__.jsx)(_Post__WEBPACK_IMPORTED_MODULE_1__["default"], {
             id: entry.id,

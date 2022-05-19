@@ -5,7 +5,6 @@ import { useEffect, useState } from "react"
 import { Link } from "react-router-dom";
 import { useParams } from "react-router-dom";
 import styled from "styled-components";
-import Media from "../organisms/Media";
 
 interface Media {
   postId: number;
@@ -102,7 +101,6 @@ export default (props: any) => {
         <div>画像の投稿がありません</div>
       :
         postedImages.map((postedImage, index) => (
-          // <ImageWrapper key={index} className="col-12 col-sm-12 col-md-6 col-lg-6 col-xl-4 px-0">
           <ImageWrapper key={index} className="col-4 px-0">
             <ImageArea>
               <Link to={"/post/" + postedImage.postId}>
