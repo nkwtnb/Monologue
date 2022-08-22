@@ -11,6 +11,7 @@ import * as userApi from "../../api/User";
 import { Navigate, useNavigate } from 'react-router-dom';
 import { makePathForImage } from '@api/Resources';
 import { useHandleError } from '../../hooks/useHandleError';
+import { FileUploader } from '../organisms/FileUploader';
 
 const AvatarArea = styled.div`
 position: relative;
@@ -26,21 +27,6 @@ width: 20px;
 height: 20px;
 line-height: 20px;
 border-radius: 10px;
-`;
-
-
-const FileControlButton = styled.span`
-border: 1px solid #ddd;
-padding: 4px 12px;
-border-radius: 4px;
-font-size: 12px;
-color: white;
-`;
-
-const FileUploaderLabel = styled.span`
-display: inline-block;
-font-size: 13px;
-white-space: nowrap;
 `;
 
 interface UserInfo extends userApi.Type{
@@ -137,10 +123,6 @@ export default () => {
     return;
   };
 
-  const triggerUpload = () => {
-    document.getElementById("avatar")?.click();
-  }
-
   // ログイン済みの場合、リダイレクト
   if (!authState.name) {
     return <Navigate to={"/"} />;
@@ -169,13 +151,7 @@ export default () => {
                 </AvatarArea>
               </div>
               <div className='col-md-1 flex-grow-1'>
-                <a>
-                  <FileControlButton className="file-upload btn btn-info" onClick={triggerUpload} >参照</FileControlButton>
-                  <FileUploaderLabel>png,jpeg,jpg,gif形式（100KBまで）</FileUploaderLabel>
-                  <div className='file-upload-wrapper' hidden>
-                    <input type="file" id="avatar" accept=".png, .jpeg, .jpg, .gif" onChange={((e) => handleUploadChange(e))}></input>
-                  </div>
-                </a>
+                <FileUploader acceptType={["png", "jpeg", "jpg", "gif"]} onChange={((e) => handleUploadChange(e))} />
               </div>
             </div>
             <div className='mt-3 row justify-content-center align-items-start'>
