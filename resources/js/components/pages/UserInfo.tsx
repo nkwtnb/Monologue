@@ -10,7 +10,7 @@ import { AuthContext } from "../../Context";
 import * as userApi from "../../api/User";
 import { Navigate, useNavigate } from 'react-router-dom';
 import { makePathForImage } from '@api/Resources';
-import { useHandleError } from 'resources/js/hooks/useHandleError';
+import { useHandleError } from '../../hooks/useHandleError';
 
 /**
  * ユーザー情報更新
@@ -64,8 +64,7 @@ export default () => {
     currentAvatar: makePathForImage(authState.avatar, "upfiles")
   });
   const {error, setError, handleError} = useHandleError();
-  const [leave, setLeave] = useState(false);
-  const [confirmed, setConfirmed] = useState(false);
+  const [withdrawal, setWithdrawal] = useState({ checked: false, confirmed: false});
 
   const leaveUser = async () => {
     const resp = (await axios.delete("/api/user")).data;
@@ -94,8 +93,11 @@ export default () => {
   }
 
   const handleLeave = () => {
-    if (!leave) {
-      setLeave(true);
+    if (!withdrawal.checked) {
+      setWithdrawal({
+        ...withdrawal,
+        checked: true
+      });
       return;
     }
     (async () => {
@@ -225,17 +227,17 @@ export default () => {
                 <div className='d-flex'>
                   <div className='col d-flex justify-content-start'>
                     {
-                      leave === false ?
+                      withdrawal.checked === false ?
                         <button className="btn btn-danger" onClick={handleLeave}>退会</button>
                       :
                         <>
                           <div className="form-check d-flex align-items-center me-2">
                             <div className='d-flex align-items-center'>
-                              <input className="form-check-input" type="checkbox" value="confirmed" id="confirm-check" onChange={(() => setConfirmed(pre => !pre))}/>
+                              <input className="form-check-input" type="checkbox" value="confirmed" id="confirm-check" onChange={(() => setWithdrawal({...withdrawal, confirmed: !withdrawal.confirmed}))}/>
                             </div>
                             <label className="form-check-label" htmlFor="confirm-check">本当に退会しますか？</label>
                           </div>
-                          <button className="btn btn-danger" onClick={handleLeave} disabled={!confirmed}>退会</button>
+                          <button className="btn btn-danger" onClick={handleLeave} disabled={!withdrawal.confirmed}>退会</button>
                         </>
                     }
                   </div>
