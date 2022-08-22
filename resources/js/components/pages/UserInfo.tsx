@@ -1,16 +1,14 @@
 import axios from 'axios';
-import React, { useContext, useRef } from 'react';
-import ReactDOM from 'react-dom';
+import React, { useContext } from 'react';
 // Components
 import CircleIcon from '../atoms/CircleIcon';
 import NoAvatar from "../../../img/no_avatar.png";
 import ErrorMessage from '../atoms/ErrorMessage';
 import { useState } from 'react';
-import { useEffect } from 'react';
 import styled from 'styled-components';
 import { AuthContext } from "../../Context";
 import * as userApi from "../../api/User";
-import { Navigate, useNavigate, useParams } from 'react-router-dom';
+import { Navigate, useNavigate } from 'react-router-dom';
 import { makePathForImage } from '@api/Resources';
 
 /**
@@ -67,8 +65,6 @@ export default () => {
   const [error, setError] = useState<string[]>([]);
   const [leave, setLeave] = useState(false);
   const [confirmed, setConfirmed] = useState(false);
-  const [message, setMessgae] = useState([]);
-  const confirmedCheck = useRef<HTMLInputElement>(null);
 
   const handleError = (error: any) => {
     console.log(error);
@@ -235,11 +231,6 @@ export default () => {
                 <input className="w-100 form-control" type="text" value={userInfo.email} onChange={((e) => handleChange(e, "email"))}></input>
               </div>
             </div>
-            {/* <div className='mt-3 row justify-content-center'>
-              <div className='col flex-grow-1'>
-                <ErrorMessage messages={error}></ErrorMessage>
-              </div>
-            </div> */}
             <div className='mt-5 row justify-content-center'>
               <div className='col-md-8 flex-grow-1'>
                 <div className='d-flex'>
