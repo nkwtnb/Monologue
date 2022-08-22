@@ -12,15 +12,6 @@ import { Navigate, useNavigate } from 'react-router-dom';
 import { makePathForImage } from '@api/Resources';
 import { useHandleError } from '../../hooks/useHandleError';
 
-/**
- * ユーザー情報更新
- * @param param 
- * @returns 
- */
-const postUserInfo = async (param: userApi.Type) => {
-  return await axios.put("/api/user", param);
-}
-
 const AvatarArea = styled.div`
 position: relative;
 `;
@@ -77,8 +68,11 @@ export default () => {
     message?.setAttribute("style", "display: none");
     (async () => {
       try {
-        const filePath = await upload();
-        const resp = await postUserInfo({
+        let filePath;
+        if (userInfo.imgFile) {
+          filePath = await userApi.postAvatar(userInfo.imgFile);
+        }
+        await userApi.postUserInfo({
           "name": userInfo.name,  
           "email": userInfo.email,
           "avatar": filePath ? filePath : userInfo.avatar,
@@ -109,21 +103,6 @@ export default () => {
         handleError(e.response.data);
       }
     })();
-  }
-
-  const upload = async () => {
-    if (!userInfo.imgFile) {
-      return await null;
-    }
-    const form = new FormData();
-    const file = userInfo.imgFile;
-    form.append('upload_file', file);
-    const settings = { headers: { 'content-type': 'multipart/form-data' } }
-    const resp = await axios.post("api/file/upload",
-      form,
-      settings
-    );
-    return resp.data;
   }
 
   const handleUploadChange = (e: React.ChangeEvent<HTMLInputElement>) => {
