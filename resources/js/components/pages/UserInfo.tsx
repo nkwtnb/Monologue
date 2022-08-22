@@ -57,11 +57,6 @@ export default () => {
   const {error, setError, handleError} = useHandleError();
   const [withdrawal, setWithdrawal] = useState({ checked: false, confirmed: false});
 
-  const leaveUser = async () => {
-    const resp = (await axios.delete("/api/user")).data;
-    return resp;
-  };
-
   const handleClick = () => {
     setError([]);
     const message = document.getElementById("alert");
@@ -97,7 +92,7 @@ export default () => {
     (async () => {
       setError([]);
       try {
-        const resp = await leaveUser();
+        await userApi.withdrawUser();
         navigate("/register");
       } catch (e: any) {
         handleError(e.response.data);

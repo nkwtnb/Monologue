@@ -45,5 +45,15 @@ export const postAvatar = async (file: string | Blob): Promise<string> => {
  * @returns
  */
 export const postUserInfo = async (param: Type): Promise<AxiosResponse> => {
-  return await axios.put("/api/user", param);
+  const resp = (await axios.put("/api/user", param)).data;
+  return resp;
 }
+
+/**
+ * ユーザー退会
+ * @returns
+ */
+export const withdrawUser = async (): Promise<AxiosResponse> => {
+  const resp = (await axios.delete("/api/user")).data;
+  return resp;
+};
