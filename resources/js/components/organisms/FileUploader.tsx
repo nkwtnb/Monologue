@@ -32,7 +32,7 @@ export const FileUploader = (props: Props) => {
       <FileControlButton className="file-upload btn btn-info" onClick={triggerUpload} >参照</FileControlButton>
       <FileUploaderLabel>png,jpeg,jpg,gif形式（100KBまで）</FileUploaderLabel>
       <div className='file-upload-wrapper' hidden>
-          <input type="file" accept={"." + props.acceptType.join(", .")} onChange={props.onChange} ref={fileElementRef}></input>
+        <input type="file" accept={"." + props.acceptType.join(", .")} onChange={props.onChange} ref={fileElementRef}></input>
       </div>
     </a>
   )
