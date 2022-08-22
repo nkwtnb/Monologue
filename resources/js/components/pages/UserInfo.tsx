@@ -10,6 +10,7 @@ import { AuthContext } from "../../Context";
 import * as userApi from "../../api/User";
 import { Navigate, useNavigate } from 'react-router-dom';
 import { makePathForImage } from '@api/Resources';
+import { useHandleError } from 'resources/js/hooks/useHandleError';
 
 /**
  * ユーザー情報更新
@@ -62,22 +63,10 @@ export default () => {
     ...authState,
     currentAvatar: makePathForImage(authState.avatar, "upfiles")
   });
-  const [error, setError] = useState<string[]>([]);
+  const {error, setError, handleError} = useHandleError();
   const [leave, setLeave] = useState(false);
   const [confirmed, setConfirmed] = useState(false);
 
-  const handleError = (error: any) => {
-    console.log(error);
-    const messages: string[] = [];
-    if (error.errors) {
-      for(let key in error.errors) {
-        messages.push(error.errors[key]);
-      }
-    } else if (error.message) {
-      messages.push(error.message);
-    }
-    setError(messages);
-  }
   const leaveUser = async () => {
     const resp = (await axios.delete("/api/user")).data;
     return resp;
