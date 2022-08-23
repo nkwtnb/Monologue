@@ -1,5 +1,5 @@
-import React, { useEffect, useState, useContext } from 'react';
-import CircleIcon from '../atoms/CircleIcon';
+import React, { useContext } from 'react';
+import HeaderIcon from './HeaderIcon';
 import noAvatar from "@img/no_avatar.png";
 import { Link } from 'react-router-dom';
 import { AuthContext } from "../../Context";
@@ -17,7 +17,7 @@ export default () => {
           </Link>
         </div>
         <div className="p-2 bd-highlight">
-          <CircleIcon image={makePathForImage(authState.avatar, "upfiles") || noAvatar} name={authState.name} isHeader={true}/>
+          <HeaderIcon image={makePathForImage(authState.avatar, "upfiles") || noAvatar} name={authState.name} />
         </div>
       </div>
     </nav>

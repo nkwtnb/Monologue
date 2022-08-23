@@ -1,36 +1,17 @@
-import axios from 'axios';
 import React, { useContext } from 'react';
 // Components
-import CircleIcon from '../atoms/CircleIcon';
-import NoAvatar from "../../../img/no_avatar.png";
 import ErrorMessage from '../atoms/ErrorMessage';
 import { useState } from 'react';
-import styled from 'styled-components';
 import { AuthContext } from "../../Context";
 import * as userApi from "../../api/User";
 import { Navigate, useNavigate } from 'react-router-dom';
 import { makePathForImage } from '@api/Resources';
 import { useHandleError } from '../../hooks/useHandleError';
 import { FileUploader } from '../organisms/FileUploader';
-
-const AvatarArea = styled.div`
-position: relative;
-`;
-
-const AvatarDeleteButton = styled.button`
-position: absolute;
-right: 0;
-top: 0;
-background-color: #a5a3a387;
-border: none;
-width: 20px;
-height: 20px;
-line-height: 20px;
-border-radius: 10px;
-`;
+import AvatarIcon from '../organisms/AvatarIcon';
 
 interface UserInfo extends userApi.Type{
-  currentAvatar?: string | null;
+  currentAvatar: string;
 }
 
 export default () => {
@@ -45,8 +26,6 @@ export default () => {
 
   const handleClick = () => {
     setError([]);
-    const message = document.getElementById("alert");
-    message?.setAttribute("style", "display: none");
     (async () => {
       try {
         let filePath;
@@ -138,17 +117,7 @@ export default () => {
                 プロフィール写真
               </div>
               <div className='col-md-1' style={{width: "80px"}}>
-                <AvatarArea>
-                  {/* アバターが設定されている場合、クリアボタンの描画 */}
-                  {
-                    userInfo.currentAvatar
-                    ?
-                      <AvatarDeleteButton onClick={handleAvatarDelete}>×</AvatarDeleteButton>
-                    :
-                      <></>
-                  }
-                  <CircleIcon image={userInfo.currentAvatar || NoAvatar} />
-                </AvatarArea>
+                <AvatarIcon image={userInfo.currentAvatar} oncClick={handleAvatarDelete}/>
               </div>
               <div className='col-md-1 flex-grow-1'>
                 <FileUploader acceptType={["png", "jpeg", "jpg", "gif"]} onChange={((e) => handleUploadChange(e))} />

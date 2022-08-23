@@ -1,5 +1,5 @@
 import React from "react";
-import CircleIcon from "./CircleIcon";
+import CircleIcon from "../atoms/CircleIcon";
 import { cleanup, fireEvent, render, screen,  } from "@testing-library/react";
 import { BrowserRouter } from "react-router-dom";
 import Context from "../../Context";
@@ -10,7 +10,7 @@ describe("CircleIcon unit test", () => {
     render(
       <Context user={{name: "test", email: "test@example.com"}}>
         <BrowserRouter>
-          <CircleIcon image="" isHeader={true}></CircleIcon>
+          <CircleIcon image=""></CircleIcon>
         </BrowserRouter>
       </Context>
     );
@@ -22,7 +22,7 @@ describe("CircleIcon unit test", () => {
     render(
       <Context user={{name: "test", email: "test@example.com"}}>
         <BrowserRouter>
-          <CircleIcon image="" isHeader={false}></CircleIcon>
+          <CircleIcon image=""></CircleIcon>
         </BrowserRouter>
       </Context>
     );
