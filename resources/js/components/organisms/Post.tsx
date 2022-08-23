@@ -1,4 +1,3 @@
-declare var jQuery: any;
 import { Link, useLocation, useNavigate } from "react-router-dom";
 import styled, { css } from "styled-components";
 import CircleIcon from "../atoms/CircleIcon";
@@ -8,14 +7,12 @@ import noAvatar from "@img/no_avatar.png";
 import { faHeart as regularHeart } from "@fortawesome/free-regular-svg-icons/faHeart";
 import { faHeart as solidHeart } from "@fortawesome/free-solid-svg-icons/faHeart";
 import { Entry } from "@interface/Entry";
-import DetailIcon from "../molecules/DetailIcon";
 import PostedImageArea from "../molecules/PostedImageArea";
 import axios from "axios";
 import React, { useContext, useEffect, useLayoutEffect, useState } from "react";
 import LinkCard from "../molecules/LinkCard";
 import { makePathForImage } from "@api/Resources";
 import { AuthContext } from "../../Context";
-import * as userApi from "@api/User";
 
 interface Props {
   isDialog: boolean;
@@ -96,8 +93,6 @@ export default (props: Entry & Props) => {
 
   const handleLike = async (e: any, id: number) => {
     e.stopPropagation();
-    // const authenticatedUser = await userApi.getAuthenticatedUser();
-    // console.log(authenticatedUser);
     if (authState.name === "") {
       navigate("/login"); 
     } else {
@@ -109,9 +104,9 @@ export default (props: Entry & Props) => {
           }
         });
         if (likeState.isLike) {
-          const resp = await axios.delete("/api/likes", { data: { entryId: id } });
+          await axios.delete("/api/likes", { data: { entryId: id } });
         } else {
-          const resp = await axios.post("/api/likes", { entryId: id });
+          await axios.post("/api/likes", { entryId: id });
         }
       } catch (error: any) {
         const response = error.response;
@@ -137,36 +132,6 @@ export default (props: Entry & Props) => {
         , {replace: false, state: {click: true, ...props}}
       );
     }
-  }
-
-  const handleClick = (e: any) => {
-    const oldPath = reactLocation.pathname;
-    const newPath = `/post/${props.id}`;
-    if (oldPath !== newPath) {
-      navigate(newPath);
-    }
-  }
-
-  const generateEmbedUrl = (words: string): string | null => {
-    const getMovieId = (value: string) => {
-      const reg = new RegExp(/\?v=.*\b/,"gi");
-      const results = reg.exec(value);
-      if (!results) {
-        return null;
-      }
-      const movieId = results[0].substring(3);
-      return movieId;
-    }
-    const isContainYoutubeUrl = (value: string) => {
-      const reg = new RegExp(/\bhttps:\/\/www\.youtube\.com\/watch\?v=.*\b/,"gi");
-      const results = reg.exec(value);
-      return results ? results : false;
-    }
-    if (!isContainYoutubeUrl(words)) {
-      return null;
-    }
-    const movieId: any = getMovieId(words);
-    return movieId;
   }
 
   const getOgp = async (words: string) => {
@@ -225,10 +190,6 @@ export default (props: Entry & Props) => {
     if (!props.isDialog && oldPath !== newPath) {
       navigate(newPath);
     }
-    // // ダイアログ表示では無い時、カードクリックで詳細ページへ移動
-    // if (!props.isDialog) {
-    //   navigate(`/post/${props.id}`);
-    // }
   }
 
   return (
@@ -269,13 +230,6 @@ export default (props: Entry & Props) => {
               ? <PostedImageArea images={props.images} />
               : <></>
             }
-            {/* {
-              movieId && 
-              <div className="d-flex justify-content-center mt-2 mb-2">
-                <iframe width="560" height="315" src={"https://www.youtube.com/embed/" + movieId} title="YouTube video player" frameBorder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowFullScreen>
-                </iframe>
-              </div>
-            } */}
             {
               linkCard.title &&
               <LinkCard title={linkCard.title} description={linkCard.description} thumbnail={linkCard.thumbnail} url={linkCard.url}/>
@@ -294,11 +248,6 @@ export default (props: Entry & Props) => {
               <div className='col d-flex justify-content-center'>
                 <Like count={likeState.count} icon={likeState.isLike ? solidHeart : regularHeart} onClick={(e) => handleLike(e, props.id)} className={likeState.isLike ? "liked" : ""}></Like>
               </div>
-              {/* <div className='col d-flex justify-content-center'>
-                <div onClick={handleClick}>
-                  <DetailIcon />
-                </div>
-              </div> */}
             </div>
           </>
         }

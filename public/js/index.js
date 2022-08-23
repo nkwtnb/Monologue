@@ -7782,8 +7782,7 @@ color: #262323;
   const navigate = (0,react_router_dom__WEBPACK_IMPORTED_MODULE_12__.useNavigate)();
 
   const handleLike = (e, id) => __awaiter(void 0, void 0, void 0, function* () {
-    e.stopPropagation(); // const authenticatedUser = await userApi.getAuthenticatedUser();
-    // console.log(authenticatedUser);
+    e.stopPropagation();
 
     if (authState.name === "") {
       navigate("/login");
@@ -7797,13 +7796,13 @@ color: #262323;
         });
 
         if (likeState.isLike) {
-          const resp = yield axios__WEBPACK_IMPORTED_MODULE_5___default()["delete"]("/api/likes", {
+          yield axios__WEBPACK_IMPORTED_MODULE_5___default()["delete"]("/api/likes", {
             data: {
               entryId: id
             }
           });
         } else {
-          const resp = yield axios__WEBPACK_IMPORTED_MODULE_5___default().post("/api/likes", {
+          yield axios__WEBPACK_IMPORTED_MODULE_5___default().post("/api/likes", {
             entryId: id
           });
         }
@@ -7833,43 +7832,35 @@ color: #262323;
         }, props)
       });
     }
-  };
+  }; // const handleClick = (e: any) => {
+  //   const oldPath = reactLocation.pathname;
+  //   const newPath = `/post/${props.id}`;
+  //   if (oldPath !== newPath) {
+  //     navigate(newPath);
+  //   }
+  // }
+  // const generateEmbedUrl = (words: string): string | null => {
+  //   const getMovieId = (value: string) => {
+  //     const reg = new RegExp(/\?v=.*\b/,"gi");
+  //     const results = reg.exec(value);
+  //     if (!results) {
+  //       return null;
+  //     }
+  //     const movieId = results[0].substring(3);
+  //     return movieId;
+  //   }
+  //   const isContainYoutubeUrl = (value: string) => {
+  //     const reg = new RegExp(/\bhttps:\/\/www\.youtube\.com\/watch\?v=.*\b/,"gi");
+  //     const results = reg.exec(value);
+  //     return results ? results : false;
+  //   }
+  //   if (!isContainYoutubeUrl(words)) {
+  //     return null;
+  //   }
+  //   const movieId: any = getMovieId(words);
+  //   return movieId;
+  // }
 
-  const handleClick = e => {
-    const oldPath = reactLocation.pathname;
-    const newPath = `/post/${props.id}`;
-
-    if (oldPath !== newPath) {
-      navigate(newPath);
-    }
-  };
-
-  const generateEmbedUrl = words => {
-    const getMovieId = value => {
-      const reg = new RegExp(/\?v=.*\b/, "gi");
-      const results = reg.exec(value);
-
-      if (!results) {
-        return null;
-      }
-
-      const movieId = results[0].substring(3);
-      return movieId;
-    };
-
-    const isContainYoutubeUrl = value => {
-      const reg = new RegExp(/\bhttps:\/\/www\.youtube\.com\/watch\?v=.*\b/, "gi");
-      const results = reg.exec(value);
-      return results ? results : false;
-    };
-
-    if (!isContainYoutubeUrl(words)) {
-      return null;
-    }
-
-    const movieId = getMovieId(words);
-    return movieId;
-  };
 
   const getOgp = words => __awaiter(void 0, void 0, void 0, function* () {
     const getUrl = value => {
@@ -7937,11 +7928,7 @@ color: #262323;
 
     if (!props.isDialog && oldPath !== newPath) {
       navigate(newPath);
-    } // // ダイアログ表示では無い時、カードクリックで詳細ページへ移動
-    // if (!props.isDialog) {
-    //   navigate(`/post/${props.id}`);
-    // }
-
+    }
   };
 
   return /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_10__.jsx)(Post, {
@@ -9160,8 +9147,7 @@ var __awaiter = undefined && undefined.__awaiter || function (thisArg, _argument
   });
 
   const handleClick = () => {
-    setError([]); // const message = document.getElementById("alert");
-    // message?.setAttribute("style", "display: none");
+    setError([]);
 
     (() => __awaiter(void 0, void 0, void 0, function* () {
       try {
