@@ -9,8 +9,6 @@ interface Props {
 }
 
 export default (props: PropsWithChildren<Props>) => {
-  const navigate = useNavigate();
-  const reactLocation = useLocation();
   return (
     <>
       <div className="modal fade" id="comment-modal" tabIndex={-1} role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">

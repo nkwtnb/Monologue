@@ -1,6 +1,6 @@
 import React, { useContext } from 'react';
 import { AuthContext } from '../../../Context';
-import useRequest from '../hooks/useRequest';
+import useRequest from '../../../hooks/useRequest';
 import Presenter from './Presenter';
 
 interface Props {

@@ -3,8 +3,8 @@ import styled, { css } from 'styled-components';
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faImage } from "@fortawesome/free-regular-svg-icons/faImage";
 import axios from 'axios';
-import ErrorMessage from '../atoms/ErrorMessage';
 import { useNavigate } from 'react-router-dom';
+import Message from '../atoms/Message';
 
 // 各上限
 const LIMIT = {
@@ -275,7 +275,7 @@ export default (props: Props) => {
           </div>
           <div className='row align-items-center'>
             <div className='col d-flex justify-content-start'>
-              <ErrorMessage messages={errorMessages}></ErrorMessage>
+              <Message type='danger' messages={errorMessages}></Message>
             </div>
           </div>
         </NewPostArea>

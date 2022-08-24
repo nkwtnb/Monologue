@@ -7,10 +7,10 @@ import noAvatar from "@img/no_avatar.png";
 import { faHeart as regularHeart } from "@fortawesome/free-regular-svg-icons/faHeart";
 import { faHeart as solidHeart } from "@fortawesome/free-solid-svg-icons/faHeart";
 import { Entry } from "@interface/Entry";
-import PostedImageArea from "../molecules/PostedImageArea";
+import PostedImageArea from "./PostedImageArea";
 import axios from "axios";
 import React, { useContext, useEffect, useLayoutEffect, useState } from "react";
-import LinkCard from "../molecules/LinkCard";
+import LinkCard from "./LinkCard";
 import { makePathForImage } from "@api/Resources";
 import { AuthContext } from "../../Context";
 

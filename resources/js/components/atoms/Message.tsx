@@ -1,8 +1,10 @@
-import React from 'react';
+import React, { ReactElement, ReactNode } from 'react';
 import styled from 'styled-components';
 
 interface Props {
-  messages: string[]
+  type: "danger" | "success" | "warning"
+  messages?: string[]
+  children?: ReactNode
 }
 
 const Messages = styled.ul`
@@ -20,14 +22,21 @@ const MessageArea = styled.div`
 export default (props: Props) => {
   return (
     <>
-      <MessageArea id="alert" className="w-100 alert alert-success" role="alert" style={props.messages.length === 0 ? {display: "none"} : {display: "block"}}>
-        <Messages>
-          {
-            props.messages.map((message, i) => (
-              <Message key={i}>{message}</Message>
-            ))
-          }
-        </Messages>
+      <MessageArea data-testid={props.type} id={props.type} className={`w-100 alert alert-${props.type}`} role="alert">
+        {
+          // メッセージの配列 / 子要素のカスタムメッセージ
+          props.messages?.length
+          ?
+          <Messages>
+            {
+              props.messages.map((message, i) => (
+                <Message key={i}>{message}</Message>
+              ))
+            }
+          </Messages>
+          :
+          props.children
+        }
       </MessageArea>
     </>
   );

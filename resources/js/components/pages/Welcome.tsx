@@ -1,12 +1,12 @@
 import axios from 'axios';
 import React, { useState, useContext, useEffect, useLayoutEffect } from 'react';
 import { Navigate, useNavigate } from 'react-router-dom';
-import CardButton from "../molecules/CardButton";
+import CardButton from "../atoms/CardButton";
 import { AuthContext } from ".././../Context";
 import * as userApi from "../../api/User";
-import ErrorMessage from '../atoms/ErrorMessage';
 import * as Credentials from "@api/Creadentials";
 import { Link } from 'react-router-dom';
+import Message from '../atoms/Message';
 
 interface Props {
   isRegister: boolean;
@@ -138,7 +138,7 @@ export default (props: Props) => {
                   <div className="row mb-3 mt-3">
                     <div className="offset-md-4 col-md-6">
                       <div className='w-100'>
-                        <ErrorMessage messages={errors}></ErrorMessage>
+                        <Message type='danger' messages={errors}></Message>
                       </div>
                     </div>
                   </div>

@@ -5,8 +5,7 @@ import styled from 'styled-components';
 import { Outlet, useLocation, useNavigate } from 'react-router-dom';
 // Components
 import Header from '../organisms/Header';
-// import { closeDialogIfLeave } from '../molecules/Modal';
-import TestModal from '../atoms/TestModal';
+import CommentModal from '../organisms/CommentModal';
 
 const Fluid = styled.div`
 background-color: #4d4b4b;
@@ -25,7 +24,7 @@ export default () => {
             <Fluid className='container-fluid'>
                 <Header />
             </Fluid>
-            <TestModal />
+            <CommentModal />
             <Main className='container'>
                 <Outlet />
             </Main>

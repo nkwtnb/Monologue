@@ -1,7 +1,6 @@
 import axios from "axios";
 import { useEffect, useState } from "react"
 import { useLocation, useSearchParams } from "react-router-dom";
-import ErrorMessage from "../atoms/ErrorMessage";
 import Message from "../atoms/Message";
 
 interface ResetCredentials {
@@ -58,7 +57,6 @@ export default () => {
       }
     }
   }
-
   return (
     <div className="container">
       <div className="row justify-content-center">
@@ -96,7 +94,7 @@ export default () => {
                   messages.length > 0 &&
                   <div className='row mb-3 align-items-center'>
                     <div className='col-md-6 offset-md-4'>
-                      <Message messages={messages}></Message>
+                      <Message type="success" messages={messages}></Message>
                     </div>
                   </div>
                   }
@@ -104,7 +102,7 @@ export default () => {
                   errorMessages.length > 0 &&
                   <div className='row mb-3 align-items-center'>
                     <div className='col-md-6 offset-md-4'>
-                      <ErrorMessage messages={errorMessages}></ErrorMessage>
+                      <Message type="danger" messages={errorMessages}></Message>
                     </div>
                   </div>
                   }

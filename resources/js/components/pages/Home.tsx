@@ -4,6 +4,7 @@ import Timeline from '../organisms/Timeline';
 import { AuthContext } from "../../Context";
 import { Navigate } from 'react-router-dom';
 import { Link } from 'react-router-dom';
+import Message from '../atoms/Message';
 
 export default () => {
   const {authState, setAuthState} = useContext(AuthContext);
@@ -15,8 +16,10 @@ export default () => {
           ?
             <NewPost placeholder='ひとりごとをつぶやく...'/>
           :
-            <div className="alert alert-warning" role="alert">
-              <b>投稿</b>、<b>コメント</b>、<b>いいね</b>などのアクションをするには、<Link to="/login">ログイン</Link>が必要です。
+            <div className='mb-1'>
+              <Message type='warning'>
+                <b>投稿</b>、<b>コメント</b>、<b>いいね</b>などのアクションをするには、<Link to="/login">ログイン</Link>が必要です。
+              </Message>
             </div>
         }
         <Timeline name="" filter="post"/>

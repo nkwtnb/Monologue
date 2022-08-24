@@ -10,8 +10,6 @@ export default (props: Props) => {
   const { name } = useParams();
 
   return (
-    <>
-      <Timeline name={name} filter={props.filter}/>
-    </>
+    <Timeline name={name} filter={props.filter}/>
   );
 }

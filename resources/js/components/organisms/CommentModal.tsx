@@ -2,14 +2,10 @@ declare var bootstrap: any;
 declare var jQuery: any;
 import { useEffect, useLayoutEffect, useState } from "react";
 import { useLocation, useNavigate } from "react-router-dom";
-import Modal from "../molecules/Modal";
-import NewPost from "../organisms/NewPost";
-import Post from "../organisms/Post";
+import Modal from "../atoms/Modal";
+import NewPost from "./NewPost";
+import Post from "./Post";
 import { Entry } from "@interface/Entry";
-
-interface Props {
-  post?: any;
-}
 
 export default () => {
   const reactLocation = useLocation();

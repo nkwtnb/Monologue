@@ -1,6 +1,5 @@
 import React, { useContext } from 'react';
 // Components
-import ErrorMessage from '../atoms/ErrorMessage';
 import { useState } from 'react';
 import { AuthContext } from "../../Context";
 import * as userApi from "../../api/User";
@@ -9,6 +8,7 @@ import { makePathForImage } from '@api/Resources';
 import { useHandleError } from '../../hooks/useHandleError';
 import { FileUploader } from '../organisms/FileUploader';
 import AvatarIcon from '../organisms/AvatarIcon';
+import Message from '../atoms/Message';
 
 interface UserInfo extends userApi.Type{
   currentAvatar: string;
@@ -168,7 +168,7 @@ export default () => {
             </div>
             <div className='mt-3 row justify-content-center'>
               <div className='col flex-grow-1'>
-                <ErrorMessage messages={error}></ErrorMessage>
+                <Message type='danger' messages={error}></Message>
               </div>
             </div>
           </div>

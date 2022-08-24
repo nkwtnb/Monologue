@@ -1,7 +1,7 @@
 import axios from "axios";
 import { useEffect, useState } from "react";
 import * as entryUtil from "@api/Entries";
-import * as userApi from "../../../api/User";
+import * as userApi from "../api/User";
 import { Entry } from "@interface/Entry";
 
 export type Props = {

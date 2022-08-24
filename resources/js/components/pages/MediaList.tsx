@@ -87,12 +87,9 @@ export default (props: any) => {
       setIsLoaded(true);
     })();
   }, []);
-
-  // 読み込み中
   if (!isLoaded) {
     return <></>;
   }
-  // 読み込み完了
   return (
     <>
     {
