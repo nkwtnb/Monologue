@@ -2,6 +2,8 @@ import axios from "axios";
 import { useState } from "react"
 import ErrorMessage from "../atoms/ErrorMessage";
 import Message from "../atoms/Message";
+import React from "react";
+import * as password from "../../api/Password";
 
 export default () => {
   const [email, setEmail] = useState("");
@@ -19,15 +21,13 @@ export default () => {
     setMessages([]);
     setProgress(true);
     try {
-      const resp = await axios.post("/password/email", {
-        email: email
-      })
-      setMessages([resp.data.message]);
-    } catch (error: any) {
-      const errors = error.response.data.errors;
+      const resp = await password.reset(email);
+      setMessages([resp.message]);
+    } catch (e: any) {
       const messages: string[] = [];
+      const errors: {[key: string]: string[]} = e.errors;
       for (let key in errors) {
-        errors[key].forEach((message: string) => {
+        errors[key].forEach((message) => {
           messages.push(message);
         });
       }
@@ -50,7 +50,7 @@ export default () => {
                 <div className="row mb-3">
                   <label htmlFor="email" className="col-md-4 col-form-label text-md-end">メールアドレス</label>
                   <div className="col-md-6">
-                    <input id="email" type="email" className="form-control @error('email')" name="email" value={email} onChange={handleEmail} required autoComplete="email" autoFocus />
+                    <input data-testid="email" id="email" type="email" className="form-control @error('email')" name="email" value={email} onChange={handleEmail} required autoComplete="email" autoFocus />
                   </div>
                 </div>
                 {
@@ -71,7 +71,7 @@ export default () => {
                 }
                 <div className="row mb-0">
                   <div className="col-md-6 offset-md-4">
-                    <button type="submit" className="btn btn-primary" onClick={handleSubmit} disabled={isInProgress}>
+                    <button role={"submit"} type="submit" className="btn btn-primary" onClick={handleSubmit} disabled={isInProgress}>
                       {
                         isInProgress
                           ?
