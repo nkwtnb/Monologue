@@ -24,7 +24,7 @@ border-radius: ${DEFAULT_SIZE}px;
 export default (props: Props): JSX.Element => {
   return (
     <Wrapper data-testid="circle-icon" className="circle-icon">
-      <Image className="d-flex justify-content-center align-items-center" src={props.image} />
+      <Image className="d-flex justify-content-center align-items-center" src={props.image} width={props.width} height={props.height}/>
     </Wrapper>
   );
 }

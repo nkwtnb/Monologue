@@ -61,22 +61,22 @@ export default (props: Props): JSX.Element => {
         {
           authState.name ?
             <>
-              <Link to={"/user/" + authState.name} className="dropdown-item" data-testid="menu-user-info">
+              <Link to={"/user/" + authState.name} className="dropdown-item" data-testid="user-info">
                 ユーザー情報
               </Link>
-              <Link to="/settings" className="dropdown-item">
+              <Link to="/settings" className="dropdown-item" data-testid="config">
                 設定
               </Link>
-              <div className="dropdown-item" onClick={handleClick}>
+              <div className="dropdown-item" onClick={handleClick} data-testid="logout">
                 ログアウト
               </div>
             </>
             :
             <>
-              <Link to="/register" className="dropdown-item">
+              <Link to="/register" className="dropdown-item" data-testid="register">
                 ユーザー登録
               </Link>
-              <Link to="/login" className="dropdown-item">
+              <Link to="/login" className="dropdown-item" data-testid="login">
                 ログイン
               </Link>
             </>

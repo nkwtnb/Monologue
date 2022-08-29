@@ -17,7 +17,7 @@ describe("page > Email", () => {
     await act(async () => {
       await fireEvent.click(utils.getByRole("submit"));
     });
-    expect(await screen.findByTestId("message")).toBeInTheDocument();
+    expect(await screen.findByTestId("success")).toBeInTheDocument();
   });
   it("エラーメッセージが表示されるこど", async () => {
     const mock = jest.spyOn(Password, "reset");
@@ -37,6 +37,7 @@ describe("page > Email", () => {
     await act(async () => {
       await fireEvent.click(utils.getByRole("submit"));
     });
-    expect(await (await screen.findByTestId("errors")).children.length).toBe(4)
+    utils.debug
+    expect((await screen.findByTestId("danger")).firstElementChild!.children.length).toBe(4)
   });  
 })

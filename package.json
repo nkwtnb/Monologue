@@ -9,7 +9,8 @@
         "prod": "npm run production",
         "production": "mix --production",
         "tsc": "tsc",
-        "test": "jest --verbose=true"
+        "test-detail": "jest --verbose=true",
+        "test": "jest"
     },
     "devDependencies": {
         "@babel/preset-react": "^7.13.13",

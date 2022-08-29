@@ -1,5 +1,5 @@
 import React, { useContext } from 'react';
-import HeaderIcon from './HeaderIcon';
+import HeaderIcon from '../organisms/HeaderIcon';
 import noAvatar from "@img/no_avatar.png";
 import { Link } from 'react-router-dom';
 import { AuthContext } from "../../Context";

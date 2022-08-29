@@ -1,32 +1,35 @@
 import React from "react";
-import CircleIcon from "../atoms/CircleIcon";
 import { cleanup, fireEvent, render, screen,  } from "@testing-library/react";
 import { BrowserRouter } from "react-router-dom";
 import Context from "../../Context";
+import HeaderIcon from "./HeaderIcon";
 
 afterEach(() => cleanup());
 describe("CircleIcon unit test", () => {
-  it("ヘッダーの場合、classに 'circle-icon-header' が設定される", () => {
-    render(
-      <Context user={{name: "test", email: "test@example.com"}}>
+  it("Context未設定（＝未ログイン）時、未ログイン用のメニューが表示される", () => {
+    const util = render(
+      <Context user={{name: "", email: ""}}>
         <BrowserRouter>
-          <CircleIcon image=""></CircleIcon>
+          <HeaderIcon image=""></HeaderIcon>
         </BrowserRouter>
       </Context>
     );
-    const circle = screen.getByTestId("circle-icon");
-    expect(circle.className.indexOf("circle-icon-header")).toBeGreaterThanOrEqual(0);
+    expect(util.getByTestId("dropdown-menu").children.length).toBe(2);
+    expect(util.getByTestId("register")).toBeInTheDocument();
+    expect(util.getByTestId("login")).toBeInTheDocument();
   });
-
-  it("ヘッダー以外の場合、classに 'circle-icon' が設定される", () => {
-    render(
-      <Context user={{name: "test", email: "test@example.com"}}>
+  it("Context設定（＝ログイン済）時、ユーザー用のメニューが表示される", () => {
+    const util = render(
+      <Context user={{name: "username", email: "user@example.com"}}>
         <BrowserRouter>
-          <CircleIcon image=""></CircleIcon>
+          <HeaderIcon image="" name="username"></HeaderIcon>
         </BrowserRouter>
       </Context>
     );
-    const circle = screen.getByTestId("circle-icon");
-    expect(circle.className.indexOf("circle-icon")).toBeGreaterThanOrEqual(0);
+    expect(util.getByTestId("dropdown-menu").children.length).toBe(3);
+    expect(util.getByTestId("user-info")).toBeInTheDocument();
+    expect(util.getByTestId("config")).toBeInTheDocument();
+    expect(util.getByTestId("logout")).toBeInTheDocument();
+    expect(util.getByTestId("username").textContent).toEqual("username")
   });
 })

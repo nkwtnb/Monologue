@@ -7,7 +7,7 @@ exports[`Timeline unit test 配列で受け取ったメッセージが表示さ�
     data-testid="post"
   >
     <div
-      class="sc-crHmcD cximqd justify-content-center entry-card"
+      class="sc-iqseJM ggoOEb justify-content-center entry-card"
       id="card"
     >
       <div
@@ -17,20 +17,20 @@ exports[`Timeline unit test 配列で受け取ったメッセージが表示さ�
           class="row flex-nowrap"
         >
           <div
-            class="sc-ksdxgE ccwIwn col-2 mt-2"
+            class="sc-bqiRlB beGbIT col-2 mt-2"
           >
             <a
               href="/user/username"
             >
               <div
-                class="sc-hBUSln jbvfnu d-flex align-items-center justify-content-center"
+                class="sc-ksdxgE ehCTWq d-flex align-items-center justify-content-center"
               >
                 <span
                   class="sc-bdvvtL kLovev circle-icon"
                   data-testid="circle-icon"
                 >
                   <img
-                    class="sc-dkPtRN jxeJUk d-flex justify-content-center align-items-center"
+                    class="sc-gsDKAQ kJkmaU d-flex justify-content-center align-items-center"
                     src=""
                   />
                 </span>
@@ -41,17 +41,17 @@ exports[`Timeline unit test 配列で受け取ったメッセージが表示さ�
             class="col-10 flex-grow-1"
           >
             <div
-              class="sc-egiyK fPWVwC"
+              class="sc-crHmcD fdYpbk"
             >
               <span>
                 username
               </span>
               <span
-                class="sc-fotOHu hWMOtg created-at"
+                class="sc-hBUSln cRuvQl created-at"
               />
             </div>
             <div
-              class="sc-bqiRlB edkhKt"
+              class="sc-egiyK gJccZW"
             >
               メッセージ１
             </div>
@@ -65,7 +65,7 @@ exports[`Timeline unit test 配列で受け取ったメッセージが表示さ�
           >
             <div>
               <div
-                class="sc-eCImPb bZEUAX"
+                class="sc-hKwDye fnvvpj"
               >
                 <svg
                   aria-hidden="true"
@@ -83,7 +83,7 @@ exports[`Timeline unit test 配列で受け取ったメッセージが表示さ�
                   />
                 </svg>
                 <span
-                  class="sc-hKwDye idVSRS"
+                  class="sc-dkPtRN kQTjCt"
                 >
                   0
                 </span>
@@ -94,7 +94,7 @@ exports[`Timeline unit test 配列で受け取ったメッセージが表示さ�
             class="col d-flex justify-content-center"
           >
             <div
-              class="sc-gKclnd coqalH"
+              class="sc-jRQBWg eMWlVZ"
             >
               <svg
                 aria-hidden="true"
@@ -112,7 +112,7 @@ exports[`Timeline unit test 配列で受け取ったメッセージが表示さ�
                 />
               </svg>
               <span
-                class="sc-jRQBWg hFKzTl"
+                class="sc-eCImPb gaCQZy"
               >
                 1
               </span>
