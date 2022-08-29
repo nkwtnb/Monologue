@@ -96,7 +96,7 @@ export default (props: Props) => {
                   {/* メールアドレス */}
                   {props.isRegister &&
                     <>
-                      <div className="row mb-3">
+                      <div data-testid="email" className="row mb-3">
                         <label htmlFor="email" className="col-md-4 col-form-label text-md-end">メールアドレス</label>
                         <div className="col-md-6">
                           <input id="email" type="email" className="form-control" name="email" required autoComplete="email" value={credentials.email} onChange={(e => handleChangeCredentials(e, "email"))} />
@@ -116,7 +116,7 @@ export default (props: Props) => {
                     </div>
                   </div>
                   {props.isRegister &&
-                    <div className="row mb-3">
+                    <div data-testid="password_confirm" className="row mb-3">
                       <label htmlFor="password-confirm" className="col-md-4 col-form-label text-md-end">パスワード（確認）</label>
                       <div className="col-md-6">
                         <input id="password-confirm" type="password" className="form-control" name="password_confirmation" required autoComplete="new-password" value={credentials.password_confirmation} onChange={(e => handleChangeCredentials(e, "password_confirmation"))} />
@@ -124,7 +124,7 @@ export default (props: Props) => {
                     </div>
                   }
                   {!props.isRegister &&
-                    <div className="row mb-3">
+                    <div data-testid="remember" className="row mb-3">
                       <div className="col-md-6 offset-md-4">
                         <div className="form-check">
                             <input className="form-check-input" type="checkbox" name="remember" id="remember" onChange={(e => handleChangeCredentials(e, "remember"))}/>
