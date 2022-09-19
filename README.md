@@ -1,6 +1,8 @@
 # Monologue
 
 Twitterのように、ひとりごとをつぶやくWebサービスのデモ
+![ホーム画面](https://raw.githubusercontent.com/nkwtnb/Monologue/images/thumbnail.png)
+
 
 ## 目的
 
