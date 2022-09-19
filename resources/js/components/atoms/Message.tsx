@@ -21,23 +21,26 @@ const MessageArea = styled.div`
 
 export default (props: Props) => {
   return (
-    <>
-      <MessageArea data-testid={props.type} id={props.type} className={`w-100 alert alert-${props.type}`} role="alert">
-        {
-          // メッセージの配列 / 子要素のカスタムメッセージ
-          props.messages?.length
-          ?
-          <Messages>
-            {
-              props.messages.map((message, i) => (
-                <Message key={i}>{message}</Message>
-              ))
-            }
-          </Messages>
-          :
-          props.children
-        }
-      </MessageArea>
-    </>
+    props.messages?.length === 0 ?
+      <></>
+    :
+      <>
+        <MessageArea data-testid={props.type} id={props.type} className={`w-100 alert alert-${props.type}`} role="alert">
+          {
+            // メッセージの配列 / 子要素のカスタムメッセージ
+            props.messages?.length
+            ?
+            <Messages>
+              {
+                props.messages.map((message, i) => (
+                  <Message key={i}>{message}</Message>
+                ))
+              }
+            </Messages>
+            :
+            props.children
+          }
+        </MessageArea>
+      </>
   );
 }
