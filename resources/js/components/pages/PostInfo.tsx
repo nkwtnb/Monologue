@@ -59,23 +59,21 @@ export default () => {
         <>
           <div className='row mb-1'>
             <div className='offset-md-2 col-md-8'>
-              {entry &&
-                <Post
-                  id={entry.id}
-                  avatar={entry.avatar}
-                  created_at={entry.created_at}
-                  isLike={entry.isLike}
-                  likes={entry.likes}
-                  name={entry.name}
-                  images={entry.images}
-                  replyCount={entry.replyCount}
-                  words={entry.words}
-                  ogp_title={entry.ogp_title}
-                  ogp_description={entry.ogp_description}
-                  ogp_image={entry.ogp_image}
-                  isDialog={false}
-                />
-              }
+              <Post
+                id={entry.id}
+                avatar={entry.avatar}
+                created_at={entry.created_at}
+                isLike={entry.isLike}
+                likes={entry.likes}
+                name={entry.name}
+                images={entry.images}
+                replyCount={entry.replyCount}
+                words={entry.words}
+                ogp_title={entry.ogp_title}
+                ogp_description={entry.ogp_description}
+                ogp_image={entry.ogp_image}
+                isDialog={false}
+              />
             </div>
           </div>
           <div className='row'>

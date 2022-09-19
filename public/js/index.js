@@ -6011,7 +6011,6 @@ const getEntries = ({
     return likeEntries; // ユーザー別 > 投稿 or メディア
   } else {
     const entries = (yield axios__WEBPACK_IMPORTED_MODULE_0___default().get(`/api/words/user/${name}/posts`)).data;
-    console.log(entries);
     return entries;
   }
 });
@@ -8783,7 +8782,7 @@ const BeginComments = styled_components__WEBPACK_IMPORTED_MODULE_5__["default"].
         className: "row mb-1",
         children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_4__.jsx)("div", {
           className: "offset-md-2 col-md-8",
-          children: entry && /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_4__.jsx)(_organisms_Post__WEBPACK_IMPORTED_MODULE_1__["default"], {
+          children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_4__.jsx)(_organisms_Post__WEBPACK_IMPORTED_MODULE_1__["default"], {
             id: entry.id,
             avatar: entry.avatar,
             created_at: entry.created_at,

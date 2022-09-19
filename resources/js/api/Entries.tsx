@@ -21,7 +21,6 @@ export const getEntries = async ({ name, filter }: Props): Promise<Entry[]> => {
     // ユーザー別 > 投稿 or メディア
   } else {
     const entries = (await axios.get(`/api/words/user/${name}/posts`)).data as Entry[];
-    console.log(entries);
     return entries;
   }
 }
