@@ -7019,8 +7019,6 @@ font-size: 14px;
 border-bottom-left-radius: 20px;
 border-bottom-right-radius: 20px;
 overflow: hidden;
-white-space: nowrap;
-text-overflow: ellipsis;
 
 ${LinkCardArea}:hover &{ 
   cursor: pointer;
