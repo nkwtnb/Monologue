@@ -9,10 +9,11 @@ import { faHeart as solidHeart } from "@fortawesome/free-solid-svg-icons/faHeart
 import { Entry } from "@interface/Entry";
 import PostedImageArea from "./PostedImageArea";
 import axios from "axios";
-import React, { useContext, useEffect, useLayoutEffect, useState } from "react";
+import React, { useContext, useEffect, useLayoutEffect, useRef, useState } from "react";
 import LinkCard from "./LinkCard";
 import { makePathForImage } from "@api/Resources";
 import { AuthContext } from "../../Context";
+import DetailIcon from "../molecules/DetailIcon";
 
 interface Props {
   isDialog: boolean;
@@ -90,6 +91,7 @@ export default (props: Entry & Props) => {
     isLike: false 
   });
   const navigate = useNavigate();
+  const refToggle = useRef<HTMLAnchorElement>(null);
 
   const handleLike = async (e: any, id: number) => {
     e.stopPropagation();
@@ -183,13 +185,23 @@ export default (props: Entry & Props) => {
     })
   }, [props.likes, props.isLike]);	
 
-  const handleCardClcik = (e: any) => {
+  const handleCardClcik = (e: React.MouseEvent) => {
     const oldPath = reactLocation.pathname;
     const newPath = `/post/${props.id}`;
     // ダイアログ表示では無く、新しい遷移先の場合、カードクリックで詳細ページへ移動
     if (!props.isDialog && oldPath !== newPath) {
       navigate(newPath);
     }
+  }
+
+  const handleDetailDeleteAction = async (e: React.MouseEvent, id: number) => {
+    try {
+      await axios.delete("/api/words", { data: { postId: id } });
+      location.reload();
+    } catch (error: any) {
+      console.log(error.response);
+    }
+    refToggle.current?.click();
   }
 
   return (
@@ -247,6 +259,22 @@ export default (props: Entry & Props) => {
               </div>
               <div className='col d-flex justify-content-center'>
                 <Like count={likeState.count} icon={likeState.isLike ? solidHeart : regularHeart} onClick={(e) => handleLike(e, props.id)} className={likeState.isLike ? "liked" : ""}></Like>
+              </div>
+              <div className='col d-flex justify-content-center'>
+                {
+                  authState.name === props.name
+                  ?
+                    <div className="dropdown" onClick={(e) => e.stopPropagation()}>
+                      <a ref={refToggle} type="button" id="dropdownMenuButton1" data-bs-toggle="dropdown" aria-expanded="false">
+                        <DetailIcon className={likeState.isLike ? "liked" : ""}></DetailIcon>
+                      </a>
+                      <ul className="dropdown-menu" aria-labelledby="dropdownMenuButton1">
+                        <li><a className="dropdown-item" onClick={(e) => handleDetailDeleteAction(e, props.id)}>投稿を削除</a></li>
+                      </ul>
+                    </div>
+                  :
+                    <></>
+                }
               </div>
             </div>
           </>

@@ -54,7 +54,7 @@ export default (props: Props): JSX.Element => {
   return (
     <div data-testid="circle-icon" className="circle-icon-header dropleft d-flex justify-content-center align-items-center">
       <UserName data-testid="username" className="me-2">{props.name}</UserName>
-      <Wrapper role="button" data-testid="circle-icon-menu" id="dropdownMenuLink" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+      <Wrapper role="button" data-testid="circle-icon-menu" id="dropdownMenuLink" data-bs-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
         <Image className="d-flex justify-content-center align-items-center" src={props.image} />
       </Wrapper>
       <div className="dropdown-menu" data-testid="dropdown-menu" aria-labelledby="dropdownMenuLink">

@@ -7,6 +7,9 @@ use App\Models\Like;
 use App\Models\Word;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\Log;
+
+use function Psy\debug;
 
 class WordController extends Controller
 {
@@ -37,6 +40,24 @@ class WordController extends Controller
             "entries" => $entries,
             "replies" => $replies,
         ];
+    }
+
+    public function delete(Request $request) {
+        $entry = Word::find($request->postId);
+        $request->validate([
+            'postId' => [
+                function($attribute, $value, $fail) use($entry) {
+                    if (!$entry) {
+                        return $fail("対象の投稿が存在しません。");
+                    }
+                    if ((string)Auth::id() !== (string)$entry["user_id"]) {
+                        return $fail("権限がありません。");
+                    }
+                }
+            ],
+        ]);
+
+        $entry->delete();
     }
 
     public function post(Request $request)

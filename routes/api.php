@@ -26,6 +26,7 @@ Route::group(['middleware' => ['auth:sanctum']], function() {
     
     // 投稿
     Route::post("/words", [WordController::class, "post"]);
+    Route::delete("/words", [WordController::class, "delete"]);
     // いいね
     Route::post("/likes", [LikeController::class, "post"]);
     Route::delete("/likes", [LikeController::class, "delete"]);
