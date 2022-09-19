@@ -4,7 +4,7 @@ import React, { useEffect, useLayoutEffect } from 'react';
 import styled from 'styled-components';
 import { Outlet, useLocation, useNavigate } from 'react-router-dom';
 // Components
-import Header from '../organisms/Header';
+import Header from './Header';
 import CommentModal from '../organisms/CommentModal';
 
 const Fluid = styled.div`
