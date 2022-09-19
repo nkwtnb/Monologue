@@ -102,7 +102,7 @@ export default (props: any) => {
             <ImageArea>
               <Link to={"/post/" + postedImage.postId}>
                 <ImageMask>
-                  <Label className="label">aaaa</Label>
+                  {/* <Label className="label"></Label> */}
                 </ImageMask>
               </Link>
               <Image imagePath={makePathForImage(postedImage.url, "upfiles")}/>
