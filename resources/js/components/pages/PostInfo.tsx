@@ -24,7 +24,13 @@ export default () => {
   useEffect(() => {
     (async () => {
       const resp = await entryUtil.getEntry(postId);
-      const _postWithReplies = [resp.entry].concat(resp.replies);
+      if (resp.entry.length === 0) {
+        setEntry(undefined);
+        setReplies([]);
+        setLoaded(true);
+        return;
+      }
+      const _postWithReplies = resp.entry.concat(resp.replies);
       const likeEntries = await entryUtil.getLikes(authState.name);
       const postWithReplies = entryUtil.setLikeStatus(_postWithReplies, likeEntries);
       // 先頭要素は対象の投稿
@@ -37,60 +43,71 @@ export default () => {
     })();
   }, [postId]);
 
+  if (!loaded) {
+    return <></>;
+  }
+
   return (
     <>
-      <div className='row mb-1'>
-        <div className='offset-md-2 col-md-8'>
-          {entry &&
-            <Post
-              id={entry!.id}
-              avatar={entry!.avatar}
-              created_at={entry!.created_at}
-              isLike={entry!.isLike}
-              likes={entry!.likes}
-              name={entry!.name}
-              images={entry!.images}
-              replyCount={entry!.replyCount}
-              words={entry!.words}
-              ogp_title={entry!.ogp_title}
-              ogp_description={entry!.ogp_description}
-              ogp_image={entry!.ogp_image}
-              isDialog={false}
-            />
-          }
+      {
+        !entry
+        ?
+        <div className="alert alert-danger" role="alert">
+          対象の投稿がありません。
         </div>
-      </div>
-      <div className='row'>
-        <div className='offset-md-2 col-md-8'>
-          {
-            loaded &&
-            <BeginComments className='mb-1'>
-              コメント一覧
-            </BeginComments>
-          }
-          {
-            replies.map((reply: Entry, index) => (
-                <div className='mb-1' key={index}>
-                  <Post
-                  id={reply.id}
-                  avatar={reply!.avatar}
-                  created_at={reply.created_at}
-                  isLike={reply.isLike}
-                  likes={reply.likes}
-                  name={reply.name}
-                  images={reply.images}
-                  replyCount={reply.replyCount}
-                  words={reply.words}
-                  ogp_title={reply.ogp_title}
-                  ogp_description={reply.ogp_description}
-                  ogp_image={reply.ogp_image}
+        :
+        <>
+          <div className='row mb-1'>
+            <div className='offset-md-2 col-md-8'>
+              {entry &&
+                <Post
+                  id={entry.id}
+                  avatar={entry.avatar}
+                  created_at={entry.created_at}
+                  isLike={entry.isLike}
+                  likes={entry.likes}
+                  name={entry.name}
+                  images={entry.images}
+                  replyCount={entry.replyCount}
+                  words={entry.words}
+                  ogp_title={entry.ogp_title}
+                  ogp_description={entry.ogp_description}
+                  ogp_image={entry.ogp_image}
                   isDialog={false}
                 />
-              </div>
-            ))
-          }
-        </div>
-      </div>
+              }
+            </div>
+          </div>
+          <div className='row'>
+            <div className='offset-md-2 col-md-8'>
+              <BeginComments className='mb-1'>
+                コメント一覧
+              </BeginComments>
+              {
+                replies.map((reply: Entry, index) => (
+                    <div className='mb-1' key={index}>
+                      <Post
+                      id={reply.id}
+                      avatar={reply!.avatar}
+                      created_at={reply.created_at}
+                      isLike={reply.isLike}
+                      likes={reply.likes}
+                      name={reply.name}
+                      images={reply.images}
+                      replyCount={reply.replyCount}
+                      words={reply.words}
+                      ogp_title={reply.ogp_title}
+                      ogp_description={reply.ogp_description}
+                      ogp_image={reply.ogp_image}
+                      isDialog={false}
+                    />
+                  </div>
+                ))
+              }
+            </div>
+          </div>
+        </>
+      }
     </>
   );
 }

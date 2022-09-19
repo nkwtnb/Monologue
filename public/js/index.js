@@ -6022,7 +6022,7 @@ const getEntries = ({
 
 const getEntry = postId => __awaiter(void 0, void 0, void 0, function* () {
   const resp = (yield axios__WEBPACK_IMPORTED_MODULE_0___default().get("/api/words/post/" + postId)).data;
-  const entry = resp.entries[0];
+  const entry = resp.entries;
   const replies = resp.replies;
   return {
     entry,
@@ -7792,7 +7792,7 @@ color: #262323;
     const oldPath = reactLocation.pathname;
     const newPath = `/post/${props.id}`; // ダイアログ表示では無く、新しい遷移先の場合、カードクリックで詳細ページへ移動
 
-    if (e.currentTarget.id === "card" && !props.isDialog && oldPath !== newPath) {
+    if (!props.isDialog && oldPath !== newPath) {
       navigate(newPath);
     }
   };
@@ -8748,7 +8748,14 @@ const BeginComments = styled_components__WEBPACK_IMPORTED_MODULE_5__["default"].
     (() => __awaiter(void 0, void 0, void 0, function* () {
       const resp = yield _api_Entries__WEBPACK_IMPORTED_MODULE_2__.getEntry(postId);
 
-      const _postWithReplies = [resp.entry].concat(resp.replies);
+      if (resp.entry.length === 0) {
+        setEntry(undefined);
+        setReplies([]);
+        setLoaded(true);
+        return;
+      }
+
+      const _postWithReplies = resp.entry.concat(resp.replies);
 
       const likeEntries = yield _api_Entries__WEBPACK_IMPORTED_MODULE_2__.getLikes(authState.name);
       const postWithReplies = _api_Entries__WEBPACK_IMPORTED_MODULE_2__.setLikeStatus(_postWithReplies, likeEntries); // 先頭要素は対象の投稿
@@ -8761,54 +8768,65 @@ const BeginComments = styled_components__WEBPACK_IMPORTED_MODULE_5__["default"].
       setLoaded(true);
     }))();
   }, [postId]);
-  return /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_4__.jsxs)(react_jsx_runtime__WEBPACK_IMPORTED_MODULE_4__.Fragment, {
-    children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_4__.jsx)("div", {
-      className: "row mb-1",
-      children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_4__.jsx)("div", {
-        className: "offset-md-2 col-md-8",
-        children: entry && /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_4__.jsx)(_organisms_Post__WEBPACK_IMPORTED_MODULE_1__["default"], {
-          id: entry.id,
-          avatar: entry.avatar,
-          created_at: entry.created_at,
-          isLike: entry.isLike,
-          likes: entry.likes,
-          name: entry.name,
-          images: entry.images,
-          replyCount: entry.replyCount,
-          words: entry.words,
-          ogp_title: entry.ogp_title,
-          ogp_description: entry.ogp_description,
-          ogp_image: entry.ogp_image,
-          isDialog: false
-        })
-      })
-    }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_4__.jsx)("div", {
-      className: "row",
-      children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_4__.jsxs)("div", {
-        className: "offset-md-2 col-md-8",
-        children: [loaded && /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_4__.jsx)(BeginComments, {
-          className: "mb-1",
-          children: "\u30B3\u30E1\u30F3\u30C8\u4E00\u89A7"
-        }), replies.map((reply, index) => /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_4__.jsx)("div", {
-          className: "mb-1",
-          children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_4__.jsx)(_organisms_Post__WEBPACK_IMPORTED_MODULE_1__["default"], {
-            id: reply.id,
-            avatar: reply.avatar,
-            created_at: reply.created_at,
-            isLike: reply.isLike,
-            likes: reply.likes,
-            name: reply.name,
-            images: reply.images,
-            replyCount: reply.replyCount,
-            words: reply.words,
-            ogp_title: reply.ogp_title,
-            ogp_description: reply.ogp_description,
-            ogp_image: reply.ogp_image,
+
+  if (!loaded) {
+    return /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_4__.jsx)(react_jsx_runtime__WEBPACK_IMPORTED_MODULE_4__.Fragment, {});
+  }
+
+  return /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_4__.jsx)(react_jsx_runtime__WEBPACK_IMPORTED_MODULE_4__.Fragment, {
+    children: !entry ? /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_4__.jsx)("div", {
+      className: "alert alert-danger",
+      role: "alert",
+      children: "\u5BFE\u8C61\u306E\u6295\u7A3F\u304C\u3042\u308A\u307E\u305B\u3093\u3002"
+    }) : /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_4__.jsxs)(react_jsx_runtime__WEBPACK_IMPORTED_MODULE_4__.Fragment, {
+      children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_4__.jsx)("div", {
+        className: "row mb-1",
+        children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_4__.jsx)("div", {
+          className: "offset-md-2 col-md-8",
+          children: entry && /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_4__.jsx)(_organisms_Post__WEBPACK_IMPORTED_MODULE_1__["default"], {
+            id: entry.id,
+            avatar: entry.avatar,
+            created_at: entry.created_at,
+            isLike: entry.isLike,
+            likes: entry.likes,
+            name: entry.name,
+            images: entry.images,
+            replyCount: entry.replyCount,
+            words: entry.words,
+            ogp_title: entry.ogp_title,
+            ogp_description: entry.ogp_description,
+            ogp_image: entry.ogp_image,
             isDialog: false
           })
-        }, index))]
-      })
-    })]
+        })
+      }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_4__.jsx)("div", {
+        className: "row",
+        children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_4__.jsxs)("div", {
+          className: "offset-md-2 col-md-8",
+          children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_4__.jsx)(BeginComments, {
+            className: "mb-1",
+            children: "\u30B3\u30E1\u30F3\u30C8\u4E00\u89A7"
+          }), replies.map((reply, index) => /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_4__.jsx)("div", {
+            className: "mb-1",
+            children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_4__.jsx)(_organisms_Post__WEBPACK_IMPORTED_MODULE_1__["default"], {
+              id: reply.id,
+              avatar: reply.avatar,
+              created_at: reply.created_at,
+              isLike: reply.isLike,
+              likes: reply.likes,
+              name: reply.name,
+              images: reply.images,
+              replyCount: reply.replyCount,
+              words: reply.words,
+              ogp_title: reply.ogp_title,
+              ogp_description: reply.ogp_description,
+              ogp_image: reply.ogp_image,
+              isDialog: false
+            })
+          }, index))]
+        })
+      })]
+    })
   });
 });
 

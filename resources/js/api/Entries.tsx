@@ -30,9 +30,9 @@ export const getEntries = async ({ name, filter }: Props): Promise<Entry[]> => {
  * 指定されたポストIDの投稿を取得する
  * @param postId 
  */
-export const getEntry = async (postId: string | undefined): Promise<{entry: Entry, replies: Entry[]}> => {
+export const getEntry = async (postId: string | undefined): Promise<{entry: Entry[], replies: Entry[]}> => {
   const resp = (await axios.get("/api/words/post/" + postId)).data;
-  const entry: Entry = resp.entries[0];
+  const entry: Entry[] = resp.entries;
   const replies: Entry[] = resp.replies;
   return {
     entry,
